@@ -38,6 +38,7 @@ $(document).ready(function(){
             $('header').addClass('header_fixed');
             $('.h_bot').addClass('h_bot_fixed');
             $('.h_b.logo, .h_b.icon_box').css({display: 'block'});
+
         }else{
             $('.h_b.logo, .h_b.icon_box').css({display: 'none'});
             $('header').removeClass('header_fixed');

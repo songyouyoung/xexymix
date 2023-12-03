@@ -83,7 +83,7 @@
     cursor: pointer;
     position: relative;
 }
-.h_t_icon_box li:last-child::after{
+.cart::after{
     content: "0";
     width: 15px;
     height: 15px;
@@ -94,10 +94,109 @@
     background-color: #111;
     border-radius: 50%;
 
+    display: inherit;
     position: absolute;
     top: 5%;
     right: -5%;
 }
+.cart.h_b::after{
+    top: 25%;
+    right: 16%;
+}
+.history_box{
+    width: 335px;
+    padding-top: 20px;
+    font-size: 15px;
+    font-weight: normal;
+    position: absolute;
+    top: 60%;
+    right: -18%;
+    z-index: 999;
+    cursor: auto;
+    display: none;
+}
+.history_item_box{
+    padding: 15px;
+    border: 1px solid #111;
+    border-radius: 5px;
+    background-color: #fff;
+    position: absolute;
+}
+.history_item_box_point{
+    width: 12px;
+    height: 12px;
+    border-top: 1px solid #111;
+    border-right: 1px solid #111;
+    background-color: #fff;
+    transform: translateY(-56%) rotate(-45deg);
+
+    position: absolute;
+    top: 0;
+    right: 10px;
+}
+.history_item_list{
+    max-height: 360px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    overflow: auto;
+}
+.history_item{
+    display: flex;
+    align-items: center;
+
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #111;
+
+    position: relative;
+}
+.history_item:last-child{
+    padding-bottom: 0;
+    margin-bottom: 0;
+    border-bottom: 0;
+}
+.history_img{
+    width: 30%;
+    font-size: 0;
+    margin-left: 10px;
+    padding-right: 10px;
+    cursor: pointer;
+}
+.history_img>img{ width: 100%; }
+.history_desc{
+    width: 57%;
+    cursor: pointer;
+}
+.history_desc>.item_title{
+    width: 100%;
+    margin-bottom: 5px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+}
+.history_btn{
+    display: flex;
+    justify-content: space-between
+}
+.history_btn_buy{
+    background-color: #111;
+    color: #fff;
+}
+.history_btn_buy, .history_btn_cart{
+    width: 48%;
+    padding: 5px;
+    border: 1px solid #111;
+    box-sizing: border-box;
+    text-align: center;
+    cursor: pointer;
+}
+.history:hover > .history_box,
+.history_box:hover > .history_box{
+    display: block;
+}
+
 /* 헤더_버텀 */
 .h_bot{
     width: 100%;
@@ -111,6 +210,7 @@
     display: flex;
     align-items: center;
 }
+.h_b_nav_R li{ position: relative; }
 .h_b_nav_L > li > a, .h_b_nav_R > li > a{
     padding: 10px 20px;
     position: relative;
@@ -133,7 +233,7 @@
     transform: translateY(-50%);
 }
 .h_b_nav_L > li:not(:first-child) > a:hover::after,
-.h_b_nav_R > li:not(:nth-child(n+4)) > a:hover::after{
+.h_b_nav_R > li:not(:nth-child(n+3)) > a:hover::after{
     content: "";
     width: calc(100% - (15px * 2));
     height: 2px;

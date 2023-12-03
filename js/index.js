@@ -77,32 +77,6 @@ $(document).ready(function(){
     init();
 
 ///////////////////////////////////////////////
-///////////////md_pick 자동 스크롤//////////////
-///////////////////////////////////////////////
-    let scroll_chk = true;
-    let scroll_timer = 500;
-    $('.w_main').on('mousewheel DOMMouseScroll', function(){
-        if(scroll_chk){
-            scroll_chk = false;
-            event.preventDefault(); //휠 내리는 거 버벅 거림. 콘솔오류도 남.
-            // $('.md_pick').off('mousewheel DOMMouseScroll')
-            setTimeout(function() {
-                scroll_chk = true;
-                // $(this).unbind()
-            }, scroll_timer + 200)
-            let target_m_s = document.getElementsByClassName('main_short_banner')[0];
-            if(event.wheelDelta < 0 
-                // && target_m_s.getBoundingClientRect().top <= $('.main_short_banner').height() / 2 
-                // && $(window).scrollTop() < $('.md_pick').prev().offset().top - 10) {
-                    && $(window).scrollTop() + 80 >= $('.main_short_banner').offset().top - 10
-                    && $(window).scrollTop() + 80 < $('.md_pick').offset().top - 10) {
-                $('html, body').stop().animate({
-                    scrollTop: $('.md_pick').prev().offset().top - 80
-                }, scroll_timer, 'linear');
-            }
-        }
-    });
-///////////////////////////////////////////////
 //////////////m_item_box -> fixed//////////////
 ///////////////////////////////////////////////
     // $(window).on('mousewheel DOMMouseScroll', function(){

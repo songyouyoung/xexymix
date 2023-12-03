@@ -3,23 +3,6 @@
     font-size: 28px
 }
 
-/* 메인_메뉴 */
-.main_nav{
-    text-align: center;
-}
-.main_nav > a{
-    width: 8%;
-    color: #6D6D6D;
-    display: inline-block;
-}
-.main_nav > a img{
-    display: block;
-    width: 100%;
-}
-.main_nav > a .desc{
-    font-size: 14px;
-}
-
 /* md_pick */
 .md_pick_img_item{
     transform: scale(0.6);
