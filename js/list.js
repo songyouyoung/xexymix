@@ -26,7 +26,7 @@ $(document).ready(function(){
 /////////////////////////////////////
 ////////// main_banner 구성 /////////
 /////////////////////////////////////
-    let main_banner_item = `<div class="swiper-slide">
+    let main_banner_item = `<a href="" class="swiper-slide">
                                 <img src="" alt="">
                                 <div class="item_desc_none"></div>
                                 <div class="m_b_item_desc">
@@ -34,9 +34,10 @@ $(document).ready(function(){
                                     <h1 class="desc_txt"></h1>
                                     <h4 class="desc_txt"></h4>
                                 </div>
-                            </div>`
+                            </a>`
     for(let i=0; i<9; i++){
         $(main_banner_item).appendTo('.swiper-wrapper');
+        $('.swiper-slide').eq(i).attr('href', `./item.html?cate_no=${cate_no}&item_no=${cate_item[i].item_code}`);
         $('.swiper-slide').eq(i).children('img').attr('src', `./img/item_list/${cate_item_img[i].main_src}`);
         $('.swiper-slide').eq(i).children('img').attr('alt', cate_item[i].title);
         $('.m_b_item_desc').eq(i).children('.desc_txt').eq(0).text(cate_item[i].cate.toUpperCase());
@@ -76,8 +77,12 @@ $(document).ready(function(){
 /////////////// 상품정렬 /////////////
 /////////////////////////////////////
     $('.m_i_cnt').text(cate_item.length.toLocaleString('ko'));
-    $(document).on('click', '.sort', function(){
-        document.getElementsByClassName('sort_list')[0].classList.toggle('sort_list_none');
+    $(document).mouseup(function (e){
+        // 외부 영역 클릭 시 정렬 닫음
+        document.getElementsByClassName('sort_list')[0].classList.add('sort_list_none');
+        $(document).on('click', '.sort', function(){
+            document.getElementsByClassName('sort_list')[0].classList.toggle('sort_list_none');
+        });
     });
 
 /////////////////////////////////////

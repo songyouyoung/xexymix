@@ -163,43 +163,21 @@
     line-height: 3;
     text-align: center;
     font-weight: bold;
+
     display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    cursor: pointer;
+    justify-content: space-between
 }
-.d_b_cart, .d_b_cnt{
+.d_b_cart, .d_b_buy{
     width: calc(50% - 5px);
     border: 1px solid #111;
     box-sizing: border-box;
     color: #111;
+    cursor: pointer;
 }
 .d_b_buy{
-    width: 100%;
-    display: flex;
-}
-.d_b_buy div:first-child{
-    width: 90%;
     background-color: #111;
     color: #fff;
 }
-.d_b_buy div:last-child{
-    width: 10%;
-    height: 50px;
-    border: 1px solid #111;
-    background: url(../img/wishlist_heart.png) no-repeat center;
-    background-size: 60%;
-    text-indent: -99999px;
-}
-.d_b_buy div:last-child img{
-    width: 50%;
-}
-.d_b_pres{
-    width: 100%;
-    border: 1px solid #111;
-    color: #111;
-}
-.d_b_pres img{width: 15px; vertical-align: baseline;}
 
 /* //////////////////////////// */
 /* ///////// 회원 혜택 ///////// */
@@ -255,22 +233,64 @@
     padding: 15px 0;
     font-size: 15px;
 }
-.m_nav > div:first-child{
-    border: none;
+div.m_nav_after{
     border-bottom: 6px solid #000;
 }
 .m_nav .item_review{
     float: none;
     font-size: inherit;
 }
+.m_nav_fixed{
+    max-width: 1200px;
+    background-color: rgb(255, 255, 255);
+    position: fixed;
+    top: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.m_item_title{
+    font-size: 22px;
+    font-weight: bold;
+    padding-bottom: 20px;
+}
+/* //////////////////////////// */
+/* ///////// 메인 리뷰 ///////// */
+/* //////////////////////////// */
+.m_rev_best_title{
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px 0;
+}
+.m_rev_best_area{
+    display: flex;
+    gap: 10px;
+}
+.m_rev_best_item{
+    width: calc((100% - 30px) / 4);
+    font-size: 15px;
+}
+.m_rev_best_img{ font-size: 0; }
+.m_rev_best_img>img{ width: 100%; }
+.m_rev_best_desc{
+    padding: 5px;
+    border: 1px solid #d3d3d3;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.m_rev_best_txt{
+    width: 100%;
+    padding: 5px 0;
+    white-space : nowrap;
+    overflow : hidden;
+    text-overflow : ellipsis;
+}
+.m_rev_best_regDate{font-size: 14px;}
+
 /* //////////////////////////// */
 /* ////// 메인 상세 상품 /////// */
 /* //////////////////////////// */
 .m_detail_box{
     padding: 40px 0;
     border-bottom: 10px solid #f1f1f1;
-}
-.m_item_title{
-    font-size: 22px;
-    font-weight: bold;
 }

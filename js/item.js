@@ -148,12 +148,30 @@ $(document).ready(function(){
 ////////// 내부 스크롤 이동 //////////
 /////////////////////////////////////
     $('.m_nav a').click(function(){
-        event.preventDefault();
+        $('.m_nav > div').removeClass('m_nav_after');
+        $(this).parent().addClass('m_nav_after');
 
+        event.preventDefault();
         let href = $(this).attr('href');
         $('html, body').animate({
-            scrollTop: $(href).offset().top - 80
+            scrollTop: $(href).offset().top - 80 -57
         }, 1000);
     });
 
+///////////////////////////////////////////////
+/////////// 스크롤 - 메뉴바 상단 고정 ///////////
+///////////////////////////////////////////////
+    let nav_bot = $('.m_nav').offset().top;
+    $(window).scroll(function(){
+        console.log("window : " + $(window).scrollTop());
+        console.log("nav_bot : " + nav_bot);
+        if($(window).scrollTop() >= nav_bot - 1) {
+            // $('header').addClass('header_fixed');
+            // $('.h_bot').addClass('h_bot_fixed');
+            $('.m_nav').addClass('m_nav_fixed');
+
+        }else{
+            $('.m_nav').removeClass('m_nav_fixed');
+        }
+    });
 });

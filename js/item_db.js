@@ -492,7 +492,7 @@ function add_img_box(parents, item, i, j){ // 추가할 section, item_code, sect
 /////////// 링크로 값 인식 ///////////
 /////////////////////////////////////
 function get_url_info(key) {
-    let url =location.href; // cate.html?cate_no=0&item_no=8#with_item
+    let url =location.href; // list.html?cate_no=0&item_no=8#with_item
     url = url.split("?")[1] // cate_no=0&item_no=8#with_item
     if(url.length > 1) {
         url = url.split("&") // [cateNo=0  ,  item_no=8#with_item]
