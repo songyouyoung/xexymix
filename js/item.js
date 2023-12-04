@@ -147,7 +147,9 @@ $(document).ready(function(){
 /////////////////////////////////////
 ////////// 내부 스크롤 이동 //////////
 /////////////////////////////////////
+    let scrollChk = true; // 내부 스크롤 이동과 스크롤 border 변경 충돌 방지
     $('.m_nav a').click(function(){
+        scrollChk = false;
         $('.m_nav > div').removeClass('m_nav_after');
         $(this).parent().addClass('m_nav_after');
 
@@ -156,22 +158,40 @@ $(document).ready(function(){
         $('html, body').animate({
             scrollTop: $(href).offset().top - 80 -57
         }, 1000);
+        setTimeout(function(){
+            scrollChk = true;
+        }, 1010);
     });
 
 ///////////////////////////////////////////////
 /////////// 스크롤 - 메뉴바 상단 고정 ///////////
+////////// 스크롤 - 메뉴바 border 변경 //////////
 ///////////////////////////////////////////////
     let nav_bot = $('.m_nav').offset().top;
+    // let nav_review = $('#m_review > .m_item_title').offset().top;
+    let nav_detail = $('#m_detail > .m_item_title').offset().top;
+    let nav_post = $('#m_post > .m_item_title').offset().top;
+    let nav_qna = $('#m_qna > .m_item_title').offset().top;
     $(window).scroll(function(){
-        console.log("window : " + $(window).scrollTop());
-        console.log("nav_bot : " + nav_bot);
+        // 메뉴바 상단 고정
         if($(window).scrollTop() >= nav_bot - 1) {
-            // $('header').addClass('header_fixed');
-            // $('.h_bot').addClass('h_bot_fixed');
             $('.m_nav').addClass('m_nav_fixed');
-
         }else{
             $('.m_nav').removeClass('m_nav_fixed');
+        }
+
+        // 메뉴바 border 변경
+        if(scrollChk){
+            $('.m_nav > div').removeClass('m_nav_after');
+            if($(window).scrollTop() >= nav_qna - 1){
+                $("a[href='#m_qna'").parent().addClass('m_nav_after');
+            }else if($(window).scrollTop() >= nav_post - 1){
+                $("a[href='#m_post'").parent().addClass('m_nav_after');
+            }else if($(window).scrollTop() >= nav_detail - 1){
+                $("a[href='#m_detail'").parent().addClass('m_nav_after');
+            }else{
+                $("a[href='#m_review'").parent().addClass('m_nav_after');
+            }
         }
     });
 });

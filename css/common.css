@@ -160,3 +160,36 @@ h5{margin: 0;}
     top: 0;
     left: 0;
 }
+
+/* 정렬기준 */
+.sort{
+    font-size: 13px;
+    color: #6d6f6d;
+    cursor: pointer;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+.sort::after{
+    content: "";
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-bottom: 2px solid #6d6f6d;
+    border-right: 2px solid #6d6f6d;
+    transform: rotate(45deg) translateY(-4px);
+}
+.sort_list{
+    width: 66px;
+    padding: 10px;
+    line-height: 2;
+    background-color: #fff;
+    border: 1px solid #111;
+
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9;
+}
+.sort_list_none{display: none;}
