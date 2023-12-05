@@ -7,25 +7,32 @@
     <link rel="shortcut icon" href="https://www.xexymix.com/design/xexymix/image/common/xexymix.ico" type="image/x-icon">
     <link rel="stylesheet" href="./css/common.css">
     <link rel="stylesheet" href="./css/h_f.css">
-    <link rel="stylesheet" href="./css/login.css">
-
+    <link rel="stylesheet" href="./css/login_join.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 </head>
 <body>
-<div id="wrap">
-<div class="login">
+<div id="wrap" class="logjoin">
     <div class="logo"><a href="./index.html">xemix</a></div>
-    <form action="" method="post" onsubmit="" class="login_box">
-        <div><input type="text" name="id" class="login_idpw" placeholder="아이디"></div>
-        <div><input type="password" name="pw" class="login_idpw" placeholder="비밀번호"></div>
-        <div class="login_remember">아이디저장</div>
-        <input type="submit" value="로그인" class="login_go">
+    <form action="#" method="post" onsubmit="sendit()" class="login_box">
+        <input type="text" name="userId" id="id" class="idpw" placeholder="아이디" autofocus required>
+        <div class="pw_area">
+            <input type="password" name="userPw" id="pw" class="idpw" placeholder="비밀번호" required>
+            <div class="pw_img"></div>
+        </div>
+        <div class="login_rem_area">
+            <input type="checkbox" name="login_rem" id="login_rem">
+            <span>아이디저장</span>
+        </div>
+        <input type="submit" value="로그인" class="btn_sub">
     </form>
-    <div class="login_find">
-        <span class="login_id">아이디 찾기</span>
-        <span class="login_pw">비밀번호 찾기</span>
+    <div class="login_btn_etc">
+        <div class="login_find">
+            <span class="login_id">아이디 찾기</span>
+            <span class="login_pw">비밀번호 찾기</span>
+        </div>
+        <a href="./join.html" class="login_join">회원가입</a>
     </div>
-    <div class="login_join">회원가입</div>
 </div>
-</div>
+<script src="./js/login_join.js"></script>
 </body>
 </html>
