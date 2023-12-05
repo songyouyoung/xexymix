@@ -161,7 +161,9 @@ h5{margin: 0;}
     left: 0;
 }
 
-/* 정렬기준 */
+/* //////////////////////////// */
+/* /////////// 정렬 /////////// */
+/* //////////////////////////// */
 .sort{
     font-size: 13px;
     color: #6d6f6d;
@@ -193,3 +195,22 @@ h5{margin: 0;}
     z-index: 9;
 }
 .sort_list_none{display: none;}
+
+/* //////////////////////////// */
+/* /////// 페이지네이션 //////// */
+/* //////////////////////////// */
+.pagination{
+    color: #111;
+    font-size: 0;
+    padding-top: 40px;
+
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+.pagination_point{font-weight: bold;}
+.pagination > * {
+    padding: 5px;
+    font-size: 15px;
+    cursor: pointer;
+}

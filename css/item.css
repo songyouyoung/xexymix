@@ -254,8 +254,9 @@ div.m_nav_after{
     padding-bottom: 20px;
 }
 /* //////////////////////////// */
-/* ///////// 메인 리뷰 ///////// */
+/* /////////// 리뷰 /////////// */
 /* //////////////////////////// */
+/* 베스트 리뷰 */
 .m_rev_best_title{
     font-size: 18px;
     font-weight: bold;
@@ -286,6 +287,7 @@ div.m_nav_after{
     text-overflow : ellipsis;
 }
 .m_rev_best_regDate{font-size: 14px;}
+/* 평점 */
 .m_rev_avr_area{
     margin: 20px 0;
     border-top: 2px solid #111;
@@ -300,15 +302,17 @@ div.m_nav_after{
     text-align: center;
 }
 .m_rev_avr_chart{ width: 60%; }
+/* 리뷰 정렬 */
 .m_rev_sort{
     padding: 20px 0;
-    border-bottom: 1px solid #d3d3d3;
+    border-bottom: 2px solid #f1f1f1;
     position: relative;
     z-index: -1;
 }
+/* 전체 리뷰 */
 .m_rev_item{
     padding: 20px 0;
-    border-bottom: 2px solid #d3d3d3;
+    border-bottom: 2px solid #f1f1f1;
 }
 .m_rev_title{
     display: flex;
