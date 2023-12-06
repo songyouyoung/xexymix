@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////
-///////////// my_date 날짜 설정하기 ////////////
+///////////// my_date 날짜 설정하기 ///////////
 ///////////////////////////////////////////////
 let prevDate = document.getElementById("my_date_prev");
 let nextDate = document.getElementById("my_date_next");
@@ -26,3 +26,13 @@ const setMyDate =(dateChk)=>{
 }
 $(document).ready(function(){
 });
+///////////////////////////////////////////////
+/////////////// 구매내역 전체보기 /////////////
+///////////////////////////////////////////////
+$(document).on('click', '.my_buy_title_all', ()=>{ buy_titleChk(".my_buy_title_all");});
+$(document).on('click', '.my_buy_title_done', ()=>{ buy_titleChk(".my_buy_title_done");});
+$(document).on('click', '.my_buy_title_cancel', ()=>{ buy_titleChk(".my_buy_title_cancel");});
+let buy_titleChk = (thisEle)=>{
+    $(".myBuy.my_title > *").css({borderColor:"#d3d3d3"});
+    $(thisEle).css({borderColor:"#111"});
+}
