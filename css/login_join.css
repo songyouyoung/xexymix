@@ -75,13 +75,14 @@
     display: flex;
     justify-content: space-between;
 }
-.login_find>span, .login_join{
+.login_find>a, .login_join{
     font-size: 14px;
     color: #111;
     cursor: pointer;
 }
-.login_join{font-weight: bold;}
+.login_find>a{display: inline-block;}
 .login_id{margin-right: 10px;}
+.login_join{font-weight: bold;}
 
 /* /////////////////////// */
 /* /////// 회원가입 ////// */
@@ -117,3 +118,13 @@
     -webkit-appearance: none;
     margin: 0;
 }
+
+/* /////////////////////// */
+/* / 아이디/비밀번호 찾기 / */
+/* /////////////////////// */
+.find_title{
+    text-align: center;
+    font-weight: bold;
+    font-size: 20px;
+}
+.find.logo{ padding-bottom: 40px; }
