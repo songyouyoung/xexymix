@@ -1,3 +1,14 @@
+///////////////////////////////////////////////
+//////////// 최근 본 상품 전체 선택 ////////////
+///////////////////////////////////////////////
+function selectAll(select)  {
+    let checkboxes = document.querySelectorAll('input[name="history"]');
+
+    checkboxes.forEach((checkbox) => {
+        checkbox.checked = select.checked
+    });
+}
+
 $(document).ready(function(){
     let m_b_width = $('.m_b_item').innerWidth();
     function init(){

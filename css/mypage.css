@@ -189,8 +189,15 @@
 .m_qna_area td{
     border-bottom: 1px solid #d3d3d3;
 }
+.m_qna_area tr{cursor: default;}
 .m_qna_area td{cursor: pointer;}
 .m_qna_area tr>td:nth-child(2){
     text-align: left;
     width: 50%;
 }
+
+/* //////////////////////////// */
+/* /////// 포인트 내역 ///////// */
+/* //////////////////////////// */
+.m_qna_area.my_point tr>td{ width: 15%; }
+.m_qna_area.my_point tr>td:last-child{ width: 40%; }
