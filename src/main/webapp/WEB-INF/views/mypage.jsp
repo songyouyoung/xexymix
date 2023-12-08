@@ -42,7 +42,7 @@
                 </div>
                 <div class="my_buy_item_list">
                     <div class="my_buy_item">
-                        <img src="<c:url value='/img/main_banner/main_banner_230911_2.jpg'/>"> alt="블랙라벨 시그니처 380N 레깅스 1+1" class="my_buy_img">
+                        <img src="<c:url value='/img/main_banner/main_banner_230911_2.jpg'/>" alt="블랙라벨 시그니처 380N 레깅스 1+1" class="my_buy_img">
                         <div class="my_buy_desc">
                             <div class="my_buy_itemName">블랙라벨 시그니처 380N 레깅스 1+1</div>
                             <div class="my_buy_itemOption">[옵션 : L]</div>
@@ -54,7 +54,7 @@
                         </div>
                     </div>
                     <div class="my_buy_item">
-                        <img src="<c:url value='/img/main_banner/main_banner_230911_2.jpg'/>"> alt="블랙라벨 시그니처 380N 레깅스 1+1" class="my_buy_img">
+                        <img src="<c:url value='/img/main_banner/main_banner_230911_2.jpg'/>" alt="블랙라벨 시그니처 380N 레깅스 1+1" class="my_buy_img">
                         <div class="my_buy_desc">
                             <div class="my_buy_itemName">블랙라벨 시그니처 380N 레깅스 1+1</div>
                             <div class="my_buy_itemOption">[옵션 : L]</div>
@@ -65,7 +65,7 @@
                         </div>
                     </div>
                     <div class="my_buy_item">
-                        <img src="<c:url value='/img/main_banner/main_banner_230911_2.jpg'/>"> alt="블랙라벨 시그니처 380N 레깅스 1+1" class="my_buy_img">
+                        <img src="<c:url value='/img/main_banner/main_banner_230911_2.jpg'/>" alt="블랙라벨 시그니처 380N 레깅스 1+1" class="my_buy_img">
                         <div class="my_buy_desc">
                             <div class="my_buy_itemName">블랙라벨 시그니처 380N 레깅스 1+1</div>
                             <div class="my_buy_itemOption">[옵션 : L]</div>

@@ -8,7 +8,7 @@
 <footer class="footer">
     <div class="w_h_f">
         <div class="f_L">
-            <a href="<c:url value='/index.html'/>"><img src="<c:url value='/img/header_logo_bk.png'/>"> alt="젝시믹스"></a>
+            <a href="<c:url value='/index.html'/>"><img src="<c:url value='/img/header_logo_bk.png'/>" alt="젝시믹스"></a>
             <span class="logo_txt">애슬레저 1위, 브랜드 고객충성도 애슬레저룩 부문 3년 연속 대상 [2021. 2022. 2023]</span>
             <ul class="f_L_box f_ul_flex">
                 <li><a href="#">브랜드 스토리</a></li>
@@ -70,30 +70,30 @@
             </ul>
             <div class="f_R_box f_R_first">
                 <div><span class="title">복지카드 사용처</span></div>
-                <img src="<c:url value='/img/footer_wfc_bk.png'/>"> alt="웰페이클럽" class="welfare">
+                <img src="<c:url value='/img/footer_wfc_bk.png'/>" alt="웰페이클럽" class="welfare">
             </div>
             <div class="f_R_box f_R_mid">
                 <div><span class="title">LANGUAGE</span></div>
                 <ul class="language">
                     <li><a href="#">한국어</a></li>
                     <li><a href="#">English</a></li>
-                    <li><a href="#"><img src="<c:url value='/img/txt_jpn.png'/>"> alt="일본"></a></li>
-                    <li><a href="#"><img src="<c:url value='/img/txt_twn.png'/>"> alt="대만"></a></li>
+                    <li><a href="#"><img src="<c:url value='/img/txt_jpn.png'/>" alt="일본"></a></li>
+                    <li><a href="#"><img src="<c:url value='/img/txt_twn.png'/>" alt="대만"></a></li>
                 </ul>
             </div>
             <div class="f_R_box f_R_last">
                 <div><span class="title">SNS</span></div>
                 <ul class="sns">
-                    <li><a href="https://www.facebook.com/xexymix/" target="_blank"><img src="<c:url value='/img/footer_fb.png'/>"> alt="제시믹스 페이스북"></a></li>
-                    <li><a href="https://www.instagram.com/xexymix/" target="_blank"><img src="<c:url value='/img/footer_insta.png'/>"> alt="제시믹스 인스타그램"></a></li>
-                    <li><a href="https://www.youtube.com/channel/UC24_5gTJkc-hDaEuG4DNbeQ" target="_blank"><img src="<c:url value='/img/footer_youtube.png'/>"> alt="제시믹스 유튜브"></a></li>
+                    <li><a href="https://www.facebook.com/xexymix/" target="_blank"><img src="<c:url value='/img/footer_fb.png'/>" alt="제시믹스 페이스북"></a></li>
+                    <li><a href="https://www.instagram.com/xexymix/" target="_blank"><img src="<c:url value='/img/footer_insta.png'/>" alt="제시믹스 인스타그램"></a></li>
+                    <li><a href="https://www.youtube.com/channel/UC24_5gTJkc-hDaEuG4DNbeQ" target="_blank"><img src="<c:url value='/img/footer_youtube.png'/>" alt="제시믹스 유튜브"></a></li>
                 </ul>
             </div>
         </div>
         <div class="f_bot">
             <span>고객님은 안전거래를 위해 현금 등으로 결제하실 때 저희 쇼핑몰에서 가입한 토스페이먼츠(02-006-00059)의 구매안전서비스를 이용하실 수 있습니다. <a href="#">[서비스가입사실확인]</a></span>
             <div>
-                <img src="<c:url value='/img/isms_img_c.png'/>"> alt="정보보호 인증">
+                <img src="<c:url value='/img/isms_img_c.png'/>" alt="정보보호 인증">
                 <div>젝시믹스는 정보보호 관리체계 인증을 받은 안전한 쇼핑몰입니다.</div>
             </div>
         </div>

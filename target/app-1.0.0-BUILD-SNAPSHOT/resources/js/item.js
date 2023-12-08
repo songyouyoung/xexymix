@@ -1,4 +1,5 @@
 $(document).ready(function(){
+    const C_PATH = (location.pathname).split("/")[1];
 /////////////////////////////////////
 //////////// cate 값 인식 ///////////
 /////////////////////////////////////
@@ -15,22 +16,22 @@ $(document).ready(function(){
     $('.item_title').text(item_info.title);
     let item_info_box="";
     if(item_info.color+"" != ""){
-        item_info_box += `<img src = "<c:url value='/img/icon/${ICON_IMG[3][item_info.color]}" alt="${ICON_IMG[4][item_info.color]}">`;
+        item_info_box += `<img src = "/${C_PATH}/img/icon/${ICON_IMG[3][item_info.color]}" alt="${ICON_IMG[4][item_info.color]}">`;
     }
     if(item_info.item_info_1+"" != ""){
-        item_info_box += `<img src = "<c:url value='/img/icon/${ICON_IMG[0][item_info.item_info_1]}" alt="${ICON_IMG[1][item_info.item_info_1]}">`;
+        item_info_box += `<img src = "/${C_PATH}/img/icon/${ICON_IMG[0][item_info.item_info_1]}" alt="${ICON_IMG[1][item_info.item_info_1]}">`;
         getSize(item_info.item_info_1);
     }
     if(item_info.item_info_2+"" != ""){
-        item_info_box += `<img src = "<c:url value='/img/icon/${ICON_IMG[0][item_info.item_info_2]}" alt="${ICON_IMG[1][item_info.item_info_2]}">`;
+        item_info_box += `<img src = "/${C_PATH}/img/icon/${ICON_IMG[0][item_info.item_info_2]}" alt="${ICON_IMG[1][item_info.item_info_2]}">`;
         getSize(item_info.item_info_2);
     }
     if(item_info.item_info_3+"" != ""){
-        item_info_box += `<img src = "<c:url value='/img/icon/${ICON_IMG[0][item_info.item_info_3]}" alt="${ICON_IMG[1][item_info.item_info_3]}">`;
+        item_info_box += `<img src = "/${C_PATH}/img/icon/${ICON_IMG[0][item_info.item_info_3]}" alt="${ICON_IMG[1][item_info.item_info_3]}">`;
         getSize(item_info.item_info_3);
     }
     if(item_info.item_hot+"" != ""){
-        item_info_box += `<img src = "<c:url value='/img/icon/${ICON_IMG[2][0]}" alt="${ICON_IMG[2][1]}">`;
+        item_info_box += `<img src = "/${C_PATH}/img/icon/${ICON_IMG[2][0]}" alt="${ICON_IMG[2][1]}">`;
     }
     $('.item_info_box').append(item_info_box);
     $('.item_txt > span').text(item_info.desc);

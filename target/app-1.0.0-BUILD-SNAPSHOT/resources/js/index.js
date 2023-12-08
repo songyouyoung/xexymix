@@ -10,6 +10,7 @@ function selectAll(select)  {
 }
 
 $(document).ready(function(){
+    const C_PATH = (location.pathname).split("/")[1];
     let m_b_width = $('.m_b_item').innerWidth();
     function init(){
         $('.m_b_item').eq(0).css({left: m_b_width * 0});
@@ -41,9 +42,9 @@ $(document).ready(function(){
                     break;
                 }
             }
-            let a = `<a href="<c:url value='/item.html?cate_no=${item_cate}&item_no=${MDPICK[i][0]}"></a>`;
+            let a = `<a href="/${C_PATH}/item.html?cate_no=${item_cate}&item_no=${MDPICK[i][0]}"></a>`;
             $('.md_pick .md_pick_img').eq(i).append(a);
-            let img = `<img src="<c:url value='/img/item_list/hover/${item_img.hover_src}" alt="" class = "md_pick_img_item">`;
+            let img = `<img src="/${C_PATH}/img/item_list/hover/${item_img.hover_src}" alt="" class = "md_pick_img_item">`;
             $('.md_pick .md_pick_img').eq(i).children('a').append(img);
             let img_none = `<div class="item_desc_none"></div>`;
             $('.md_pick .md_pick_img').eq(i).append(img_none);

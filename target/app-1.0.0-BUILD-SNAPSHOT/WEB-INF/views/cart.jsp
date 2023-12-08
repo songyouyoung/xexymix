@@ -31,7 +31,7 @@
                         <input type="checkbox" name="my_cart_chk" class="my_cart_chkBox">
                     </div>
                     <div class="my_cart_desc_box">
-                        <img src="<c:url value='/img/main_banner/main_banner_230911_2.jpg'/>"> alt="스트레치 밴딩 부츠컷 슬랙스 1">
+                        <img src="<c:url value='/img/main_banner/main_banner_230911_2.jpg'/>" alt="스트레치 밴딩 부츠컷 슬랙스 1">
                         <div class="my_cart_desc">
                             <div class="my_cart_item_title">블랙라벨 시그니처 380N 레깅스 1+1</div>
                             <div class="my_cart_option">[ 옵션 : L ]</div>
@@ -54,7 +54,7 @@
                         <input type="checkbox" name="my_cart_chk" class="my_cart_chkBox">
                     </div>
                     <div class="my_cart_desc_box">
-                        <img src="<c:url value='/img/main_banner/main_banner_230911_2.jpg'/>"> alt="스트레치 밴딩 부츠컷 슬랙스 1">
+                        <img src="<c:url value='/img/main_banner/main_banner_230911_2.jpg'/>" alt="스트레치 밴딩 부츠컷 슬랙스 1">
                         <div class="my_cart_desc">
                             <div class="my_cart_item_title">블랙라벨 시그니처 380N 레깅스 1+1</div>
                             <div class="my_cart_option">[ 옵션 : L ]</div>

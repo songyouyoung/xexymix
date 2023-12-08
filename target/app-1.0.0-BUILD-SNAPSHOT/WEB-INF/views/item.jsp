@@ -112,25 +112,25 @@
                 회원 혜택안내
             </div>
             <div class="m_item">
-                <img src="<c:url value='/img/log_icon_1.gif'/>"> alt="">
+                <img src="<c:url value='/img/log_icon_1.gif'/>" alt="">
                 <div class="m_title">카카오플친 3천원 즉시할인</div>
                 <div class="m_text">회원가입 5천원</div>
                 <div class="m_text">앱 다운로드 1만원 쿠폰 지급</div>
             </div>
             <div class="m_item">
-                <img src="<c:url value='/img/log_icon_2.gif'/>"> alt="">
+                <img src="<c:url value='/img/log_icon_2.gif'/>" alt="">
                 <div class="m_title">등급별 최대 10% 할인</div>
                 <div class="m_text">등급별 할인쿠폰 및</div>
                 <div class="m_text">구매금액에 따른 추가 적립금</div>
             </div>
             <div class="m_item">
-                <img src="<c:url value='/img/log_icon_3.gif'/>"> alt="">
+                <img src="<c:url value='/img/log_icon_3.gif'/>" alt="">
                 <div class="m_title">리뷰 작성시 적립금 지급</div>
                 <div class="m_text">매주 포토후기 선정하여</div>
                 <div class="m_text">특별 감사 적립금을 지급</div>
             </div>
             <div class="m_item">
-                <img src="<c:url value='/img/log_icon_4.gif'/>"> alt="">
+                <img src="<c:url value='/img/log_icon_4.gif'/>" alt="">
                 <div class="m_title">5만원 이상 무료배송</div>
                 <div class="m_text">전 상품 5만원 이상</div>
                 <div class="m_text">결제 시 무료배송</div>
@@ -148,7 +148,7 @@
             <div class="m_rev_best_area">
                 <div class="m_rev_best_item">
                     <div class="m_rev_best_img">
-                        <img src="<c:url value='/img/main_banner/main_banner_230915_1.jpg'/>"> alt="">
+                        <img src="<c:url value='/img/main_banner/main_banner_230915_1.jpg'/>" alt="">
                     </div>
                     <div class="m_rev_best_desc">
                         <div class="m_rev_best_txt">
@@ -161,7 +161,7 @@
                 </div>
                 <div class="m_rev_best_item">
                     <div class="m_rev_best_img">
-                        <img src="<c:url value='/img/main_banner/main_banner_230915_1.jpg'/>"> alt="">
+                        <img src="<c:url value='/img/main_banner/main_banner_230915_1.jpg'/>" alt="">
                     </div>
                     <div class="m_rev_best_desc">
                         <div class="m_rev_best_txt">
@@ -174,7 +174,7 @@
                 </div>
                 <div class="m_rev_best_item">
                     <div class="m_rev_best_img">
-                        <img src="<c:url value='/img/main_banner/main_banner_230915_1.jpg'/>"> alt="">
+                        <img src="<c:url value='/img/main_banner/main_banner_230915_1.jpg'/>" alt="">
                     </div>
                     <div class="m_rev_best_desc">
                         <div class="m_rev_best_txt">
@@ -187,7 +187,7 @@
                 </div>
                 <div class="m_rev_best_item">
                     <div class="m_rev_best_img">
-                        <img src="<c:url value='/img/main_banner/main_banner_230915_1.jpg'/>"> alt="">
+                        <img src="<c:url value='/img/main_banner/main_banner_230915_1.jpg'/>" alt="">
                     </div>
                     <div class="m_rev_best_desc">
                         <div class="m_rev_best_txt">
@@ -230,9 +230,9 @@
                         다른 컬러도 구매 하려구요 옷이 편하면서도 넘 이뻐요 최고
                     </div>
                     <div class="m_rev_img">
-                        <img src="<c:url value='/img/main_banner/main_banner_230915_1.jpg'/>"> alt="">
-                        <img src="<c:url value='/img/main_banner/main_banner_230915_1.jpg'/>"> alt="">
-                        <img src="<c:url value='/img/main_banner/main_banner_230915_1.jpg'/>"> alt="">
+                        <img src="<c:url value='/img/main_banner/main_banner_230915_1.jpg'/>" alt="">
+                        <img src="<c:url value='/img/main_banner/main_banner_230915_1.jpg'/>" alt="">
+                        <img src="<c:url value='/img/main_banner/main_banner_230915_1.jpg'/>" alt="">
                     </div>
                 </div>
             </div>
@@ -242,7 +242,7 @@
         </section>
         <section class="m_detail_box" id="m_post">
             <div class="m_item_title">배송/교환/반품</div>
-            <img src="<c:url value='/img/post.jpg'/>"> alt="배송/교환/반품 안내">
+            <img src="<c:url value='/img/post.jpg'/>" alt="배송/교환/반품 안내">
         </section>
         <section class="m_detail_box" id="m_qna">
             <div class="m_item_title">상품문의</div>

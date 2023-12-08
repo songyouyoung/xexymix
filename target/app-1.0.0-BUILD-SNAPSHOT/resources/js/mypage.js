@@ -36,9 +36,9 @@ let buy_titleChk = (thisEle)=>{
     $(".myBuy.my_title > *").css({borderColor:"#d3d3d3"});
     $(thisEle).css({borderColor:"#111"});
 }
-let c_path = ((location.pathname).split("/")[1]).split(".")[0];
+let buyLink = ((location.pathname).split("/")[2]).split(".")[0];
 let buy = ((location.search).split("?")[1]).split("=")[1];
-if(c_path == "my_buy"){
+if(buyLink == "my_buy"){
     if(buy == "all"){ buy_titleChk(".my_buy_title_all");}
     else if(buy == "done"){ buy_titleChk(".my_buy_title_done"); }
     else if(buy == "cancel"){ buy_titleChk(".my_buy_title_cancel");}

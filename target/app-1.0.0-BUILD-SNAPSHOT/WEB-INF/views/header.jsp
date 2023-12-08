@@ -85,7 +85,7 @@
                                 <div class="history_item">
                                     <input type="checkbox" name="history">
                                     <div class="history_img">
-                                        <img src="<c:url value='/img/main_banner/main_banner_230911_2.jpg'/>"> alt="">
+                                        <img src="<c:url value='/img/main_banner/main_banner_230911_2.jpg'/>" alt="">
                                     </div>
                                     <div class="history_desc">
                                         <div class="item_title">스트레치 밴딩 부츠컷 슬랙스 1+1</div>
@@ -99,7 +99,7 @@
                                 <div class="history_item">
                                     <input type="checkbox" name="history">
                                     <div class="history_img">
-                                        <img src="<c:url value='/img/main_banner/main_banner_230911_2.jpg'/>"> alt="">
+                                        <img src="<c:url value='/img/main_banner/main_banner_230911_2.jpg'/>" alt="">
                                     </div>
                                     <div class="history_desc">
                                         <div class="item_title">스트레치 밴딩 부츠컷 슬랙스 1+1</div>
@@ -113,7 +113,7 @@
                                 <div class="history_item">
                                     <input type="checkbox" name="history">
                                     <div class="history_img">
-                                        <img src="<c:url value='/img/main_banner/main_banner_230911_2.jpg'/>"> alt="">
+                                        <img src="<c:url value='/img/main_banner/main_banner_230911_2.jpg'/>" alt="">
                                     </div>
                                     <div class="history_desc">
                                         <div class="item_title">스트레치 밴딩 부츠컷 슬랙스 1+1</div>
@@ -127,7 +127,7 @@
                                 <div class="history_item">
                                     <input type="checkbox" name="history">
                                     <div class="history_img">
-                                        <img src="<c:url value='/img/main_banner/main_banner_230914.jpg'/>"> alt="">
+                                        <img src="<c:url value='/img/main_banner/main_banner_230914.jpg'/>" alt="">
                                     </div>
                                     <div class="history_desc">
                                         <div class="item_title">스트레치 밴딩 부츠컷 슬랙스 1+1asdfasdfasdfasdfasdfasdfafsadfsadfsafd</div>
@@ -291,7 +291,7 @@
                                 <div class="history_item">
                                     <input type="checkbox" name="history">
                                     <div class="history_img">
-                                        <img src="<c:url value='/img/main_banner/main_banner_230911_2.jpg'/>"> alt="">
+                                        <img src="<c:url value='/img/main_banner/main_banner_230911_2.jpg'/>" alt="">
                                     </div>
                                     <div class="history_desc">
                                         <div class="item_title">스트레치 밴딩 부츠컷 슬랙스 1+1</div>
@@ -305,7 +305,7 @@
                                 <div class="history_item">
                                     <input type="checkbox" name="history">
                                     <div class="history_img">
-                                        <img src="<c:url value='/img/main_banner/main_banner_230911_2.jpg'/>"> alt="">
+                                        <img src="<c:url value='/img/main_banner/main_banner_230911_2.jpg'/>" alt="">
                                     </div>
                                     <div class="history_desc">
                                         <div class="item_title">스트레치 밴딩 부츠컷 슬랙스 1+1</div>
@@ -319,7 +319,7 @@
                                 <div class="history_item">
                                     <input type="checkbox" name="history">
                                     <div class="history_img">
-                                        <img src="<c:url value='/img/main_banner/main_banner_230911_2.jpg'/>"> alt="">
+                                        <img src="<c:url value='/img/main_banner/main_banner_230911_2.jpg'/>" alt="">
                                     </div>
                                     <div class="history_desc">
                                         <div class="item_title">스트레치 밴딩 부츠컷 슬랙스 1+1</div>
@@ -333,7 +333,7 @@
                                 <div class="history_item">
                                     <input type="checkbox" name="history">
                                     <div class="history_img">
-                                        <img src="<c:url value='/img/main_banner/main_banner_230914.jpg'/>"> alt="">
+                                        <img src="<c:url value='/img/main_banner/main_banner_230914.jpg'/>" alt="">
                                     </div>
                                     <div class="history_desc">
                                         <div class="item_title">스트레치 밴딩 부츠컷 슬랙스 1</div>

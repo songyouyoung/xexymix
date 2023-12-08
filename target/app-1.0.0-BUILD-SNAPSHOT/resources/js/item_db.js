@@ -409,7 +409,7 @@ const ICON_IMG = [
     ]
 ];
 
-
+const C_PATH = (location.pathname).split("/")[1];
 
 ///////////////////////////////////////////
 ////////////////find_item/////////////////
@@ -435,7 +435,7 @@ function add_img_box(parents, item, i, j){ // 추가할 section, item_code, sect
             break;
         }
     }
-    let a = `<a href="<c:url value='/item.html?cate_no=${item_cate}&item_no=${item}"></a>`
+    let a = `<a href="/${C_PATH}/item.html?cate_no=${item_cate}&item_no=${item}"></a>`
     let div = '<div class="imgbox"></div>';
     let div_desc = '<div class="item_desc"></div>';
     j = j == null? 0: j;
@@ -443,8 +443,8 @@ function add_img_box(parents, item, i, j){ // 추가할 section, item_code, sect
     parents.eq(i).children('a').eq(j).append(div);
     parents.eq(i).children('a').eq(j).append(div_desc);
 
-    let img_hover = `<img src="<c:url value='/img/item_list/hover/${item_img?.hover_src}" alt="${item_info?.title}" class="img_hover">`;
-    let img_orig = `<img src="<c:url value='/img/item_list/${item_img?.main_src}" alt="${item_info?.title}" class="img_orig">`;
+    let img_hover = `<img src="/${C_PATH}/img/item_list/hover/${item_img?.hover_src}" alt="${item_info?.title}" class="img_hover">`;
+    let img_orig = `<img src="/${C_PATH}/img/item_list/${item_img?.main_src}" alt="${item_info?.title}" class="img_orig">`;
     parents.eq(i).find('.imgbox').eq(j).append(img_hover);
     parents.eq(i).find('.imgbox').eq(j).append(img_orig);
 
@@ -462,19 +462,19 @@ function add_img_box(parents, item, i, j){ // 추가할 section, item_code, sect
     parents.eq(i).find('.item_desc').eq(j).append(price);
     let item_info_box='<div class="item_info_box">';
     if(item_info?.color+"" != ""){
-        item_info_box += `<img src = "<c:url value='/img/icon/${ICON_IMG[3][item_info?.color]}" alt="${ICON_IMG[4][item_info?.color]}">`;
+        item_info_box += `<img src = "/${C_PATH}/img/icon/${ICON_IMG[3][item_info?.color]}" alt="${ICON_IMG[4][item_info?.color]}">`;
     }
     if(item_info.item_info_1+"" != ""){
-        item_info_box += `<img src = "<c:url value='/img/icon/${ICON_IMG[0][item_info?.item_info_1]}" alt="${ICON_IMG[1][item_info?.item_info_1]}">`;
+        item_info_box += `<img src = "/${C_PATH}/img/icon/${ICON_IMG[0][item_info?.item_info_1]}" alt="${ICON_IMG[1][item_info?.item_info_1]}">`;
     }
     if(item_info?.item_info_2+"" != ""){
-        item_info_box += `<img src = "<c:url value='/img/icon/${ICON_IMG[0][item_info?.item_info_2]}" alt="${ICON_IMG[1][item_info?.item_info_2]}">`;
+        item_info_box += `<img src = "/${C_PATH}/img/icon/${ICON_IMG[0][item_info?.item_info_2]}" alt="${ICON_IMG[1][item_info?.item_info_2]}">`;
     }
     if(item_info?.item_info_3+"" != ""){
-        item_info_box += `<img src = "<c:url value='/img/icon/${ICON_IMG[0][item_info?.item_info_3]}" alt="${ICON_IMG[1][item_info?.item_info_3]}">`;
+        item_info_box += `<img src = "/${C_PATH}/img/icon/${ICON_IMG[0][item_info?.item_info_3]}" alt="${ICON_IMG[1][item_info?.item_info_3]}">`;
     }
     if(item_info?.item_hot+"" != ""){
-        item_info_box += `<img src = "<c:url value='/img/icon/${ICON_IMG[2][0]}" alt="${ICON_IMG[2][1]}">`;
+        item_info_box += `<img src = "/${C_PATH}/img/icon/${ICON_IMG[2][0]}" alt="${ICON_IMG[2][1]}">`;
     }
     item_info_box += '</div>';
     parents.eq(i).find('.item_desc').eq(j).append(item_info_box);
