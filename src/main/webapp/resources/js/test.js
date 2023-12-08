@@ -1,175 +1,172 @@
-const ITEM_INFO = [
-  item_info_1: 5, item_info_2: 2, item_info_3: '', item_hot: '주문폭주', color: ''},
-  item_info_1: 5, item_info_2: 2, item_info_3: '', item_hot: '주문폭주', color: ''},
-  item_info_1: 5, item_info_2: '', item_info_3: '', item_hot: '주문폭주', color: ''},
-  item_info_1: 5, item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: 5, item_info_2: '', item_info_3: '', item_hot: '주문폭주', color: ''},
-  item_info_1: 5, item_info_2: '', item_info_3: '', item_hot: '주문폭주', color: ''},
-  item_info_1: 5, item_info_2: '', item_info_3: '', item_hot: '주문폭주', color: ''},
-  item_info_1: 5, item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: 5, item_info_2: 1, item_info_3: '', item_hot: '주문폭주', color: ''},
-  item_info_1: 5, item_info_2: 0, item_info_3: '', item_hot: '', color: ''},
-  item_info_1: 0, item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: 0, item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: 3, item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: 3, item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: '', item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: '', item_info_2: '', item_info_3: '', item_hot: '', color: 3},
-  item_info_1: '', item_info_2: '', item_info_3: '', item_hot: '', color: 3},
-  item_info_1: 3, item_info_2: '', item_info_3: '', item_hot: '', color: 4},
-  item_info_1: 5, item_info_2: 3, item_info_3: '', item_hot: '주문폭주', color: ''},
-  item_info_1: 5, item_info_2: 3, item_info_3: '', item_hot: '주문폭주', color: ''},
-  item_info_1: 5, item_info_2: '', item_info_3: '', item_hot: '주문폭주', color: ''},
-  item_info_1: 5, item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: 5, item_info_2: '', item_info_3: '', item_hot: '주문폭주', color: ''},
-  item_info_1: '', item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: '', item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: '', item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: '', item_info_2: '', item_info_3: '', item_hot: '주문폭주', color: ''},
-  item_info_1: '', item_info_2: '', item_info_3: '', item_hot: '', color: 4},
-  item_info_1: 5, item_info_2: '', item_info_3: '', item_hot: '주문폭주', color: ''},
-  item_info_1: 5, item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: 5, item_info_2: '', item_info_3: '', item_hot: '주문폭주', color: ''},
-  item_info_1: '', item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: 5, item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: 0, item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: '', item_info_2: '', item_info_3: '', item_hot: '', color: 8},
-  item_info_1: '', item_info_2: '', item_info_3: '', item_hot: '주문폭주', color: ''},
-  item_info_1: 0, item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: '', item_info_2: '', item_info_3: '', item_hot: '주문폭주', color: ''},
-  item_info_1: 1, item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: 1, item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: '1', item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: 5, item_info_2: '', item_info_3: '', item_hot: '주문폭주', color: ''},
-  item_info_1: 5, item_info_2: 2, item_info_3: '', item_hot: '주문폭주', color: ''},
-  item_info_1: 2, item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: '', item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: 1, item_info_2: '', item_info_3: '', item_hot: '', color: 5},
-  item_info_1: 1, item_info_2: '', item_info_3: '', item_hot: '', color: 6},
-  item_info_1: 5, item_info_2: 1, item_info_3: '', item_hot: '', color: 2},
-  item_info_1: 1, item_info_2: '', item_info_3: '', item_hot: '주문폭주', color: 4},
-  item_info_1: 1, item_info_2: '', item_info_3: '', item_hot: '주문폭주', color: ''},
-  item_info_1: 2, item_info_2: 0, item_info_3: '', item_hot: '주문폭주', color: ''},
-  item_info_1: 2, item_info_2: 0, item_info_3: '', item_hot: '', color: ''},
-  item_info_1: 1, item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: 1, item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: 1, item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: '', item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: 1, item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: 2, item_info_2: 0, item_info_3: '', item_hot: '', color: ''},
-  item_info_1: 1, item_info_2: '', item_info_3: '', item_hot: '', color: 3},
-  item_info_1: 1, item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: 1, item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: 6, item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: 4, item_info_2: 1, item_info_3: '', item_hot: '', color: 5},
-  item_info_1: 2, item_info_2: '', item_info_3: '', item_hot: '주문폭주', color: ''},
-  item_info_1: 6, item_info_2: 5, item_info_3: 2, item_hot: '주문폭주', color: ''},
-  item_info_1: 6, item_info_2: 5, item_info_3: 2, item_hot: '주문폭주', color: ''},
-  item_info_1: 5, item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: 5, item_info_2: '', item_info_3: '', item_hot: '주문폭주', color: ''},
-  item_info_1: '', item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: 5, item_info_2: '', item_info_3: '', item_hot: '주문폭주', color: ''},
-  item_info_1: 5, item_info_2: 0, item_info_3: '', item_hot: '', color: ''},
-  item_info_1: 5, item_info_2: '', item_info_3: '', item_hot: '주문폭주', color: ''},
-  item_info_1: 5, item_info_2: '', item_info_3: '', item_hot: '주문폭주', color: ''},
-  item_info_1: 5, item_info_2: '', item_info_3: '', item_hot: '주문폭주', color: ''},
-  item_info_1: '', item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: '', item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: 0, item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: 0, item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: 0, item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: 0, item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: 0, item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: '', item_info_2: '', item_info_3: '', item_hot: '', color: 5},
-  item_info_1: 5, item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: '', item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: '', item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: 6, item_info_2: 5, item_info_3: '', item_hot: '', color: ''},
-  item_info_1: '', item_info_2: '', item_info_3: '', item_hot: '주문폭주', color: ''},
-  item_info_1: 5, item_info_2: '', item_info_3: '', item_hot: '주문폭주', color: ''},
-  item_info_1: 5, item_info_2: '', item_info_3: '', item_hot: '주문폭주', color: ''},
-  item_info_1: '', item_info_2: '', item_info_3: '', item_hot: '주문폭주', color: ''},
-  item_info_1: 5, item_info_2: 1, item_info_3: '', item_hot: '주문폭주', color: ''},
-  item_info_1: 5, item_info_2: '', item_info_3: '', item_hot: '주문폭주', color: ''},
-  item_info_1: '', item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: 5, item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: 2, item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: 2, item_info_2: '', item_info_3: '', item_hot: '주문폭주', color: ''},
-  item_info_1: 6, item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: '', item_info_2: '', item_info_3: '', item_hot: '주문폭주', color: ''},
-  item_info_1: 5, item_info_2: 1, item_info_3: '', item_hot: '주문폭주', color: ''},
-  item_info_1: 5, item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: 5, item_info_2: '', item_info_3: '', item_hot: '주문폭주', color: 4},
-  item_info_1: 0, item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: 6, item_info_2: 5, item_info_3: '', item_hot: '주문폭주', color: ''},
-  item_info_1: 1, item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: '', item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: 5, item_info_2: 1, item_info_3: '', item_hot: '주문폭주', color: ''},
-  item_info_1: 5, item_info_2: 2, item_info_3: '', item_hot: '주문폭주', color: ''},
-  item_info_1: 6, item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: 0, item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: 0, item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: 0, item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: 5, item_info_2: 2, item_info_3: '', item_hot: '주문폭주', color: ''},
-  item_info_1: 6, item_info_2: 5, item_info_3: 1, item_hot: '주문폭주', color: ''},
-  item_info_1: 2, item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: '', item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: '', item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: '', item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: 0, item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: '', item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: '', item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: '', item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: '', item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: '', item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: '', item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: '', item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: '', item_info_2: '', item_info_3: '', item_hot: '', color: 7},
-  item_info_1: '', item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: '', item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: '', item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: '', item_info_2: '', item_info_3: '', item_hot: '', color: 5},
-  item_info_1: '', item_info_2: '', item_info_3: '', item_hot: '', color: 4},
-  item_info_1: '', item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: 5, item_info_2: '', item_info_3: '', item_hot: '', color: 4},
-  item_info_1: 0, item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: 0, item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: '', item_info_2: '', item_info_3: '', item_hot: '주문폭주', color: ''},
-  item_info_1: '', item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: 0, item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: '', item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: 0, item_info_2: '', item_info_3: '', item_hot: '', color: 5},
-  item_info_1: 0, item_info_2: '', item_info_3: '', item_hot: '', color: 4},
-  item_info_1: '', item_info_2: '', item_info_3: '', item_hot: '주문폭주', color: 4},
-  item_info_1: '', item_info_2: '', item_info_3: '', item_hot: '주문폭주', color: 2},
-  item_info_1: 0, item_info_2: '', item_info_3: '', item_hot: '', color: 3},
-  item_info_1: 2, item_info_2: 0, item_info_3: '', item_hot: '', color: ''},
-  item_info_1: 1, item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: 0, item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: 0, item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: 0, item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: 0, item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: 0, item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: 0, item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: '', item_info_2: '', item_info_3: '', item_hot: '', color: 4},
-  item_info_1: '', item_info_2: '', item_info_3: '', item_hot: '', color: 4},
-  item_info_1: '', item_info_2: '', item_info_3: '', item_hot: '', color: 3},
-  item_info_1: '', item_info_2: '', item_info_3: '', item_hot: '', color: 3},
-  item_info_1: '', item_info_2: '', item_info_3: '', item_hot: '주문폭주', color: ''},
-  item_info_1: '', item_info_2: '', item_info_3: '', item_hot: '', color: 3},
-  item_info_1: '', item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: 6, item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: '', item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: 5, item_info_2: 2, item_info_3: '', item_hot: '주문폭주', color: ''},
-  item_info_1: 2, item_info_2: 0, item_info_3: '', item_hot: '', color: ''},
-  item_info_1: 1, item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: 5, item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: 0, item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: 0, item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: 5, item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: 0, item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: '', item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: '', item_info_2: '', item_info_3: '', item_hot: '', color: 3},
-  item_info_1: '', item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-  item_info_1: 0, item_info_2: '', item_info_3: '', item_hot: '', color: ''},
-];
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+20
+20
+
+20
+
+
+20
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+20
+20
+20
+20
+
+20
+20
+20
+20
+20
+
+20
+20
+
+20
+
+20
+
+20
+
+
+20
+
+20
+20
+
+20
+20
+
+20
+
+
+
+
+20
+20
+20
+
+20
+
+
+20
+20
+
+
+
+
+20
+20
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+20
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+20
+
+
+20
+
+
+20
+
+
+
+
