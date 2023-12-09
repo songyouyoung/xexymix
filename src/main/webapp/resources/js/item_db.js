@@ -409,7 +409,7 @@ const ICON_IMG = [
     ]
 ];
 
-const C_PATH = (location.pathname).split("/")[1];
+// const C_PATH = (location.pathname).split("/")[1];
 
 ///////////////////////////////////////////
 ////////////////find_item/////////////////

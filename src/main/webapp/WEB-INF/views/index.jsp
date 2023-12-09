@@ -1,5 +1,7 @@
+<%@ page import="java.util.Date" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" session = "false"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,87 +18,17 @@
     <main>
         <section class="swiper main_banner">
             <div class="swiper-wrapper">
-                <a class="swiper-slide" href="item.jsp?cate_no=0&item_no=XWFSK03H3">
-                    <img src="<c:url value='/img/main_banner/main_banner_230915_4.jpg'/>" alt="배색라인 플레어 스커트">
-                    <div class="item_desc_none"></div>
-                    <div class="m_b_item_desc">
-                        <h4 class="desc_txt">WOMEN</h4>
-                        <h1 class="desc_txt">플레어 라인과 배색 포인트로<br>스윙을 더 돋보이게</h1>
-                        <h4 class="desc_txt">배색라인 플레어 스커트</h4>
-                    </div>
-                </a>
-                <a class="swiper-slide" href="item.jsp?cate_no=0&item_no=XWFLT04H3">
-                    <img src="<c:url value='/img/main_banner/main_banner_230915_3.jpg'/>" alt="아이스페더 롱슬리브 2.0">
-                    <div class="item_desc_none"></div>
-                    <div class="m_b_item_desc">
-                        <h4 class="desc_txt">WOMEN</h4>
-                        <h1 class="desc_txt">운동 끝까지 쾌적한 완벽 쿨링!<br>4계절 내내 활용도 높은 롱슬리브</h1>
-                        <h4 class="desc_txt">아이스페더 롱슬리브 2.0</h4>
-                    </div>
-                </a>
-                <a class="swiper-slide" href="item.jsp?cate_no=0&item_no=XTFLT02H3">
-                    <img src="<c:url value='/img/main_banner/main_banner_230915_2.jpg'/>" alt="실키 모크넥 크롭 롱슬리브">
-                    <div class="item_desc_none"></div>
-                    <div class="m_b_item_desc">
-                        <h4 class="desc_txt">WOMEN</h4>
-                        <h1 class="desc_txt">실크 처럼 부드러운 텍스쳐와<br>딱 예쁜 크롭 기장의 기본템</h1>
-                        <h4 class="desc_txt">실키 모크넥 크롭 롱슬리브</h4>
-                    </div>
-                </a>
-                <a class="swiper-slide" href="item.jsp?cate_no=0&item_no=XWFTP03H3">
-                    <img src="<c:url value='/img/main_banner/main_banner_230915_1.jpg'/>" alt="스트레치 포멀 부츠컷 트임 팬츠">
-                    <div class="item_desc_none"></div>
-                    <div class="m_b_item_desc">
-                        <h4 class="desc_txt">WOMEN</h4>
-                        <h1 class="desc_txt">출근부터 운동까지 한벌로 끝<br>활용도 높은 데일리 팬츠</h1>
-                        <h4 class="desc_txt">스트레치 포멀 부츠컷 트임 팬츠</h4>
-                    </div>
-                </a>
-                <a class="swiper-slide" href="item.jsp?cate_no=0&item_no=XWFGJ01H3">
-                    <img src="<c:url value='/img/main_banner/main_banner_230914.jpg'/>" alt="슬림핏 라운드넥 집업 자켓">
-                    <div class="item_desc_none"></div>
-                    <div class="m_b_item_desc">
-                        <h4 class="desc_txt">WOMEN</h4>
-                        <h1 class="desc_txt">몸을 감싸는 완벽 텐션 스트레치<br>더 편안한 라운드넥까지</h1>
-                        <h4 class="desc_txt">슬림핏 라운드넥 집업 자켓</h4>
-                    </div>
-                </a>
-                <a class="swiper-slide" href="item.jsp?cate_no=1&item_no=XMMST06H2">
-                    <img src="<c:url value='/img/main_banner/mens_banner_230914.jpg'/>" alt="맨즈 아이스페더 오버핏 숏슬리브">
-                    <div class="item_desc_none"></div>
-                    <div class="m_b_item_desc">
-                        <h4 class="desc_txt">MENS</h4>
-                        <h1 class="desc_txt">독보적인 착용감의 아이스페더<br>오버핏으로 더 편안하게</h1>
-                        <h4 class="desc_txt">맨즈 아이스페더 오버핏 숏슬리브</h4>
-                    </div>
-                </a>
-                <a class="swiper-slide" href="item.jsp?cate_no=1&item_no=XMMHZ40H3">
-                    <img src="<c:url value='/img/main_banner/mens_banner_230914_1.jpg'/>" alt="프렌치 테리">
-                    <div class="item_desc_none"></div>
-                    <div class="m_b_item_desc">
-                        <h4 class="desc_txt">MENS</h4>
-                        <h1 class="desc_txt">스타일링 고민 없이<br>캐주얼하게 즐기는 젝시맨즈</h1>
-                        <h4 class="desc_txt">프렌치 테리</h4>
-                    </div>
-                </a>
-                <a class="swiper-slide" href="item.jsp?cate_no=4&item_no=XS0202H">
-                    <img src="<c:url value='/img/main_banner/shoes_banner_230914.jpg'/>" alt="X-핏 러너">
-                    <div class="item_desc_none"></div>
-                    <div class="m_b_item_desc">
-                        <h4 class="desc_txt">SHOES</h4>
-                        <h1 class="desc_txt">역대 슈즈 최단기간 판매 1위!<br>NEW COLOR 라인업 추가</h1>
-                        <h4 class="desc_txt">X-핏 러너</h4>
-                    </div>
-                </a>
-                <a class="swiper-slide" href="item.jsp?cate_no=0&item_no=XWFBR03H2">
-                    <img src="<c:url value='/img/main_banner/main_banner_230911_2.jpg'/>" alt="인패드 와이드넥 5부 숏슬리브">
-                    <div class="item_desc_none"></div>
-                    <div class="m_b_item_desc">
-                        <h4 class="desc_txt">WOMEN</h4>
-                        <h1 class="desc_txt">패드 내장으로 더 간편하게-<br>여성스러운 백라인 포인트</h1>
-                        <h4 class="desc_txt">인패드 와이드넥 5부 숏슬리브</h4>
-                    </div>
-                </a>
+                <c:forEach var="banner" items="${mainBanner}">
+                    <a class="swiper-slide" href="<c:url value='/item.jsp?itemNo=${banner.itemNo}'/>">
+                        <img src="<c:url value='/img/main_banner/${banner.itemImg}'/>" alt="${banner.itemName}">
+                        <div class="item_desc_none"></div>
+                        <div class="m_b_item_desc">
+                            <h4 class="desc_txt">${banner.itemCate}</h4>
+                            <h1 class="desc_txt">${banner.itemDesc}</h1>
+                            <h4 class="desc_txt">${banner.itemName}</h4>
+                        </div>
+                    </a>
+                </c:forEach>
             </div>
             <div class="swiper-button-next"></div>
             <div class="swiper-button-prev"></div>
@@ -104,7 +36,43 @@
         <section class="w_main">
             <div class="swiper best_item">
                 <h1 class="sec_title">이유있는 베스트 아이템</h1>
-                <ul class="swiper-wrapper best_item_box"></ul>
+                <ul class="swiper-wrapper best_item_box">
+                    <c:forEach var="best" items="${best}">
+                        <li class="swiper-slide">
+                            <a href="<c:url value='/item.jsp?itemNo=${best.itemNo}'/>">
+                                <div class="imgbox">
+                                    <img src="<c:url value='/img/item_list/hover/${best.itemImgSub}'/>" alt="${best.itemName}" class="img_hover">
+                                    <img src="<c:url value='/img/item_list/${best.itemImg}'/>" alt="${best.itemName}" class="img_orig">
+                                </div>
+                                <div class="item_desc">
+                                    <div class="item_code_box">
+                                        <span class="item_code">${best.itemNo}</span>
+                                        <span class="item_review">리뷰 <b>
+                                            <fmt:formatNumber type="number" pattern="###,###,###,###,###,###" value="${best.revCnt}" />
+                                        </b></span>
+                                    </div>
+                                    <div class="item_title">${best.itemName}</div>
+                                    <c:choose>
+                                        <c:when test="${best.itemDis > 0}">
+                                            <div class="item_price">
+                                                    <fmt:formatNumber type="number" pattern="###,###,###,###,###,###" value="${best.itemPrice / 100 * (100 - best.itemDis) }" />
+                                                <span class="item_orig_price">
+                                                    <fmt:formatNumber type="number" pattern="###,###,###,###,###,###" value="${best.itemPrice}" />
+                                            </span></div>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <div class="item_price"><fmt:formatNumber type="number" pattern="###,###,###,###,###,###" value="${best.itemPrice}" /></div>
+                                        </c:otherwise>
+                                    </c:choose>
+                                    <div class="item_info_box"> <%-- 아래 script에서 추가함--%> </div>
+                                    <div class="item_txt">${best.itemDesc}</div>
+                                </div>
+                            </a>
+
+
+                        </li>
+                    </c:forEach>
+                </ul>
                 <div class="swiper-button-next"></div>
                 <div class="swiper-button-prev"></div>
             </div>
@@ -180,5 +148,10 @@
 <script src="<c:url value='/js/item_db.js'/>"></script>
 <script src="<c:url value='/js/common.js'/>"></script>
 <script src="<c:url value='/js/index.js'/>"></script>
+<script >
+    // 베스트 아이템 item_info_box 내용 추가
+    let best = ${best_js};
+    infoBox(best, ".best_item_box .item_info_box");
+</script>
 </body>
 </html>

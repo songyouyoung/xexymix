@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @Repository
 public class ItemDao {
@@ -18,8 +19,8 @@ public class ItemDao {
 ///////////////////
 //    header
 ///////////////////
-    public List<ItemDto> selectLookItem(List<String> lookList){
-        return session.selectList(namespace + "selectLookItem", lookList);
+    public List<ItemDto> selectHistory(List<String> historyList){
+        return session.selectList(namespace + "selectLookItem", historyList);
     }
 ///////////////////
 //    index
@@ -30,7 +31,7 @@ public class ItemDao {
     public List<Map<String, String>> selectMdPick(){
         return session.selectList(namespace + "selectMdPick");
     }
-    public List<ItemDto> selectItem(Map<String, String> itemMap){
+    public List<ItemDto> selectItem(Object itemMap){
         return session.selectList(namespace + "selectItem", itemMap);
     }
 

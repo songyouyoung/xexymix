@@ -10,20 +10,20 @@ function selectAll(select)  {
 }
 
 $(document).ready(function(){
-    const C_PATH = (location.pathname).split("/")[1];
-    let m_b_width = $('.m_b_item').innerWidth();
+    // const C_PATH = (location.pathname).split("/")[1];
+    // let m_b_width = $('.m_b_item').innerWidth();
     function init(){
-        $('.m_b_item').eq(0).css({left: m_b_width * 0});
-        $('.m_b_item').eq(1).css({left: m_b_width * 1 + 10});
-        $('.m_b_item').eq(2).css({left: m_b_width * 2 + 20});
+        // $('.m_b_item').eq(0).css({left: m_b_width * 0});
+        // $('.m_b_item').eq(1).css({left: m_b_width * 1 + 10});
+        // $('.m_b_item').eq(2).css({left: m_b_width * 2 + 20});
         
         // BEST_ITEM
-        let best_length = BEST_ITEM.length
-        let li = '<li class="swiper-slide"></li>';
-        for(let i = 0; i<best_length; i++){
-            $(li).appendTo('.best_item_box');
-            add_img_box($('.best_item_box .swiper-slide'), BEST_ITEM[i], i);
-        }
+        // let best_length = BEST_ITEM.length
+        // let li = '<li class="swiper-slide"></li>';
+        // for(let i = 0; i<best_length; i++){
+        //     $(li).appendTo('.best_item_box');
+        //     add_img_box($('.best_item_box .swiper-slide'), BEST_ITEM[i], i);
+        // }
         
         //md_pick
         let div_swiper = '<div class = "swiper-slide"></div>';

@@ -27,6 +27,13 @@ public class ItemDto {
     private int itemSale;
     private List<ItemDto> itemSub;
 
+    public ItemDto() {}
+    public ItemDto(String itemNo, String itemName, String itemDesc) {
+        this.itemNo = itemNo;
+        this.itemName = itemName;
+        this.itemDesc = itemDesc;
+    }
+
     public String getItemNo() {
         return itemNo;
     }
