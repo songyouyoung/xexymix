@@ -22,8 +22,8 @@ public class ItemService {
 ///////////////////
 //    index
 ///////////////////
-    public Map<String, List<ItemDto>> showIndex(){
-        Map<String, List<ItemDto>> indexList = new HashMap<>();
+    public Map<String, Object> showIndex(){
+        Map<String, Object> indexList = new HashMap<>();
     // 메인배너
         indexList.put("mainBanner", itemDao.selectMainBanner());
     // best
@@ -34,42 +34,46 @@ public class ItemService {
         List<ItemDto> mdPick = new ArrayList<>();
         int i = 0;
         for(Map<String, String> item:mp){
-            Map<String, String> mpItem = new HashMap<>();
-            mpItem.put("search", "map");
-            mpItem.put("val", item.get("itemSub"));
-            mdPick.add(new ItemDto(item.get("itemNo"), item.get("itemName"), item.get("itemDesc")));
+            Map<String, Object> mpItem = new HashMap<>();
+            mpItem.put("search", "md");
+            List<String> val = List.of(item.get("itemSub").split(","));
+            mpItem.put("val", val);
+            mdPick.add(new ItemDto(item.get("itemNo"), item.get("itemName"), item.get("itemDesc"), item.get("itemImg")));
             mdPick.get(i).setItemSub(itemDao.selectItem(mpItem));
             i += 1;
         }
         indexList.put("mdPick", mdPick);
     // 카테고리별
+        List<List<ItemDto>> cate = new ArrayList<>();
+        Map<String, String> cateDesc = new HashMap<>();
+        cateDesc.put("search", "cate");
         // mens
-        Map<String, String> cate = new HashMap<>();
-        cate.put("search", "cate");
-        cate.put("val", "mens");
-        cate.put("limit", "28");
-        indexList.put("cate_mens", itemDao.selectItem(cate));
-        // top
-        cate.put("val", "top");
-        cate.put("limit", "28");
-        indexList.put("cate_top", itemDao.selectItem(cate));
-        // bottom
-        cate.put("val", "bottom");
-        cate.put("limit", "28");
-        indexList.put("cate_bottom", itemDao.selectItem(cate));
-        // outer
-        cate.put("val", "outer");
-        cate.put("limit", "20");
-        indexList.put("cate_outer", itemDao.selectItem(cate));
-        // golf
-        cate.put("val", "golf");
-        cate.put("limit", "16");
-        indexList.put("cate_golf", itemDao.selectItem(cate));
-        // kids
-        cate.put("val", "kids");
-        cate.put("limit", "16");
-        indexList.put("cate_kids", itemDao.selectItem(cate));
+        cateDesc.put("val", "mens");
+        cateDesc.put("limit", "28");
+        cate.add(itemDao.selectItem(cateDesc));
 
+        // top
+        cateDesc.put("val", "top");
+        cateDesc.put("limit", "28");
+        cate.add(itemDao.selectItem(cateDesc));
+        // bottom
+        cateDesc.put("val", "bottom");
+        cateDesc.put("limit", "28");
+        cate.add(itemDao.selectItem(cateDesc));
+        // outer
+        cateDesc.put("val", "outer");
+        cateDesc.put("limit", "20");
+        cate.add(itemDao.selectItem(cateDesc));
+        // golf
+        cateDesc.put("val", "golf");
+        cateDesc.put("limit", "16");
+        cate.add(itemDao.selectItem(cateDesc));
+        // kids
+        cateDesc.put("val", "kids");
+        cateDesc.put("limit", "16");
+        cate.add(itemDao.selectItem(cateDesc));
+
+        indexList.put("cate", cate);
         return indexList;
     }
 }

@@ -1,3 +1,14 @@
+/////////////////////////////////////
+/////////////// 상품정렬 /////////////
+/////////////////////////////////////
+$(document).mouseup(function (e){
+    // 외부 영역 클릭 시 정렬 닫음
+    document.getElementsByClassName('sort_list')[0].classList.add('sort_list_none');
+    $(document).on('click', '.sort', function(){
+        document.getElementsByClassName('sort_list')[0].classList.toggle('sort_list_none');
+    });
+});
+
 $(document).ready(function(){
     const C_PATH = (location.pathname).split("/")[1];
 /////////////////////////////////////

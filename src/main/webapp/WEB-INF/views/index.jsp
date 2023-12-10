@@ -37,41 +37,40 @@
             <div class="swiper best_item">
                 <h1 class="sec_title">이유있는 베스트 아이템</h1>
                 <ul class="swiper-wrapper best_item_box">
-                    <c:forEach var="best" items="${best}">
-                        <li class="swiper-slide">
-                            <a href="<c:url value='/item.jsp?itemNo=${best.itemNo}'/>">
-                                <div class="imgbox">
-                                    <img src="<c:url value='/img/item_list/hover/${best.itemImgSub}'/>" alt="${best.itemName}" class="img_hover">
-                                    <img src="<c:url value='/img/item_list/${best.itemImg}'/>" alt="${best.itemName}" class="img_orig">
-                                </div>
-                                <div class="item_desc">
-                                    <div class="item_code_box">
-                                        <span class="item_code">${best.itemNo}</span>
-                                        <span class="item_review">리뷰 <b>
-                                            <fmt:formatNumber type="number" pattern="###,###,###,###,###,###" value="${best.revCnt}" />
-                                        </b></span>
-                                    </div>
-                                    <div class="item_title">${best.itemName}</div>
-                                    <c:choose>
-                                        <c:when test="${best.itemDis > 0}">
-                                            <div class="item_price">
-                                                    <fmt:formatNumber type="number" pattern="###,###,###,###,###,###" value="${best.itemPrice / 100 * (100 - best.itemDis) }" />
-                                                <span class="item_orig_price">
-                                                    <fmt:formatNumber type="number" pattern="###,###,###,###,###,###" value="${best.itemPrice}" />
-                                            </span></div>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <div class="item_price"><fmt:formatNumber type="number" pattern="###,###,###,###,###,###" value="${best.itemPrice}" /></div>
-                                        </c:otherwise>
-                                    </c:choose>
-                                    <div class="item_info_box"> <%-- 아래 script에서 추가함--%> </div>
-                                    <div class="item_txt">${best.itemDesc}</div>
-                                </div>
-                            </a>
-
-
-                        </li>
-                    </c:forEach>
+<%--                    <c:forEach var="best" items="${best}">--%>
+<%--                        <li class="swiper-slide">--%>
+<%--                            <a href="<c:url value='/item.jsp?itemNo=${best.itemNo}'/>">--%>
+<%--                                <div class="imgbox">--%>
+<%--                                    <img src="<c:url value='/img/item_list/hover/${best.itemImgSub}'/>" alt="${best.itemName}" class="img_hover">--%>
+<%--                                    <img src="<c:url value='/img/item_list/${best.itemImg}'/>" alt="${best.itemName}" class="img_orig">--%>
+<%--                                </div>--%>
+<%--                                <div class="item_desc">--%>
+<%--                                    <div class="item_code_box">--%>
+<%--                                        <span class="item_code">${best.itemNo}</span>--%>
+<%--                                        <span class="item_review">리뷰 <b>--%>
+<%--                                            <fmt:formatNumber type="number" pattern="###,###,###,###,###,###" value="${best.revCnt}" />--%>
+<%--                                        </b></span>--%>
+<%--                                    </div>--%>
+<%--                                    <div class="item_title">${best.itemName}</div>--%>
+<%--                                    <c:choose>--%>
+<%--                                        <c:when test="${best.itemDis > 0}">--%>
+<%--                                            <div class="item_price">--%>
+<%--                                                    <fmt:formatNumber type="number" pattern="###,###,###,###,###,###" value="${best.itemPrice / 100 * (100 - best.itemDis) }" />--%>
+<%--                                                <span class="item_orig_price">--%>
+<%--                                                    <fmt:formatNumber type="number" pattern="###,###,###,###,###,###" value="${best.itemPrice}" />--%>
+<%--                                            </span></div>--%>
+<%--                                        </c:when>--%>
+<%--                                        <c:otherwise>--%>
+<%--                                            <div class="item_price"><fmt:formatNumber type="number" pattern="###,###,###,###,###,###" value="${best.itemPrice}" /></div>--%>
+<%--                                        </c:otherwise>--%>
+<%--                                    </c:choose>--%>
+<%--                                    <div class="item_info_box"> &lt;%&ndash; 아래 script에서 추가함&ndash;%&gt; </div>--%>
+<%--                                    <span class="item_txt_event"></span>--%>
+<%--                                    <div class="item_txt">${best.itemDesc}</div>--%>
+<%--                                </div>--%>
+<%--                            </a>--%>
+<%--                        </li>--%>
+<%--                    </c:forEach>--%>
                 </ul>
                 <div class="swiper-button-next"></div>
                 <div class="swiper-button-prev"></div>
@@ -92,7 +91,58 @@
         <section class="w_main">
             <h1 class="sec_title">젝시믹스 엠디가 자신있게 추천합니다.</h1>
             <div class="swiper md_pick">
-                <div class="swiper-wrapper"></div>
+                <div class="swiper-wrapper">
+                    <c:forEach var="md" items="${mdPick}">
+                        <div class = "swiper-slide">
+                            <div class="md_pick_img">
+                                <a href="<c:url value='/item.jsp?itemNo=${md.itemNo}'/>">
+                                    <img src="<c:url value='/img/item_list/${md.itemImg}'/>" alt="${md.itemName}" class="md_pick_img_item">
+                                </a>
+                                <div class="item_desc_none"></div>
+                                <div class="md_pick_title">
+                                    <div class="title">${md.itemName}</div>
+                                    <div class="desc">${md.itemDesc}</div>
+                                </div>
+                                <div class="md_pick_item">
+<%--                                    <c:forEach var="mdSub" items="${md.itemSub}">--%>
+<%--                                        <a href="<c:url value='/item.jsp?itemNo=${mdSub.itemNo}'/>">--%>
+<%--                                            <div class="imgbox">--%>
+<%--                                                <img src="<c:url value='/img/item_list/hover/${mdSub.itemImgSub}'/>" alt="${mdSub.itemName}" class="img_hover">--%>
+<%--                                                <img src="<c:url value='/img/item_list/${mdSub.itemImg}'/>" alt="${mdSub.itemName}" class="img_orig">--%>
+<%--                                            </div>--%>
+<%--                                            <div class="item_desc">--%>
+<%--                                                <div class="item_code_box">--%>
+<%--                                                    <span class="item_code">${mdSub.itemNo}</span>--%>
+<%--                                                    <span class="item_review">--%>
+<%--                                                        <fmt:formatNumber type="number" pattern="###,###,###,###,###,###" value="${mdSub.revCnt}" />--%>
+<%--                                                    </span>--%>
+<%--                                                </div>--%>
+<%--                                                <div class="item_title">${mdSub.itemName}</div>--%>
+<%--                                                <c:choose>--%>
+<%--                                                    <c:when test="${mdSub.itemDis > 0}">--%>
+<%--                                                        <div class="item_price">--%>
+<%--                                                            <fmt:formatNumber type="number" pattern="###,###,###,###,###,###" value="${mdSub.itemPrice / 100 * (100 - mdSub.itemDis) }" />--%>
+<%--                                                            <span class="item_orig_price">--%>
+<%--                                                    <fmt:formatNumber type="number" pattern="###,###,###,###,###,###" value="${mdSub.itemPrice}" />--%>
+<%--                                                        </span></div>--%>
+<%--                                                    </c:when>--%>
+<%--                                                    <c:otherwise>--%>
+<%--                                                        <div class="item_price"><fmt:formatNumber type="number" pattern="###,###,###,###,###,###" value="${mdSub.itemPrice}" /></div>--%>
+<%--                                                    </c:otherwise>--%>
+<%--                                                </c:choose>--%>
+<%--                                                <div class="item_info_box"> &lt;%&ndash; 아래 script에서 추가함&ndash;%&gt; </div>--%>
+<%--                                                <div class="item_txt">--%>
+<%--                                                    <span class="item_txt_event"></span>--%>
+<%--                                                    ${mdSub.itemDesc}--%>
+<%--                                                </div>--%>
+<%--                                            </div>--%>
+<%--                                        </a>--%>
+<%--                                    </c:forEach>--%>
+                                </div>
+                            </div>
+                        </div>
+                    </c:forEach>
+                </div>
                 <div class="swiper-button-next"></div>
                 <div class="swiper-button-prev"></div>
             </div>
@@ -106,6 +156,42 @@
                     <span class="btn_fixed_more">더보기</span>
                 </div>
             </a>
+<%--            <c:forEach var="cateAll" items="${cate}">--%>
+<%--                <section class="m_item_list_box">--%>
+<%--                    <c:forEach var="cate" items="${cateAll}">--%>
+<%--                        <a href="<c:url value='/item.jsp?itemNo=${cate.itemNo}'/>">--%>
+<%--                            <div class="imgbox">--%>
+<%--                                <img src="<c:url value='/img/item_list/hover/${cate.itemImgSub}'/>" alt="${cate.itemName}" class="img_hover">--%>
+<%--                                <img src="<c:url value='/img/item_list/${cate.itemImg}'/>" alt="${cate.itemName}" class="img_orig">--%>
+<%--                            </div>--%>
+<%--                            <div class="item_desc">--%>
+<%--                                <div class="item_code_box">--%>
+<%--                                    <span class="item_code">${cate.itemNo}</span>--%>
+<%--                                    <span class="item_review">리뷰 <b>--%>
+<%--                                            <fmt:formatNumber type="number" pattern="###,###,###,###,###,###" value="${cate.revCnt}" />--%>
+<%--                                        </b></span>--%>
+<%--                                </div>--%>
+<%--                                <div class="item_title">${cate.itemName}</div>--%>
+<%--                                <c:choose>--%>
+<%--                                    <c:when test="${cate.itemDis > 0}">--%>
+<%--                                        <div class="item_price">--%>
+<%--                                            <fmt:formatNumber type="number" pattern="###,###,###,###,###,###" value="${cate.itemPrice / 100 * (100 - cate.itemDis) }" />--%>
+<%--                                            <span class="item_orig_price">--%>
+<%--                                                    <fmt:formatNumber type="number" pattern="###,###,###,###,###,###" value="${cate.itemPrice}" />--%>
+<%--                                            </span></div>--%>
+<%--                                    </c:when>--%>
+<%--                                    <c:otherwise>--%>
+<%--                                        <div class="item_price"><fmt:formatNumber type="number" pattern="###,###,###,###,###,###" value="${cate.itemPrice}" /></div>--%>
+<%--                                    </c:otherwise>--%>
+<%--                                </c:choose>--%>
+<%--                                <div class="item_info_box"> &lt;%&ndash; 아래 script에서 추가함&ndash;%&gt; </div>--%>
+<%--                                <span class="item_txt_event"></span>--%>
+<%--                                <div class="item_txt">${cate.itemDesc}</div>--%>
+<%--                            </div>--%>
+<%--                        </a>--%>
+<%--                    </c:forEach>--%>
+<%--                </section>--%>
+<%--            </c:forEach>--%>
         </section>
         <section class="swiper m_bot_banner">
             <div class="swiper-wrapper">
@@ -151,7 +237,32 @@
 <script >
     // 베스트 아이템 item_info_box 내용 추가
     let best = ${best_js};
-    infoBox(best, ".best_item_box .item_info_box");
+    // infoBox(best, ".best_item_box .item_info_box");
+    itemBox(best, ".best_item_box", '<li class="swiper-slide">', '</li>');
+
+    // MD PICK item_info_box 내용 추가
+    let mdPick = ${mdPick_js};
+    let i = 1;
+    mdPick.forEach((md)=>{
+        console.log(i, md.itemSub)
+        itemBox(md.itemSub, ".md_pick .swiper-slide:nth-child(" + i + ") .md_pick_item", "", "");
+        i+=1;
+    });
+    // mdPick.forEach((item) => {
+    //     infoBox(mdPick, ".md_pick_item>a .item_info_box");
+    // });
+
+
+    // m_item_box
+<%--        <c:forEach var="cateAll" items="${cate}">--%>
+//         <section class="m_item_list_box">
+    let cate = ${cate_js};
+    let itemList = `<section class="m_item_list_box"></section>`;
+    i = 1;
+    cate.forEach((cateItem)=>{
+        $(".m_item_box").append(itemList);
+        itemBox(cateItem, ".m_item_list_box:nth-child(" + i++ + ")", "", "", );
+    })
 </script>
 </body>
 </html>

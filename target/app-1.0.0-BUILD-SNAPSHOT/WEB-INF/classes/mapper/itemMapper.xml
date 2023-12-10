@@ -29,7 +29,7 @@
     </select>
     <!-- md pick 상품 출력-->
     <select id="selectMdPick" resultType="map">
-        select i.itemNo, i.itemName, i.itemDesc, concat(md.itemSub1, '|', md.itemSub2, '|', md.itemSub3, '|', md.itemSub4) as itemSub
+        select i.itemNo, i.itemName, i.itemDesc, i.itemImg, concat(md.itemSub1, ',', md.itemSub2, ',', md.itemSub3, ',', md.itemSub4) as itemSub
             from item i, mdPick md
                 where i.itemNo = md.itemNo;
     </select>
@@ -47,7 +47,12 @@
                 limit 0, 10;
             </when>
             <when test="search == 'md'">
-                where itemNo REGEXP #{val}
+                where
+                <trim prefixOverrides="OR">
+                    <foreach collection = "val" item = "item">
+                        OR itemNo = #{item}
+                    </foreach>
+                </trim>
             </when>
             <when test="search == 'cate'">
                 where itemCateDetail = #{val}

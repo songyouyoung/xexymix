@@ -28,10 +28,11 @@ public class ItemDto {
     private List<ItemDto> itemSub;
 
     public ItemDto() {}
-    public ItemDto(String itemNo, String itemName, String itemDesc) {
+    public ItemDto(String itemNo, String itemName, String itemDesc, String itemImg) {
         this.itemNo = itemNo;
         this.itemName = itemName;
         this.itemDesc = itemDesc;
+        this.itemImg = itemImg;
     }
 
     public String getItemNo() {
