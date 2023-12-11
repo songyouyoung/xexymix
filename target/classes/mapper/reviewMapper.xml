@@ -16,6 +16,20 @@
         select revNo, userNo, userName, revScore, revTxt, revRegDate, revLike, revFile
             from review
                 where itemNo = #{itemNo}
+        <choose>
+            <when test="search == 'new'">
+                order by revRegDate desc
+            </when>
+            <when test="search == 'best'">
+                order by revLike desc, revRegDate desc
+            </when>
+            <when test="search == 'likeDesc'">
+                order by revScore desc, revRegDate desc
+            </when>
+            <when test="search == 'likeAsc'">
+                order by revRegDate, revRegDate desc
+            </when>
+        </choose>
         limit ${limit}, 5
     </select>
     <!-- 베스트 리뷰 조회 -->
@@ -24,6 +38,12 @@
             from review
                 where itemNo = #{itemNo}
         order by revLike desc
-        limit 0, 5
+        limit 0, 4
+    </select>
+    <!-- 별점 순 리뷰 갯수 조회 -->
+    <select id="selectRevScore" parameterType="String" resultType="int">
+        select count(revNo)
+            from review
+                where itemNo = #{itemNo} and revScore = ${revScore}
     </select>
 </mapper>

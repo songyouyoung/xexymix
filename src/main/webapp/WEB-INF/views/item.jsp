@@ -228,45 +228,8 @@
     let revMaxCnt = ${revMaxCnt};
     let review = ${review_js};
     let reviewBest = ${reviewBest_js};
+    let revChart = ${reviewChart_js};
     <%--let qna = ${qna_js};--%>
-
-    $(function(){
-        dslosChart.init();
-    });
-
-    const dslosChart = {
-        losChart: null,
-        chartData: {
-            labels: ["★5", "★4", "★3", "★2", "★1"],
-            datasets: [{
-                data: [10, 20, 15, 25, 30],
-                backgroundColor: '#111',
-                borderSkipped: false,
-                barThickness: 20,
-                borderRadius: [{topLeft: 20, topRight: 20, bottomLeft: 20, bottomRight: 20},],
-            }]
-        },
-        init: function () {
-            dslosChart.initChart();
-        },
-        initChart: function () {
-            dslosChart.losChart = new Chart($('#losTop5Chart'), {type: 'bar',});
-            dslosChart.getLosChart();
-        },
-        getLosChart: function () {
-            dslosChart.losChart.data = dslosChart.chartData;
-            dslosChart.losChart.options.plugins.datalabels = {display: false};
-            dslosChart.losChart.options = {
-                indexAxis: 'y',
-                scales: {
-                    x: {stacked: true, display: false,},
-                    y: {stacked: true,},
-                },
-                plugins: {legend: {display: false},},
-            }
-            dslosChart.losChart.update();
-        },
-    }
 </script>
 </body>
 </html>

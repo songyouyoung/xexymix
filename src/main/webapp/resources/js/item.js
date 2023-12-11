@@ -41,13 +41,22 @@ $(document).ready(function(){
     if(item.revCnt == 0){
         revBox = `<p class="m_none">아직 작성한 리뷰가 없습니다.</p>`;
     }else{
+        // 베스트 리뷰
         revBox += `<div class="m_rev_best_title">베스트 리뷰</div>
                 <div class="m_rev_best_area">`
         reviewBest.forEach((revBest)=>{
+            let dt = new Date(revBest.revRegDate);
+            let year = dt.getFullYear();
+            let month = dt.getMonth()+1 < 10 ? "0" + (dt.getMonth()+1) : dt.getMonth()+1;
+            let date = dt.getDate() < 10 ? "0" + dt.getDate() : dt.getDate();
+            let revImg = (revBest.revFile).split("|");
+            let revImgBox = "";
+            revImg.forEach((img)=>{
+                revImgBox += `<img src="img/review/${img}" alt="리뷰이미지">`;
+            });
+
             revBox += `<div class="m_rev_best_item">
-                            <div class="m_rev_best_img">
-                                <img src="img/review/${revBest.revFile}" alt="리뷰이미지">
-                            </div>
+                            <div class="m_rev_best_img">${revImgBox}</div>
                             <div class="m_rev_best_desc">
                                 <div class="m_rev_best_txt">
                                     ${revBest.revTxt}
@@ -55,49 +64,93 @@ $(document).ready(function(){
                                 <div class="m_rev_best_name">
                                     ${(revBest.userName).replace(/(?<=.{1})./gi, "*")}
                                 </div>
-                                <div class="m_rev_best_regDate">2023.12.04</div>
+                                <div class="m_rev_best_regDate">${year}.${month}.${date}</div>
                             </div>
                         </div>`;
         });
-                `<!--</div>-->
-<!--                <div class="m_rev_avr_area">-->
-<!--                    <div class="m_rev_avr_item">-->
-<!--                        ★4.9-->
-<!--                    </div>-->
-<!--                    <div class="m_rev_avr_chart">-->
-<!--                        <canvas id="losTop5Chart"></canvas>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="m_rev_sort">-->
-<!--                    <div class="sort">리뷰정렬-->
-<!--                        <ul class="sort_list sort_list_none" style="width: 70px">-->
-<!--                            <li>최신순</li>-->
-<!--                            <li>인기순</li>-->
-<!--                            <li>높은 별점순</li>-->
-<!--                            <li>낮은 별점순</li>-->
-<!--                        </ul>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="m_rev_area">-->
-<!--                    <div class="m_rev_item">-->
-<!--                        <div class="m_rev_title">-->
-<!--                            <div class="m_rev_name">송**</div>-->
-<!--                            <div class="m_rev_regDate">2023.12.04</div>-->
-<!--                        </div>-->
-<!--                        <div class="m_rev_score">★★★★☆</div>-->
-<!--                        <div class="m_rev_txt">-->
-<!--                            가볍고 안감이 부드러워 자꾸 손이 가는옷-->
-<!--                            다른 컬러도 구매 하려구요 옷이 편하면서도 넘 이뻐요 최고-->
-<!--                        </div>-->
-<!--                        <div class="m_rev_img">-->
-<!--                            <img src="<c:url value='/img/main_banner/main_banner_230915_1.jpg'/>" alt="">-->
-<!--                                <img src="<c:url value='/img/main_banner/main_banner_230915_1.jpg'/>" alt="">-->
-<!--                                    <img src="<c:url value='/img/main_banner/main_banner_230915_1.jpg'/>" alt="">-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->`;
+        revBox += `</div>
+                    <div class="m_rev_avr_area">
+                        <div class="m_rev_avr_item">
+                            ★${(((5*revChart.chart5) + (4*revChart.chart4) + (3*revChart.chart3) + (2*revChart.chart2) + (1*revChart.chart1)) / (revChart.chart5 + revChart.chart4 + revChart.chart3 + revChart.chart2 + revChart.chart1)).toFixed(1)}
+                        </div>
+                        <div class="m_rev_avr_chart">
+                            <canvas id="losTop5Chart"></canvas>
+                        </div>
+                    </div>
+                    <div class="m_rev_sort">
+                        <div class="sort">리뷰정렬
+                            <ul class="sort_list sort_list_none" style="width: 70px">
+                                <li>최신순</li>
+                                <li>인기순</li>
+                                <li>높은 별점순</li>
+                                <li>낮은 별점순</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="m_rev_area">`;
+        review.forEach((rev)=>{
+            let dt = new Date(rev.revRegDate);
+            let year = dt.getFullYear();
+            let month = dt.getMonth()+1 < 10 ? "0" + (dt.getMonth()+1) : dt.getMonth()+1;
+            let date = dt.getDate() < 10 ? "0" + dt.getDate() : dt.getDate();
+            let revImg = (rev.revFile).split("|");
+            let revImgBox = "";
+            revImg.forEach((img)=>{
+                revImgBox += `<img src="img/review/${img}" alt="리뷰이미지">`;
+            });
+            revBox += `<div class="m_rev_item">
+                            <div class="m_rev_title">
+                                <div class="m_rev_name">${(rev.userName).replace(/(?<=.{1})./gi, "*")}</div>
+                                <div class="m_rev_regDate">${year}.${month}.${date}</div>
+                            </div>
+                            <div class="m_rev_score">${"★".repeat(rev.revScore) + "☆".repeat(5-rev.revScore)}</div>
+                            <div class="m_rev_txt">${rev.revTxt}</div>
+                            <div class="m_rev_img">${revImgBox}</div>
+                        </div>`;
+        });
+        revBox += `</div>`;
+
+        $(function(){
+            dslosChart.init();
+        });
+
     }
     $("#m_review").append(revBox);
+
+    // 차트
+    const dslosChart = {
+        losChart: null,
+        chartData: {
+            labels: ["★5", "★4", "★3", "★2", "★1"],
+            datasets: [{
+                data: [revChart.chart5, revChart.chart4, revChart.chart3, revChart.chart2, revChart.chart1],
+                backgroundColor: '#111',
+                borderSkipped: false,
+                barThickness: 20,
+                borderRadius: [{topLeft: 20, topRight: 20, bottomLeft: 20, bottomRight: 20},],
+            }]
+        },
+        init: function () {
+            dslosChart.initChart();
+        },
+        initChart: function () {
+            dslosChart.losChart = new Chart($('#losTop5Chart'), {type: 'bar',});
+            dslosChart.getLosChart();
+        },
+        getLosChart: function () {
+            dslosChart.losChart.data = dslosChart.chartData;
+            dslosChart.losChart.options.plugins.datalabels = {display: false};
+            dslosChart.losChart.options = {
+                indexAxis: 'y',
+                scales: {
+                    x: {stacked: true, display: false,},
+                    y: {stacked: true,},
+                },
+                plugins: {legend: {display: false},},
+            }
+            dslosChart.losChart.update();
+        },
+    }
 
 
 /////////////////////////////////////

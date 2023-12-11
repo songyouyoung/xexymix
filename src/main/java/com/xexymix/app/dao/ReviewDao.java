@@ -24,7 +24,11 @@ public class ReviewDao {
         return session.selectList(namespace + "selectRev", revDesc);
     }
 
-    public List<ReviewDto> selectRevBest(String itemNo){
+    public List<ReviewDto> selectRevBest(Map<String, String> itemNo){
         return session.selectList(namespace + "selectRevBest", itemNo);
+    }
+
+    public int selectRevScore(Map<String, String> revDesc){
+        return session.selectOne(namespace + "selectRevScore", revDesc);
     }
 }
