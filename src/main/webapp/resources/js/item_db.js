@@ -435,7 +435,7 @@ function add_img_box(parents, item, i, j){ // 추가할 section, item_code, sect
             break;
         }
     }
-    let a = `<a href="/${C_PATH}/item.html?cate_no=${item_cate}&item_no=${item}"></a>`
+    let a = `<a href="/${C_PATH}/item/itemNo=${item}"></a>`
     let div = '<div class="imgbox"></div>';
     let div_desc = '<div class="item_desc"></div>';
     j = j == null? 0: j;
@@ -505,7 +505,6 @@ function get_url_info(key) {
         }
     }
     else {
-        console.log("없어")
         alert("잘못된 접근입니다.");
         location.replace('index.html')
     }

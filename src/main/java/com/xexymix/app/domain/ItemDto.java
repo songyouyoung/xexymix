@@ -16,7 +16,6 @@ public class ItemDto {
     private String itemImgSub;
     private String itemImgDetail;
     private int revCnt;
-    private int itemDis;
     private String itemSize;
     private String itemColor;
     private String itemUni;
@@ -25,6 +24,8 @@ public class ItemDto {
     private Date itemRegDate;
     private int itemCnt;
     private int itemSale;
+    private int evPer;
+    private String evTxt;
     private List<ItemDto> itemSub;
 
     public ItemDto() {}
@@ -115,14 +116,6 @@ public class ItemDto {
         this.revCnt = revCnt;
     }
 
-    public int getItemDis() {
-        return itemDis;
-    }
-
-    public void setItemDis(int itemDis) {
-        this.itemDis = itemDis;
-    }
-
     public String getItemSize() {
         return itemSize;
     }
@@ -183,6 +176,22 @@ public class ItemDto {
         return itemSub;
     }
 
+    public int getEvPer() {
+        return evPer;
+    }
+
+    public void setEvPer(int evPer) {
+        this.evPer = evPer;
+    }
+
+    public String getEvTxt() {
+        return evTxt;
+    }
+
+    public void setEvTxt(String evTxt) {
+        this.evTxt = evTxt;
+    }
+
     public void setItemSub(List<ItemDto> itemSub) {
         this.itemSub = itemSub;
     }
@@ -200,7 +209,6 @@ public class ItemDto {
                 ", itemImgSub='" + itemImgSub + '\'' +
                 ", itemImgDetail='" + itemImgDetail + '\'' +
                 ", revCnt=" + revCnt +
-                ", itemDis=" + itemDis +
                 ", itemSize='" + itemSize + '\'' +
                 ", itemColor='" + itemColor + '\'' +
                 ", itemUni='" + itemUni + '\'' +
@@ -208,6 +216,8 @@ public class ItemDto {
                 ", itemRegDate=" + itemRegDate +
                 ", itemCnt=" + itemCnt +
                 ", itemSale=" + itemSale +
+                ", evPer=" + evPer +
+                ", evTxt=" + evTxt +
                 ", itemSub=" + itemSub +
                 '}';
     }

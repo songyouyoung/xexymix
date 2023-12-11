@@ -48,7 +48,7 @@ $(document).ready(function(){
                             </a>`
     for(let i=0; i<9; i++){
         $(main_banner_item).appendTo('.swiper-wrapper');
-        $('.swiper-slide').eq(i).attr('href', `./item.html?cate_no=${cate_no}&item_no=${cate_item[i].item_code}`);
+        $('.swiper-slide').eq(i).attr('href', `/item?itemNo=${cate_item[i].item_code}`);
         $('.swiper-slide').eq(i).children('img').attr('src', `./img/item_list/${cate_item_img[i].main_src}`);
         $('.swiper-slide').eq(i).children('img').attr('alt', cate_item[i].title);
         $('.m_b_item_desc').eq(i).children('.desc_txt').eq(0).text(cate_item[i].cate.toUpperCase());

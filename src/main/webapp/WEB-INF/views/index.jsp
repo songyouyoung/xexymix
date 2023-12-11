@@ -1,7 +1,7 @@
 <%@ page import="java.util.Date" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" session = "false"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%--<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>--%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,7 +19,7 @@
         <section class="swiper main_banner">
             <div class="swiper-wrapper">
                 <c:forEach var="banner" items="${mainBanner}">
-                    <a class="swiper-slide" href="<c:url value='/item.jsp?itemNo=${banner.itemNo}'/>">
+                    <a class="swiper-slide" href="<c:url value='/item?itemNo=${banner.itemNo}'/>">
                         <img src="<c:url value='/img/main_banner/${banner.itemImg}'/>" alt="${banner.itemName}">
                         <div class="item_desc_none"></div>
                         <div class="m_b_item_desc">
@@ -39,7 +39,7 @@
                 <ul class="swiper-wrapper best_item_box">
 <%--                    <c:forEach var="best" items="${best}">--%>
 <%--                        <li class="swiper-slide">--%>
-<%--                            <a href="<c:url value='/item.jsp?itemNo=${best.itemNo}'/>">--%>
+<%--                            <a href="<c:url value='/item?itemNo=${best.itemNo}'/>">--%>
 <%--                                <div class="imgbox">--%>
 <%--                                    <img src="<c:url value='/img/item_list/hover/${best.itemImgSub}'/>" alt="${best.itemName}" class="img_hover">--%>
 <%--                                    <img src="<c:url value='/img/item_list/${best.itemImg}'/>" alt="${best.itemName}" class="img_orig">--%>
@@ -95,7 +95,7 @@
                     <c:forEach var="md" items="${mdPick}">
                         <div class = "swiper-slide">
                             <div class="md_pick_img">
-                                <a href="<c:url value='/item.jsp?itemNo=${md.itemNo}'/>">
+                                <a href="<c:url value='/item?itemNo=${md.itemNo}'/>">
                                     <img src="<c:url value='/img/item_list/${md.itemImg}'/>" alt="${md.itemName}" class="md_pick_img_item">
                                 </a>
                                 <div class="item_desc_none"></div>
@@ -105,7 +105,7 @@
                                 </div>
                                 <div class="md_pick_item">
 <%--                                    <c:forEach var="mdSub" items="${md.itemSub}">--%>
-<%--                                        <a href="<c:url value='/item.jsp?itemNo=${mdSub.itemNo}'/>">--%>
+<%--                                        <a href="<c:url value='/item?itemNo=${mdSub.itemNo}'/>">--%>
 <%--                                            <div class="imgbox">--%>
 <%--                                                <img src="<c:url value='/img/item_list/hover/${mdSub.itemImgSub}'/>" alt="${mdSub.itemName}" class="img_hover">--%>
 <%--                                                <img src="<c:url value='/img/item_list/${mdSub.itemImg}'/>" alt="${mdSub.itemName}" class="img_orig">--%>
@@ -159,7 +159,7 @@
 <%--            <c:forEach var="cateAll" items="${cate}">--%>
 <%--                <section class="m_item_list_box">--%>
 <%--                    <c:forEach var="cate" items="${cateAll}">--%>
-<%--                        <a href="<c:url value='/item.jsp?itemNo=${cate.itemNo}'/>">--%>
+<%--                        <a href="<c:url value='/item?itemNo=${cate.itemNo}'/>">--%>
 <%--                            <div class="imgbox">--%>
 <%--                                <img src="<c:url value='/img/item_list/hover/${cate.itemImgSub}'/>" alt="${cate.itemName}" class="img_hover">--%>
 <%--                                <img src="<c:url value='/img/item_list/${cate.itemImg}'/>" alt="${cate.itemName}" class="img_orig">--%>
@@ -244,7 +244,6 @@
     let mdPick = ${mdPick_js};
     let i = 1;
     mdPick.forEach((md)=>{
-        console.log(i, md.itemSub)
         itemBox(md.itemSub, ".md_pick .swiper-slide:nth-child(" + i + ") .md_pick_item", "", "");
         i+=1;
     });
@@ -261,7 +260,7 @@
     i = 1;
     cate.forEach((cateItem)=>{
         $(".m_item_box").append(itemList);
-        itemBox(cateItem, ".m_item_list_box:nth-child(" + i++ + ")", "", "", );
+        itemBox(cateItem, ".m_item_list_box:nth-of-type(" + i++ + ")", "", "", );
     })
 </script>
 </body>

@@ -42,7 +42,7 @@ $(document).ready(function(){
         //             break;
         //         }
         //     }
-        //     let a = `<a href="/${C_PATH}/item.html?cate_no=${item_cate}&item_no=${MDPICK[i][0]}"></a>`;
+        //     let a = `<a href="/${C_PATH}/item?itemNo=${MDPICK[i][0]}"></a>`;
         //     $('.md_pick .md_pick_img').eq(i).append(a);
         //     let img = `<img src="/${C_PATH}/img/item_list/hover/${item_img.hover_src}" alt="" class = "md_pick_img_item">`;
         //     $('.md_pick .md_pick_img').eq(i).children('a').append(img);

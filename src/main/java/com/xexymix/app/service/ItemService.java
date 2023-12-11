@@ -51,29 +51,45 @@ public class ItemService {
         cateDesc.put("val", "mens");
         cateDesc.put("limit", "28");
         cate.add(itemDao.selectItem(cateDesc));
-
+        System.out.println("cate mens : " + itemDao.selectItem(cateDesc));
         // top
         cateDesc.put("val", "top");
         cateDesc.put("limit", "28");
         cate.add(itemDao.selectItem(cateDesc));
+        System.out.println("cate top : " + itemDao.selectItem(cateDesc));
         // bottom
         cateDesc.put("val", "bottom");
         cateDesc.put("limit", "28");
         cate.add(itemDao.selectItem(cateDesc));
+        System.out.println("cate bottom : " + itemDao.selectItem(cateDesc));
         // outer
         cateDesc.put("val", "outer");
         cateDesc.put("limit", "20");
         cate.add(itemDao.selectItem(cateDesc));
+        System.out.println("cate outer : " + itemDao.selectItem(cateDesc));
         // golf
         cateDesc.put("val", "golf");
         cateDesc.put("limit", "16");
         cate.add(itemDao.selectItem(cateDesc));
+        System.out.println("cate golf : " + itemDao.selectItem(cateDesc));
         // kids
         cateDesc.put("val", "kids");
         cateDesc.put("limit", "16");
         cate.add(itemDao.selectItem(cateDesc));
+        System.out.println("cate kids : " + itemDao.selectItem(cateDesc));
 
         indexList.put("cate", cate);
+        System.out.println("indexList : " + indexList);
+        System.out.println("indexList mdPick : " + indexList.get("mdPick"));
         return indexList;
+    }
+
+///////////////////
+//    상세페이지
+///////////////////
+    public Map<String, Object> showItemDetail(String itemNo){
+        Map<String, Object> itemDetail = new HashMap<>();
+        itemDetail.put("item", itemDao.selectItemDetail(itemNo));
+        return itemDetail;
     }
 }

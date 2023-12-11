@@ -10,46 +10,15 @@ $(document).mouseup(function (e){
 });
 
 $(document).ready(function(){
-    const C_PATH = (location.pathname).split("/")[1];
-/////////////////////////////////////
-//////////// cate 값 인식 ///////////
-/////////////////////////////////////
-    let cate_code = +get_url_info("cate_no");
-    let item_code = get_url_info("item_no");
-    let item_info = find_item(ITEM_INFO, item_code);
-    let item_src = find_item(ITEM_IMG, item_code);
+    let orderPrice;
+    if(item.evPer != null && item.evPer > 0){
+        orderPrice = Math.ceil(item.itemPrice / 100 * (100 - item.evPer));
+    }else{ orderPrice = item.itemPrice; }
 
 /////////////////////////////////////
-//////////// 정보 불러오기 ///////////
+///// item info box정보 불러오기 /////
 /////////////////////////////////////
-    $('.m_h_img > img').attr('src', './img/item_list/'+item_src.main_src);
-    $('.m_h_img > img').attr('alt', item_info.title);
-    $('.item_title').text(item_info.title);
-    let item_info_box="";
-    if(item_info.color+"" != ""){
-        item_info_box += `<img src = "/${C_PATH}/img/icon/${ICON_IMG[3][item_info.color]}" alt="${ICON_IMG[4][item_info.color]}">`;
-    }
-    if(item_info.item_info_1+"" != ""){
-        item_info_box += `<img src = "/${C_PATH}/img/icon/${ICON_IMG[0][item_info.item_info_1]}" alt="${ICON_IMG[1][item_info.item_info_1]}">`;
-        getSize(item_info.item_info_1);
-    }
-    if(item_info.item_info_2+"" != ""){
-        item_info_box += `<img src = "/${C_PATH}/img/icon/${ICON_IMG[0][item_info.item_info_2]}" alt="${ICON_IMG[1][item_info.item_info_2]}">`;
-        getSize(item_info.item_info_2);
-    }
-    if(item_info.item_info_3+"" != ""){
-        item_info_box += `<img src = "/${C_PATH}/img/icon/${ICON_IMG[0][item_info.item_info_3]}" alt="${ICON_IMG[1][item_info.item_info_3]}">`;
-        getSize(item_info.item_info_3);
-    }
-    if(item_info.item_hot+"" != ""){
-        item_info_box += `<img src = "/${C_PATH}/img/icon/${ICON_IMG[2][0]}" alt="${ICON_IMG[2][1]}">`;
-    }
-    $('.item_info_box').append(item_info_box);
-    $('.item_txt > span').text(item_info.desc);
-    $('.item_txt_event').text(item_info.ec_desc);
-    $('.item_code').text(item_code);
-    $('.item_price').text(item_info.s_price.toLocaleString('ko'));
-    if(item_info.s_price != item_info.o_price) $('.item_orig_price').text(item_info.o_price.toLocaleString('ko'));
+    $(".item_info_box").append(infoBox(item));
     
 /////////////////////////////////////
 ////////// 사이즈 옵션 추가 //////////
@@ -65,21 +34,71 @@ $(document).ready(function(){
         }
     }
 
+//////////////////////////////////////
+/////////// 상품 후기 출력 ////////////
 /////////////////////////////////////
-/////////// 멤버쉽 할인가 ////////////
-/////////////////////////////////////
-    let mem_sale = $('.mem_sale_box');
-    $(document).on('click', '.mem_sale > span', function(){
-        mem_sale.removeClass('mem_sale_box_none');
-    });
-    $(document).on('click', '.mem_sale_box tr:first-child > *', function(){
-        mem_sale.addClass('mem_sale_box_none');
-    });
-    mem_sale.find('.mem_sale_price').eq(0).text((item_info.s_price * 0.9).toLocaleString('ko'));
-    mem_sale.find('.mem_sale_price').eq(1).text((item_info.s_price * 0.93).toLocaleString('ko'));
-    mem_sale.find('.mem_sale_price').eq(2).text((item_info.s_price * 0.95).toLocaleString('ko'));
-    mem_sale.find('.mem_sale_price').eq(3).text((item_info.s_price * 0.97).toLocaleString('ko'));
-    mem_sale.find('.mem_sale_price').eq(4).text((item_info.s_price * 0.99).toLocaleString('ko'));
+    let revBox = "";
+    if(item.revCnt == 0){
+        revBox = `<p class="m_none">아직 작성한 리뷰가 없습니다.</p>`;
+    }else{
+        revBox += `<div class="m_rev_best_title">베스트 리뷰</div>
+                <div class="m_rev_best_area">`
+        reviewBest.forEach((revBest)=>{
+            revBox += `<div class="m_rev_best_item">
+                            <div class="m_rev_best_img">
+                                <img src="img/review/${revBest.revFile}" alt="리뷰이미지">
+                            </div>
+                            <div class="m_rev_best_desc">
+                                <div class="m_rev_best_txt">
+                                    ${revBest.revTxt}
+                                </div>
+                                <div class="m_rev_best_name">
+                                    ${(revBest.userName).replace(/(?<=.{1})./gi, "*")}
+                                </div>
+                                <div class="m_rev_best_regDate">2023.12.04</div>
+                            </div>
+                        </div>`;
+        });
+                `<!--</div>-->
+<!--                <div class="m_rev_avr_area">-->
+<!--                    <div class="m_rev_avr_item">-->
+<!--                        ★4.9-->
+<!--                    </div>-->
+<!--                    <div class="m_rev_avr_chart">-->
+<!--                        <canvas id="losTop5Chart"></canvas>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="m_rev_sort">-->
+<!--                    <div class="sort">리뷰정렬-->
+<!--                        <ul class="sort_list sort_list_none" style="width: 70px">-->
+<!--                            <li>최신순</li>-->
+<!--                            <li>인기순</li>-->
+<!--                            <li>높은 별점순</li>-->
+<!--                            <li>낮은 별점순</li>-->
+<!--                        </ul>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="m_rev_area">-->
+<!--                    <div class="m_rev_item">-->
+<!--                        <div class="m_rev_title">-->
+<!--                            <div class="m_rev_name">송**</div>-->
+<!--                            <div class="m_rev_regDate">2023.12.04</div>-->
+<!--                        </div>-->
+<!--                        <div class="m_rev_score">★★★★☆</div>-->
+<!--                        <div class="m_rev_txt">-->
+<!--                            가볍고 안감이 부드러워 자꾸 손이 가는옷-->
+<!--                            다른 컬러도 구매 하려구요 옷이 편하면서도 넘 이뻐요 최고-->
+<!--                        </div>-->
+<!--                        <div class="m_rev_img">-->
+<!--                            <img src="<c:url value='/img/main_banner/main_banner_230915_1.jpg'/>" alt="">-->
+<!--                                <img src="<c:url value='/img/main_banner/main_banner_230915_1.jpg'/>" alt="">-->
+<!--                                    <img src="<c:url value='/img/main_banner/main_banner_230915_1.jpg'/>" alt="">-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->`;
+    }
+    $("#m_review").append(revBox);
+
 
 /////////////////////////////////////
 ///////////// 상품 선택 /////////////
@@ -94,7 +113,7 @@ $(document).ready(function(){
                 if(item_order[item_no][0] == size_val){
                     item_order[item_no][1] += 1;
                     $('.order_cnt').eq(item_no).text(item_order[item_no][1]);
-                    $('.order_price').eq(item_no).text((item_info.s_price * item_order[item_no][1]).toLocaleString('ko'));
+                    $('.order_price').eq(item_no).text((orderPrice * item_order[item_no][1]).toLocaleString('ko'));
                     break;
                 }else if(item_order[item_no][0] == ""){
                     item_order[item_no][0] = size_val;
@@ -109,8 +128,8 @@ $(document).ready(function(){
                                         <div class="order_plus"></div>
                                     </div>`;
                     $('.order_item').eq(item_no).append(order_cnt);
-                    let order_price = `<div class="order_price">${item_info.s_price.toLocaleString('ko')}</div>`;
-                    $('.order_item').eq(item_no).append(order_price);
+                    let orderBox = `<div class="order_price">${orderPrice.toLocaleString('ko')}</div>`;
+                    $('.order_item').eq(item_no).append(orderBox);
                     let order_del = `<div class="order_del"></div>`;
                     $('.order_item').eq(item_no).append(order_del);
                     break;
@@ -124,7 +143,7 @@ $(document).ready(function(){
         if(item_order[item_no][1] > 1){
             item_order[item_no][1] -= 1;
             $('.order_cnt').eq(item_no).text(item_order[item_no][1]);
-            $('.order_price').eq(item_no).text((item_info.s_price * item_order[item_no][1]).toLocaleString('ko'));
+            $('.order_price').eq(item_no).text((orderPrice * item_order[item_no][1]).toLocaleString('ko'));
             getPriceTotal();
         }else{
             alert("해당 상품은 최소구매 수량이 1개 입니다.");
@@ -134,7 +153,7 @@ $(document).ready(function(){
         let item_no = $(this).parent().parent().index();
         item_order[item_no][1] += 1;
         $('.order_cnt').eq(item_no).text(item_order[item_no][1]);
-        $('.order_price').eq(item_no).text((item_info.s_price * item_order[item_no][1]).toLocaleString('ko'));
+        $('.order_price').eq(item_no).text((orderPrice * item_order[item_no][1]).toLocaleString('ko'));
         getPriceTotal();
     });
     $(document).on('click', '.order_del', function(){
@@ -196,13 +215,13 @@ $(document).ready(function(){
         if(scrollChk){
             $('.m_nav > div').removeClass('m_nav_after');
             if($(window).scrollTop() >= nav_qna - 1){
-                $("a[href='#m_qna'").parent().addClass('m_nav_after');
+                $("a[href='#m_qna']").parent().addClass('m_nav_after');
             }else if($(window).scrollTop() >= nav_post - 1){
-                $("a[href='#m_post'").parent().addClass('m_nav_after');
+                $("a[href='#m_post']").parent().addClass('m_nav_after');
             }else if($(window).scrollTop() >= nav_detail - 1){
-                $("a[href='#m_detail'").parent().addClass('m_nav_after');
+                $("a[href='#m_detail']").parent().addClass('m_nav_after');
             }else{
-                $("a[href='#m_review'").parent().addClass('m_nav_after');
+                $("a[href='#m_review']").parent().addClass('m_nav_after');
             }
         }
     });

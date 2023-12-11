@@ -3,7 +3,6 @@ $(document).ready(function(){
 ///////////// 공용 //////////////
 /////////////////////////////////
     $(document).on('click', '.pw_img', function(){
-        console.log($("#pw").prop("type"))
         let pw = $(this).parent().children("input");
         pw.prop("type")== "text" ? pw.prop("type", "password") : pw.prop("type", "text")
         $(this).toggleClass('pw_chk');

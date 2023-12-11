@@ -51,23 +51,23 @@ const itemBox = (items, itemsBox, addFir, addLa) => {
     items.forEach((item) => {
         itemAppend += addFir;
         let itemPrice = '<div class="item_price">';
-        if(item.itemDis > 0){
-            itemPrice += `${(Math.ceil(item.itemPrice / 100 * (100 - item.itemDis))).toLocaleString("ko")}
+        let itemEvent = "<span class=\"item_txt_event\">";
+        if(item.evPer != null && item.evPer > 0){
+            itemPrice += `${(Math.ceil(item.itemPrice / 100 * (100 - item.evPer))).toLocaleString("ko")}
                             <span class="item_orig_price">
                                 ${(Math.ceil(item.itemPrice)).toLocaleString("ko")}
                             </span>`;
+            itemEvent += item.evTxt;
+            itemEvent += "</span><br>";
         }else{
             itemPrice += `${(Math.ceil(item.itemPrice)).toLocaleString("ko")}`;
         }
         itemPrice += `</div>`;
 
-        let itemEvent = "<span class=\"item_txt_event\">";
-        if(item.itemDis > 0){ itemEvent += "[1/22(월) 2PM까지 20% 겨울특가대전]"; }
-        itemEvent += "</span><br>";
 
         let itemTxt = '<div class="item_txt">';
         let itemTxtChk = false;
-        if (item.itemDis > 0){
+        if (item.evPer != null && item.evPer > 0){
             itemTxt += itemEvent;
             itemTxtChk = true;
         }
@@ -78,7 +78,7 @@ const itemBox = (items, itemsBox, addFir, addLa) => {
         itemTxt += '</div>';
         if(!itemTxtChk){ itemTxt=""; }
 
-        itemAppend += `<a href="item.jsp?itemNo=${item.itemNo}">
+        itemAppend += `<a href="item?itemNo=${item.itemNo}">
                         <div class="imgbox">
                             <img src="img/item_list/hover/${item.itemImgSub}" alt="${item.itemName}" class="img_hover">
                                 <img src="img/item_list/${item.itemImg}" alt="${item.itemName}" class="img_orig">
@@ -116,7 +116,7 @@ const infoBox = (item)=>{
     if(((today.getMonth() == 7 || today.getMonth() == 8) && (regDate.getMonth() == 11 || regDate.getMonth() == 12))
         || ((today.getMonth() == 12 || today.getMonth() == 1) && (regDate.getMonth() == 6 || regDate.getMonth() == 7))){
         itemInfoBox += `<img src="img/icon/3561.gif" alt="시즌오프">`; }
-    if (item.itemDis != null && item.itemDis > 0){
+    if (item.evPer != null && item.evPer > 0){
         itemInfoBox += `<img src="img/icon/3525.gif" alt="이벤트특가">`; }
     if (item.itemEco != null && item.itemEco != ""){
         itemInfoBox += `<img src="img/icon/` + item.itemEco + `" alt="친환경">`; }
@@ -126,7 +126,7 @@ const infoBox = (item)=>{
         itemInfoBox += `<img src="img/icon/` + item.itemColor + `" alt="컬러">`; }
     if (item.itemSize != null && item.itemSize != ""){
         itemInfoBox += `<img src="img/icon/` + item.itemSize + `" alt="사이즈">`; }
-    if (item.itemCnt < 20){
+    if (item.itemCnt < 20 && item.itemCnt != 0){
         itemInfoBox += `<img src="img/icon/3442.gif" alt="주문폭주">`; }
 
     return itemInfoBox;
