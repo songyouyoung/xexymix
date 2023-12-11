@@ -20,7 +20,7 @@
         <div class="logo"><a href="<c:url value='/'/>">xexymix</a></div>
         <div class="h_t_R">
             <div class="search_box">
-                <div class="search_txt"><a href="#">가을 특가 대전. 젝시믹스에 역대급 혜택이 쏟아진다!</a></div>
+                <div class="search_txt"><a href="#">겨울 특가 대전. 젝시믹스에 역대급 혜택이 쏟아진다!</a></div>
                 <div class="search_txt"><a href="#">오늘의 신상. 입는 순간 느껴지는 기분 좋은 편안함. </a></div>
                 <div class="search_txt"><a href="#">2023 올해의 브랜드 대상 수상 기념 1+1</a></div>
                 <div class="search_txt"><a href="#">3년 연속 애슬레저 1위의 자부심. 젝시믹스 베스트 특가전</a></div>
@@ -166,7 +166,7 @@
         <div class="w_h_f">
             <ul class="h_b_nav_L">
                 <li class="h_b logo"><a href="<c:url value='/'/>">xexymix</a></li>
-                <li><a href="#">가을특가대전</a></li>
+                <li><a href="#">겨울특가대전</a></li>
                 <li><a href="#">신상할인</a></li>
                 <li><a href="#">베스트</a></li>
                 <li class="nav_pan_hover">

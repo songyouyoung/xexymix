@@ -60,6 +60,24 @@ const itemBox = (items, itemsBox, addFir, addLa) => {
             itemPrice += `${(Math.ceil(item.itemPrice)).toLocaleString("ko")}`;
         }
         itemPrice += `</div>`;
+
+        let itemEvent = "<span class=\"item_txt_event\">";
+        if(item.itemDis > 0){ itemEvent += "[1/22(월) 2PM까지 20% 겨울특가대전]"; }
+        itemEvent += "</span><br>";
+
+        let itemTxt = '<div class="item_txt">';
+        let itemTxtChk = false;
+        if (item.itemDis > 0){
+            itemTxt += itemEvent;
+            itemTxtChk = true;
+        }
+        if(item.itemDesc != null){
+            itemTxt += item.itemDesc;
+            itemTxtChk = true;
+        }
+        itemTxt += '</div>';
+        if(!itemTxtChk){ itemTxt=""; }
+
         itemAppend += `<a href="item.jsp?itemNo=${item.itemNo}">
                         <div class="imgbox">
                             <img src="img/item_list/hover/${item.itemImgSub}" alt="${item.itemName}" class="img_hover">
@@ -77,10 +95,7 @@ const itemBox = (items, itemsBox, addFir, addLa) => {
                             <div class="item_info_box">
                                 ${infoBox(item)}
                             </div>
-                            <div class="item_txt">
-                                <span class="item_txt_event"></span>
-                                ${item.itemDesc == null? "" : item.itemDesc}
-                            </div>
+                            ${itemTxt}
                         </div>
                     </a>`
         itemAppend += addLa;
