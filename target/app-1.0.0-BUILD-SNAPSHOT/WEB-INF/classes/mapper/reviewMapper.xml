@@ -36,7 +36,7 @@
     <select id="selectRevBest" parameterType="String" resultType="reviewDto">
         select revNo, userNo, userName, revScore, revTxt, revRegDate, revLike, revFile
             from review
-                where itemNo = #{itemNo}
+                where itemNo = #{itemNo} and revFile is not null
         order by revLike desc
         limit 0, 4
     </select>

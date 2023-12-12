@@ -8,8 +8,47 @@ $(document).mouseup(function (e){
         document.getElementsByClassName('sort_list')[0].classList.toggle('sort_list_none');
     });
 });
+/////////////////////////////////////
+////////////// 문의 선택 /////////////
+/////////////////////////////////////
+$(document).on('click', '.m_qna_area td', function(){
+    // if(userNo == ""){
+    //     Swal.fire({
+    //         icon: "warning",
+    //         title: "로그인이 필요한 서비스입니다. "
+    //     }).then(()=>{
+    //         location.href = "/" + C_PATH + "/login?prevPage="+location.pathname+"?itemNo="+itemNo;
+    //     });
+    // }else if (qna[($(this).parent()).index()].userNo == userNo && qnaWrapChk){
+            var jspPageURL = "/" + C_PATH + "/read/qna";
+            $.ajax({
+                url: jspPageURL,
+                type: "GET",
+                success: function(data) {
+                    $("#wrap").append(data);
+                    $(".w_h_title").html("ㅎㅎ");
+                },
+                error: function() {
+                    console.error("Failed to load JSP content.");
+                }
+            });
+        // });
+    // }else{
+    // }
+});
 
 $(document).ready(function(){
+// 리뷰 페이지네이션
+    let revPage = (revMaxCnt / 5) + 1; // 총 페이지 개수
+    let nowRevPage = 1; // 현재 페이지
+    let startRevNo = 0; // 시작 글 번호
+    let endRevNo = 4; // 끝 글 번호
+// 문의 페이지네이션
+    let qnaPage = (qnaMaxCnt / 10) + 1; // 총 페이지 개수
+    let nowQnaPage = 1; // 현재 페이지
+    let startQnaNo = 0; // 시작 글 번호
+    let endQnaNo = 4; // 끝 글 번호
+
     let orderPrice;
     if(item.evPer != null && item.evPer > 0){
         orderPrice = Math.ceil(item.itemPrice / 100 * (100 - item.evPer));
@@ -42,32 +81,34 @@ $(document).ready(function(){
         revBox = `<p class="m_none">아직 작성한 리뷰가 없습니다.</p>`;
     }else{
         // 베스트 리뷰
-        revBox += `<div class="m_rev_best_title">베스트 리뷰</div>
-                <div class="m_rev_best_area">`
-        reviewBest.forEach((revBest)=>{
-            let dt = new Date(revBest.revRegDate);
-            let year = dt.getFullYear();
-            let month = dt.getMonth()+1 < 10 ? "0" + (dt.getMonth()+1) : dt.getMonth()+1;
-            let date = dt.getDate() < 10 ? "0" + dt.getDate() : dt.getDate();
-            let revImg = (revBest.revFile).split("|");
-            let revImgBox = "";
-            revImg.forEach((img)=>{
-                revImgBox += `<img src="img/review/${img}" alt="리뷰이미지">`;
-            });
+        if (reviewBest.length > 0){
+            revBox += `<div class="m_rev_best_title">베스트 리뷰</div>
+                    <div class="m_rev_best_area">`
+            reviewBest.forEach((revBest)=>{
+                let dt = new Date(revBest.revRegDate);
+                let year = dt.getFullYear();
+                let month = dt.getMonth()+1 < 10 ? "0" + (dt.getMonth()+1) : dt.getMonth()+1;
+                let date = dt.getDate() < 10 ? "0" + dt.getDate() : dt.getDate();
+                let revImg = revBest.revFile == null?"":(revBest.revFile).split("|");
+                let revImgBox = "";
+                console.log("img", revImg[0]);
+                revImg == ""? "": revImgBox += `<img src="img/review/${revImg[0]}" alt="리뷰이미지">`;
 
-            revBox += `<div class="m_rev_best_item">
-                            <div class="m_rev_best_img">${revImgBox}</div>
-                            <div class="m_rev_best_desc">
-                                <div class="m_rev_best_txt">
-                                    ${revBest.revTxt}
+                revBox += `<div class="m_rev_best_item">
+                                <div class="m_rev_best_img">${revImgBox}</div>
+                                <div class="m_rev_best_desc">
+                                    <div class="m_rev_best_txt">
+                                        ${revBest.revTxt}
+                                    </div>
+                                    <div class="m_rev_best_name">
+                                        ${(revBest.userName).slice(0, 1)+"**"}
+                                    </div>
+                                    <div class="m_rev_best_regDate">${year}.${month}.${date}</div>
                                 </div>
-                                <div class="m_rev_best_name">
-                                    ${(revBest.userName).replace(/(?<=.{1})./gi, "*")}
-                                </div>
-                                <div class="m_rev_best_regDate">${year}.${month}.${date}</div>
-                            </div>
-                        </div>`;
-        });
+                            </div>`;
+            });
+        }
+        //리뷰 차트 & 리뷰 정렬
         revBox += `</div>
                     <div class="m_rev_avr_area">
                         <div class="m_rev_avr_item">
@@ -88,32 +129,52 @@ $(document).ready(function(){
                         </div>
                     </div>
                     <div class="m_rev_area">`;
+
+        // 전체 리뷰
         review.forEach((rev)=>{
             let dt = new Date(rev.revRegDate);
             let year = dt.getFullYear();
             let month = dt.getMonth()+1 < 10 ? "0" + (dt.getMonth()+1) : dt.getMonth()+1;
             let date = dt.getDate() < 10 ? "0" + dt.getDate() : dt.getDate();
-            let revImg = (rev.revFile).split("|");
+            let revImg = rev.revFile == null?"":(rev.revFile).split("|");
             let revImgBox = "";
-            revImg.forEach((img)=>{
-                revImgBox += `<img src="img/review/${img}" alt="리뷰이미지">`;
+            revImg == ""? "" : revImg.forEach((img)=>{
+                revImgBox += `<div class="m_rev_img_box">
+                                <img src="img/review/${img}" alt="리뷰이미지">
+                            </div>`;
             });
+            let revUD = "";
+            if (rev.userNo == userNo){
+                revUD = `<div class="m_rev_update">수정</div>
+                        <div class="m_rev_delete">삭제</div>`;
+            }
             revBox += `<div class="m_rev_item">
                             <div class="m_rev_title">
-                                <div class="m_rev_name">${(rev.userName).replace(/(?<=.{1})./gi, "*")}</div>
-                                <div class="m_rev_regDate">${year}.${month}.${date}</div>
+                                <div class="m_rev_name">${(rev.userName).slice(0, 1)+"**"}</div>
+                                <div class="m_rev_right">
+                                    <div class="m_rev_regDate">${year}.${month}.${date}</div>
+                                    ${revUD}
+                                </div>
                             </div>
                             <div class="m_rev_score">${"★".repeat(rev.revScore) + "☆".repeat(5-rev.revScore)}</div>
                             <div class="m_rev_txt">${rev.revTxt}</div>
                             <div class="m_rev_img">${revImgBox}</div>
                         </div>`;
         });
-        revBox += `</div>`;
 
+        // 페이지네이션
+        revBox += `<div class="pagination">`;
+        for(let i = 1; i <= revPage; i++){
+            revBox += `<span class="page">${i}</span>`;
+        }
+        revBox += revPage > 10 ? `<span class="nextBtn">&gt;</span>` : "";
+        revBox += `</div>
+                </div>`;
+
+        //차트
         $(function(){
             dslosChart.init();
         });
-
     }
     $("#m_review").append(revBox);
 
@@ -152,9 +213,54 @@ $(document).ready(function(){
         },
     }
 
+/////////////////////////////////////
+///////////// 문의 출력 //////////////
+/////////////////////////////////////
+    let qnaBox = "";
+    console.log("qna크기", qna.length);
+    if(qna.length == 0){
+        qnaBox = `<p class="m_none">아직 작성한 리뷰가 없습니다.</p>`;
+    }else{
+        qnaBox += `<table class="m_qna_area">
+                        <tr>
+                            <th>번호</th>
+                            <th>제목</th>
+                            <th>작성자</th>
+                            <th>작성일</th>
+                        </tr>`;
+        // 전체 문의
+        let i = 1;
+        qna.forEach((qna)=>{
+            let dt = new Date(qna.qnaRegDate);
+            let year = dt.getFullYear();
+            let month = dt.getMonth()+1 < 10 ? "0" + (dt.getMonth()+1) : dt.getMonth()+1;
+            let date = dt.getDate() < 10 ? "0" + dt.getDate() : dt.getDate();
+            qnaBox += `<tr>
+                            <td class="qnaNo">${i++}</td>
+                            <td>상품관련 문의 드립니다</td>
+                            <td>${(qna.userName).slice(0, 1)+"**"}</td>
+                            <td>${year}.${month}.${date}</td>
+                        </tr>`;
+        });
+        qnaBox += `</table>`;
+
+        // 페이지네이션
+        qnaBox += `<div class="pagination">`;
+        for(let i = 1; i <= qnaPage; i++){
+            qnaBox += `<span class="page">${i}</span>`;
+        }
+        qnaBox += qnaPage > 10 ? `<span class="nextBtn">&gt;</span>` : "";
+        qnaBox += `</div>`;
+
+        //차트
+        $(function(){
+            dslosChart.init();
+        });
+    }
+    $("#m_qna").append(qnaBox);
 
 /////////////////////////////////////
-///////////// 상품 선택 /////////////
+///////////// 상품 선택 //////////////
 /////////////////////////////////////
     let item_order = Array.from(Array($('#size').children().length-1), () => new Array(2).fill(""));
     $(document).on('click', '#size', function(){
@@ -228,6 +334,11 @@ $(document).ready(function(){
         }
         $('.price_total > span').text(price_total.toLocaleString('ko'));
     }
+
+/////////////////////////////////////
+////////// 리뷰 페이지 선택 ///////////
+/////////////////////////////////////
+    
 /////////////////////////////////////
 ////////// 내부 스크롤 이동 //////////
 /////////////////////////////////////

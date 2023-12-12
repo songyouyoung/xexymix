@@ -1,6 +1,5 @@
 package com.xexymix.app.dao;
 
-import com.xexymix.app.domain.ItemDto;
 import com.xexymix.app.domain.ReviewDto;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
