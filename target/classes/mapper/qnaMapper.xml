@@ -18,4 +18,8 @@
                 where itemNo = #{itemNo}
         limit ${limit}, 10
     </select>
+    <!-- 문의 수정 -->
+    <update id="updateQna" parameterType="String">
+        update qna set qnaTxt = #{qnaTxt} where qnaNo = #{qnaNo}
+    </update>
 </mapper>

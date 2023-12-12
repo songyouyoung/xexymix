@@ -17,6 +17,20 @@ public class QnaDto {
     private String qnaFile;
     private String qnaAnswer;
 
+    public QnaDto() {
+    }
+
+    public QnaDto(int qnaNo, String qnaTxt) {
+        this.qnaNo = qnaNo;
+        this.qnaTxt = qnaTxt;
+    }
+
+    public QnaDto(int qnaNo, String qnaTxt, String qnaFile) {
+        this.qnaNo = qnaNo;
+        this.qnaTxt = qnaTxt;
+        this.qnaFile = qnaFile;
+    }
+
     public int getQnaNo() {
         return qnaNo;
     }

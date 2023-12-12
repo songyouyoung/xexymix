@@ -2,19 +2,26 @@ package com.xexymix.app.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.xexymix.app.domain.QnaDto;
 import com.xexymix.app.service.ItemService;
 import com.xexymix.app.service.QnaService;
 import com.xexymix.app.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
+import java.io.File;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
+@RequestMapping("/item")
 public class ItemController {
     @Autowired
     ItemService itemService;
@@ -23,7 +30,7 @@ public class ItemController {
     @Autowired
     QnaService qnaService;
 
-    @GetMapping("/item")
+    @GetMapping("")
     public String showItem(HttpSession session, String itemNo, Model model) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
         String item_js = mapper.writeValueAsString(itemService.showItemDetail(itemNo).get("item"));
@@ -47,13 +54,31 @@ public class ItemController {
         model.addAttribute("reviewChart_js", reviewChart_js);
         model.addAttribute("qnaMaxCnt", qnaService.cntQna(itemNo));
         model.addAttribute("qna_js", qna_js);
-        System.out.println("qna" + qna_js);
 
         return "item";
     }
 
-    @GetMapping("/read/qna")
+    @GetMapping("/qna/detail")
     public String showQnaDetail(){
         return "write_qna";
+    }
+    private static final String F_PATH = "C:/Users/user/Desktop/portfolio/github/xexymix/src/main/webapp/resources/img/qna/";
+    @PostMapping("/qna/update")
+    public String updateQna(@RequestParam(value="qFile", required = false) List<MultipartFile> files, @RequestParam(value="w_img", required = false) List<MultipartFile> imgFiles, QnaDto qnaDesc){
+        System.out.println("qnaDesc : " + qnaDesc);
+        System.out.println("imgFiles : " + imgFiles);
+
+        for(MultipartFile mf : files) {
+            String originalFileName = mf.getOriginalFilename();
+            String safeFile = F_PATH + System.currentTimeMillis() + originalFileName;
+            System.out.println("originalFileName: " + originalFileName);
+            System.out.println("safeFile: " + safeFile);
+            try {
+                mf.transferTo(new File(safeFile));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return "";
     }
 }

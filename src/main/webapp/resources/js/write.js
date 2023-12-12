@@ -45,9 +45,13 @@ function getImageFiles(e) {
 function createElement(e, file) {
     const div = document.createElement('div');
     div.setAttribute('class', 'w_m_file_item');
-    const img = document.createElement('img');
+    const img = document.createElement('input');
+    console.log("asdfasdf");
+    img.setAttribute('type', "image");
     img.setAttribute('src', e.target.result);
     img.setAttribute('data-file', file.name);
+    img.setAttribute('name', "w_img");
+    img.setAttribute('value', e.target.result);
     div.appendChild(img);
     return div;
 }

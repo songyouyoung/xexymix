@@ -12,8 +12,11 @@ $(document).mouseup(function (e){
 /////////////////////////////////////
 ////////////// 문의 선택 /////////////
 /////////////////////////////////////
+let qnaUpdateChk = false;
+let qnaNo;
 $(document).on('click', '.m_qna_area td', function(){
     let thisQna = qna[($(this).parent()).index() - 1];
+    qnaNo = thisQna.qnaNo;
     // if(userNo == ""){
     //     Swal.fire({
     //         icon: "warning",
@@ -22,50 +25,76 @@ $(document).on('click', '.m_qna_area td', function(){
     //         location.href = "/" + C_PATH + "/login?prevPage="+location.pathname+"?itemNo="+itemNo;
     //     });
     // }else if (thisQna.userNo == userNo && qnaWrapChk){
-            console.log("index", ($(this).parent()).index());
-            console.log(thisQna);
-            let jspPageURL = "/" + C_PATH + "/read/qna";
-            $.ajax({
-                url: jspPageURL,
-                type: "GET",
-                success: function(data) {
-                    $("#wrap").append(data);
-                    $(".w_h>img").prop("src", `/${C_PATH}/img/item_list/${item.itemImg}`);
-                    $(".w_h_title").html(`${item.itemName}`);
-                    $("#qnaTxt").prop("readonly", true);
-                    $("#qnaTxt").prop("value", `${thisQna.qnaTxt}`);
-                    $(".w_m_file_upload").css({display:"none"});
-                    let qnaImg = thisQna.qnaFile == null?"":(thisQna.qnaFile).split("|");
-                    let qnaImgBox = "";
-                    qnaImg == ""? "" : qnaImg.forEach((img)=>{
-                        qnaImgBox += `<div class="w_m_file_item"><img src="/img/qna/${img}" alt="문의 이미지"></div>`;
-                    });
-                    $(".w_m_file_box").append(qnaImgBox);
-                    $("button[type='submit']").css({display:"none"});
-                    $(".w_f").append("<button type=\"button\" class='qnaUpdate'>수정하기</button>")
-                    $(".w_f").append("<button type=\"button\" class='qnaCencel'>닫기</button>")
-                    $(".w_f>button").css({width:"calc((100% - 10px) / 2"})
-                    $(".qnaCencel").css({
-                        marginLeft: "10px",
-                        backgroundColor: "#e6e6e6",
-                        color: "#111"
-                    })
-                },
-                error: function() {
-                    console.error("Failed to load JSP content.");
-                }
-            });
-        // });
+        let jspPageURL = "/" + C_PATH + "/item/qna/detail";
+        $.ajax({
+            url: jspPageURL,
+            type: "GET",
+            success: function(data) {
+                $("#wrap").append(data);
+                $("#qnaForm").prop("action", `/${C_PATH}/item/qna/update`);
+                $(".w_h>img").prop("src", `/${C_PATH}/img/item_list/${item.itemImg}`);
+                $(".w_h_title").html(`${item.itemName}`);
+                $("#qnaNo").prop("value", `${thisQna.qnaNo}`);
+                $("#qnaTxt").prop("readonly", true);
+                $("#qnaTxt").prop("value", `${thisQna.qnaTxt}`);
+                $(".w_m_file_upload").css({display:"none"});
+                let qnaImg = thisQna.qnaFile == null?"":(thisQna.qnaFile).split("|");
+                let qnaImgBox = "";
+                qnaImg == ""? "" : qnaImg.forEach((img)=>{
+                    qnaImgBox += `<div class="w_m_file_item"><img src="/${C_PATH}/img/qna/${img}" alt="문의 이미지"></div>`;
+                });
+                $(".w_m_file_box").append(qnaImgBox);
+                $(".qnaSubmit").html("수정하기");
+                $(".qnaSubmit").prop("type", "button");
+            },
+            error: function() {
+                Swal.fire({
+                    icon: "warning",
+                    title: "문의 수정 오류.<br> 관리자에게 문의해주세요."
+                });
+            }
+        });
     // }else{
+    //     Swal.fire({
+    //         icon: "warning",
+    //         title: "조회 권한이 없습니다. "
+    //     });
     // }
 });
 // 문의 닫기
-$(document).on('click', '.w_h_close', function(){ (document.getElementById("qnaWrap")).remove(); });
-$(document).on('click', '.qnaCencel', function(){ (document.getElementById("qnaWrap")).remove(); });
+$(document).on('click', '.w_h_close', function(){
+    (document.getElementById("qnaWrap")).remove();
+    qnaUpdateChk = false;
+});
+$(document).on('click', '.qnaCencel', function(){
+    (document.getElementById("qnaWrap")).remove();
+    qnaUpdateChk = false;
+});
 //문의 수정하기
-$(document).on('click', '.qnaUpdate', function(){
-    $("#qnaTxt").prop("readonly", false);
-    $("#qnaTxt").focus();
+$(document).on('click', '.qnaSubmit', function(){
+    if(!qnaUpdateChk) {
+        $("#qnaTxt").prop("readonly", false);
+        $("#qnaTxt").focus();
+        $(".w_m_file_upload").css({display:"flex"});
+        $(".qnaSubmit").html(`문의하기`);
+        qnaUpdateChk = true;
+    }
+    else{
+        $(".qnaSubmit").prop("type", "submit");
+    //     // 수정하기 ajax
+    //     $.ajax({
+    //         url: `/${C_PATH}/item/qna/update`,
+    //         type: "POST",
+    //         headers : { "content-type": "application/json"},
+    //         data : JSON.stringify({qnaNo: qnaNo, qnaTxt: $("#qnaTxt").val()}),
+    //         success: function(data) {
+    //
+    //         },
+    //         error: function() {
+    //             console.error("Failed to load JSP content.");
+    //         }
+    //     });
+    }
 });
 
 
@@ -269,7 +298,7 @@ $(document).ready(function(){
             let date = dt.getDate() < 10 ? "0" + dt.getDate() : dt.getDate();
             qnaBox += `<tr>
                             <td class="qnaNo">${i++}</td>
-                            <td>상품관련 문의 드립니다</td>
+                            <td>상품관련 문의드려요!</td>
                             <td>${(qna.userName).slice(0, 1)+"**"}</td>
                             <td>${year}.${month}.${date}</td>
                         </tr>`;

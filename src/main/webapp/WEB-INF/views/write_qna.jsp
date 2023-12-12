@@ -7,26 +7,27 @@
 </head>
 <body>
 <div id="qnaWrap">
-    <form action="" method="" id="qnaForm" class="write">
+    <form action="" method="POST" enctype="multipart/form-data" id="qnaForm" class="write">
         <header class="w_h">
             <img src="<c:url value='/img/main_banner/main_banner_230911_2.jpg'/>" alt="포터 라운드넥 골지니트 맨투맨">
             <div class="w_h_title">포터 라운드넥 골지니트 맨투맨</div>
             <div class="w_h_close">X</div>
         </header>
         <main class="w_m">
-            <input type="hidden" name="itemNo" value="">
+            <input type="hidden" name="qnaNo" id="qnaNo" value="">
             <div class="w_m_title">제목</div>
             <div class="w_m_text">상품관련 문의드려요!</div>
             <div class="w_m_title">문의 작성란</div>
             <textarea name="qnaTxt" id="qnaTxt" required></textarea>
             <div class="w_m_title">사진 첨부</div>
             <div class="w_m_file_box">
-                <input type="file" name="qnaFile" id="w_m_file_input" accept="image/*" multiple style="display: none;">
+                <input type="file" name="qFile" id="w_m_file_input" accept="image/*" multiple style="display: none;">
                 <div class="w_m_file_upload">+</div>
             </div>
         </main>
         <footer class="w_f">
-            <button type="submit">문의하기</button>
+            <button type="submit" class="qnaSubmit">문의하기</button>
+            <button type="button" class="qnaCencel">닫기</button>
         </footer>
     </form>
 </div>

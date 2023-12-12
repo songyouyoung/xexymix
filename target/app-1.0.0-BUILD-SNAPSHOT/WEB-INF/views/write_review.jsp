@@ -7,7 +7,7 @@
 </head>
 <body>
 <div id="revWrap">
-    <form action="" method="" id="revForm" class="write">
+    <form action="" method="POST" enctype="multipart/form-data" id="revForm" class="write">
         <header class="w_h">
             <img src="<c:url value='/img/main_banner/main_banner_230911_2.jpg'/>" alt="포터 라운드넥 골지니트 맨투맨">
             <div class="w_h_title">포터 라운드넥 골지니트 맨투맨</div>

@@ -96,9 +96,12 @@
     justify-content: center;
     cursor: pointer;
 }
-.w_f{height: 10%;}
+.w_f{
+    height: 10%;
+    font-size: 0;
+}
 .w_f>button{
-    width: 100%;
+    width: calc((100% - 10px) / 2);
     height: 100%;
     box-sizing: border-box;
     outline: none;
@@ -109,4 +112,9 @@
     font-weight: bold;
     font-size: 18px;
     cursor: pointer;
+}
+.qnaCencel{
+    margin-left: 10px;
+    background-color: #e6e6e6;
+    color: #111;
 }

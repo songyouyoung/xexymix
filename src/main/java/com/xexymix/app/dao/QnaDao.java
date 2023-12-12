@@ -22,4 +22,8 @@ public class QnaDao {
     public List<QnaDto> selectQna(Map<String, String> qnaDesc){
         return session.selectList(namespace + "selectQna", qnaDesc);
     }
+
+    public int updateQna(QnaDto qnaDesc){
+        return session.update(namespace + "updateQna", qnaDesc);
+    }
 }
