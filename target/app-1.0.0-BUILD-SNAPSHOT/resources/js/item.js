@@ -8,10 +8,12 @@ $(document).mouseup(function (e){
         document.getElementsByClassName('sort_list')[0].classList.toggle('sort_list_none');
     });
 });
+
 /////////////////////////////////////
 ////////////// 문의 선택 /////////////
 /////////////////////////////////////
 $(document).on('click', '.m_qna_area td', function(){
+    let thisQna = qna[($(this).parent()).index() - 1];
     // if(userNo == ""){
     //     Swal.fire({
     //         icon: "warning",
@@ -19,14 +21,35 @@ $(document).on('click', '.m_qna_area td', function(){
     //     }).then(()=>{
     //         location.href = "/" + C_PATH + "/login?prevPage="+location.pathname+"?itemNo="+itemNo;
     //     });
-    // }else if (qna[($(this).parent()).index()].userNo == userNo && qnaWrapChk){
-            var jspPageURL = "/" + C_PATH + "/read/qna";
+    // }else if (thisQna.userNo == userNo && qnaWrapChk){
+            console.log("index", ($(this).parent()).index());
+            console.log(thisQna);
+            let jspPageURL = "/" + C_PATH + "/read/qna";
             $.ajax({
                 url: jspPageURL,
                 type: "GET",
                 success: function(data) {
                     $("#wrap").append(data);
-                    $(".w_h_title").html("ㅎㅎ");
+                    $(".w_h>img").prop("src", `/${C_PATH}/img/item_list/${item.itemImg}`);
+                    $(".w_h_title").html(`${item.itemName}`);
+                    $("#qnaTxt").prop("readonly", true);
+                    $("#qnaTxt").prop("value", `${thisQna.qnaTxt}`);
+                    $(".w_m_file_upload").css({display:"none"});
+                    let qnaImg = thisQna.qnaFile == null?"":(thisQna.qnaFile).split("|");
+                    let qnaImgBox = "";
+                    qnaImg == ""? "" : qnaImg.forEach((img)=>{
+                        qnaImgBox += `<div class="w_m_file_item"><img src="/img/qna/${img}" alt="문의 이미지"></div>`;
+                    });
+                    $(".w_m_file_box").append(qnaImgBox);
+                    $("button[type='submit']").css({display:"none"});
+                    $(".w_f").append("<button type=\"button\" class='qnaUpdate'>수정하기</button>")
+                    $(".w_f").append("<button type=\"button\" class='qnaCencel'>닫기</button>")
+                    $(".w_f>button").css({width:"calc((100% - 10px) / 2"})
+                    $(".qnaCencel").css({
+                        marginLeft: "10px",
+                        backgroundColor: "#e6e6e6",
+                        color: "#111"
+                    })
                 },
                 error: function() {
                     console.error("Failed to load JSP content.");
@@ -36,6 +59,15 @@ $(document).on('click', '.m_qna_area td', function(){
     // }else{
     // }
 });
+// 문의 닫기
+$(document).on('click', '.w_h_close', function(){ (document.getElementById("qnaWrap")).remove(); });
+$(document).on('click', '.qnaCencel', function(){ (document.getElementById("qnaWrap")).remove(); });
+//문의 수정하기
+$(document).on('click', '.qnaUpdate', function(){
+    $("#qnaTxt").prop("readonly", false);
+    $("#qnaTxt").focus();
+});
+
 
 $(document).ready(function(){
 // 리뷰 페이지네이션
