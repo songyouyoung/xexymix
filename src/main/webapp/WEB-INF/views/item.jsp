@@ -148,34 +148,6 @@
         </section>
         <section class="m_detail_box" id="m_qna">
             <div class="m_item_title">상품문의</div>
-<%--            <table class="m_qna_area">--%>
-<%--                <tr>--%>
-<%--                    <th>번호</th>--%>
-<%--                    <th>제목</th>--%>
-<%--                    <th>작성자</th>--%>
-<%--                    <th>작성일</th>--%>
-<%--                </tr>--%>
-<%--                <tr>--%>
-<%--                    <td>1</td>--%>
-<%--                    <td>상품관련 문의 드립니다</td>--%>
-<%--                    <td>송**</td>--%>
-<%--                    <td>2023.11.13</td>--%>
-<%--                </tr>--%>
-<%--            </table>--%>
-<%--            <div class="pagination">--%>
-<%--                <span class="prevBtn">&lt;</span>--%>
-<%--                <span class="page">1</span>--%>
-<%--                <span class="page">2</span>--%>
-<%--                <span class="page">3</span>--%>
-<%--                <span class="page">4</span>--%>
-<%--                <span class="page">5</span>--%>
-<%--                <span class="page">6</span>--%>
-<%--                <span class="page">7</span>--%>
-<%--                <span class="page">8</span>--%>
-<%--                <span class="page">9</span>--%>
-<%--                <span class="page">10</span>--%>
-<%--                <span class="nextBtn">&gt;</span>--%>
-<%--            </div>--%>
         </section>
     </main>
     <jsp:include page="footer.jsp"/>

@@ -1,6 +1,7 @@
-const uploadFiles = [];
+let uploadFiles = [];
+let files = null;
 function getImageFiles(e) {
-    const files = e.currentTarget.files;
+    files = e.currentTarget.files;
     const imagePreview = document.querySelector('.w_m_file_box');
 
     if (uploadFiles.length >= 5) {
@@ -41,17 +42,41 @@ function getImageFiles(e) {
         alert('이미지는 최대 5개 까지 업로드가 가능합니다.');
         return;
     }
+
+    let w_input = document.querySelector('#w_input');
+    // w_input.files = new FileList(uploadFiles);
+    // w_input.files = uploadFiles;
+    if (uploadFiles.length > 0) {
+        let dataTransfer = new DataTransfer();
+
+        // 파일을 DataTransfer에 추가
+        for (let i = 0; i < uploadFiles.length; i++) {
+            dataTransfer.items.add(uploadFiles[i]);
+        }
+
+        // DataTransfer에서 FileList-like 객체 생성
+        let upload = dataTransfer.files;
+
+        // 파일 입력 요소에 설정
+        w_input.files = upload;
+        console.log("upload : " + upload)
+        console.log("uploadFiles : " + uploadFiles)
+    }
 }
 function createElement(e, file) {
     const div = document.createElement('div');
     div.setAttribute('class', 'w_m_file_item');
-    const img = document.createElement('input');
-    console.log("asdfasdf");
-    img.setAttribute('type', "image");
+    // const img = document.createElement('input');
+    const img = document.createElement('img');
     img.setAttribute('src', e.target.result);
     img.setAttribute('data-file', file.name);
-    img.setAttribute('name', "w_img");
-    img.setAttribute('value', e.target.result);
+    // const input = document.createElement('input');
+    // input.setAttribute('type', "file");
+    // input.setAttribute('name', "w_img");
+    // input.setAttribute('multiple', true);
+    // input.setAttribute('style', 'display: none;');
+    // input.setAttribute('value', file)
+    // div.appendChild(input);
     div.appendChild(img);
     return div;
 }

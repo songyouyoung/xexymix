@@ -62,13 +62,11 @@ public class ItemController {
     public String showQnaDetail(){
         return "write_qna";
     }
-    private static final String F_PATH = "C:/Users/user/Desktop/portfolio/github/xexymix/src/main/webapp/resources/img/qna/";
+    // private static final String F_PATH = "C:/Users/user/Desktop/portfolio/github/xexymix/src/main/webapp/resources/img/qna/"; //집
+     private static final String F_PATH = "C:/Users/user1/Documents/GitHub/xexymix/src/main/webapp/resources/img/qna/"; //학원
     @PostMapping("/qna/update")
-    public String updateQna(@RequestParam(value="qFile", required = false) List<MultipartFile> files, @RequestParam(value="w_img", required = false) List<MultipartFile> imgFiles, QnaDto qnaDesc){
-        System.out.println("qnaDesc : " + qnaDesc);
-        System.out.println("imgFiles : " + imgFiles);
-
-        for(MultipartFile mf : files) {
+    public String updateQna(@RequestParam(value="wFile", required = false) List<MultipartFile> imgFiles, QnaDto qnaDesc){
+        for(MultipartFile mf : imgFiles) {
             String originalFileName = mf.getOriginalFilename();
             String safeFile = F_PATH + System.currentTimeMillis() + originalFileName;
             System.out.println("originalFileName: " + originalFileName);

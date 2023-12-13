@@ -22,6 +22,7 @@
             <div class="w_m_title">사진 첨부</div>
             <div class="w_m_file_box">
                 <input type="file" name="qFile" id="w_m_file_input" accept="image/*" multiple style="display: none;">
+                <input type="file" name="wFile" id="w_input" accept="image/*" multiple style="display: none;">
                 <div class="w_m_file_upload">+</div>
             </div>
         </main>
