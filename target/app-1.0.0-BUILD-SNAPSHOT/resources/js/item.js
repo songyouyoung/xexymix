@@ -14,6 +14,7 @@ $(document).mouseup(function (e){
 /////////////////////////////////////
 let qnaUpdateChk = false;
 let qnaNo;
+let qnaImg;
 $(document).on('click', '.m_qna_area td', function(){
     let thisQna = qna[($(this).parent()).index() - 1];
     qnaNo = thisQna.qnaNo;
@@ -38,10 +39,14 @@ $(document).on('click', '.m_qna_area td', function(){
                 $("#qnaTxt").prop("readonly", true);
                 $("#qnaTxt").prop("value", `${thisQna.qnaTxt}`);
                 $(".w_m_file_upload").css({display:"none"});
-                let qnaImg = thisQna.qnaFile == null?"":(thisQna.qnaFile).split("|");
+                $(".w_m_close").css({display:"none"});
+                qnaImg = thisQna.qnaFile == null?"":(thisQna.qnaFile).split("|");
                 let qnaImgBox = "";
                 qnaImg == ""? "" : qnaImg.forEach((img)=>{
-                    qnaImgBox += `<div class="w_m_file_item"><img src="/${C_PATH}/img/qna/${img}" alt="문의 이미지"></div>`;
+                    qnaImgBox += `<div class="w_m_file_item">
+                                    <img src="/${C_PATH}/img/qna/${img}" alt="문의 이미지" data-file = "${img}">
+                                    <div class="w_m_close">X</div>
+                                </div>`;
                 });
                 $(".w_m_file_box").append(qnaImgBox);
                 $(".qnaSubmit").html("수정하기");
@@ -75,26 +80,12 @@ $(document).on('click', '.qnaSubmit', function(){
     if(!qnaUpdateChk) {
         $("#qnaTxt").prop("readonly", false);
         $("#qnaTxt").focus();
-        $(".w_m_file_upload").css({display:"flex"});
+        qnaImg.length < 5?$(".w_m_file_upload").css({display:"flex"}):"";
+        $(".w_m_close").css({display:"block"});
         $(".qnaSubmit").html(`문의하기`);
         qnaUpdateChk = true;
     }
-    else{
-        $(".qnaSubmit").prop("type", "submit");
-    //     // 수정하기 ajax
-    //     $.ajax({
-    //         url: `/${C_PATH}/item/qna/update`,
-    //         type: "POST",
-    //         headers : { "content-type": "application/json"},
-    //         data : JSON.stringify({qnaNo: qnaNo, qnaTxt: $("#qnaTxt").val()}),
-    //         success: function(data) {
-    //
-    //         },
-    //         error: function() {
-    //             console.error("Failed to load JSP content.");
-    //         }
-    //     });
-    }
+    else{ $(".qnaSubmit").prop("type", "submit"); }
 });
 
 

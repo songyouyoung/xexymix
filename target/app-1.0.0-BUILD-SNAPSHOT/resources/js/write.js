@@ -43,40 +43,32 @@ function getImageFiles(e) {
         return;
     }
 
+// 파일 누적 관리
     let w_input = document.querySelector('#w_input');
-    // w_input.files = new FileList(uploadFiles);
-    // w_input.files = uploadFiles;
     if (uploadFiles.length > 0) {
         let dataTransfer = new DataTransfer();
 
         // 파일을 DataTransfer에 추가
-        for (let i = 0; i < uploadFiles.length; i++) {
-            dataTransfer.items.add(uploadFiles[i]);
-        }
+        for (let i = 0; i < uploadFiles.length; i++) { dataTransfer.items.add(uploadFiles[i]); }
 
         // DataTransfer에서 FileList-like 객체 생성
-        let upload = dataTransfer.files;
+        let uploader = dataTransfer.files;
 
         // 파일 입력 요소에 설정
-        w_input.files = upload;
-        console.log("upload : " + upload)
-        console.log("uploadFiles : " + uploadFiles)
+        w_input.files = uploader;
     }
 }
 function createElement(e, file) {
     const div = document.createElement('div');
     div.setAttribute('class', 'w_m_file_item');
-    // const img = document.createElement('input');
     const img = document.createElement('img');
     img.setAttribute('src', e.target.result);
     img.setAttribute('data-file', file.name);
-    // const input = document.createElement('input');
-    // input.setAttribute('type', "file");
-    // input.setAttribute('name', "w_img");
-    // input.setAttribute('multiple', true);
-    // input.setAttribute('style', 'display: none;');
-    // input.setAttribute('value', file)
-    // div.appendChild(input);
+    const close = document.createElement('div');
+    let closeTxt = document.createTextNode("X");
+    close.appendChild(closeTxt);
+    close.setAttribute('class', "w_m_close");
+    div.appendChild(close);
     div.appendChild(img);
     return div;
 }
@@ -84,3 +76,15 @@ const realUpload = document.querySelector('#w_m_file_input');
 const upload = document.querySelector('.w_m_file_upload');
 upload.addEventListener('click', () => realUpload.click());
 realUpload.addEventListener('change', getImageFiles);
+
+$(document).on('click', '.w_m_close', (e)=>{
+    let closeImg = e.target.parentElement.getElementsByTagName("img")[0].getAttribute("data-file");
+    let upload = [];
+    console.log("전", uploadFiles);
+    [...uploadFiles].forEach(file => {
+        file.name != closeImg ? upload.push(file) : "";
+    });
+    uploadFiles = upload;
+    console.log("후", uploadFiles);
+    e.target.parentElement.remove();
+});

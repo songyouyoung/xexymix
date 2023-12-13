@@ -85,6 +85,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
 }
 .w_m_file_item>img{height: 100%;}
 .w_m_file_upload{
@@ -117,4 +118,17 @@
     margin-left: 10px;
     background-color: #e6e6e6;
     color: #111;
+}
+.w_m_close{
+    width: 20px;
+    height: 20px;
+    background-color: rgb(255 255 255 / 50%);
+    color: #111;
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 15px;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
 }
