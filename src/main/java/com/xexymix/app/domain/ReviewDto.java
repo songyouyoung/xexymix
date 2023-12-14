@@ -17,6 +17,7 @@ public class ReviewDto {
     private Date revUpDate;
     private int revLike;
     private String revFile;
+    private String revFileOri;
 
     public int getRevNo() {
         return revNo;
@@ -98,6 +99,14 @@ public class ReviewDto {
         this.revFile = revFile;
     }
 
+    public String getRevFileOri() {
+        return revFileOri;
+    }
+
+    public void setRevFileOri(String revFileOri) {
+        this.revFileOri = revFileOri;
+    }
+
     @Override
     public String toString() {
         return "ReviewDto{" +
@@ -111,6 +120,7 @@ public class ReviewDto {
                 ", revUpDate=" + revUpDate +
                 ", revLike=" + revLike +
                 ", revFile='" + revFile + '\'' +
+                ", revFileOri='" + revFileOri +
                 '}';
     }
 }

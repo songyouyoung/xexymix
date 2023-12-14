@@ -15,6 +15,7 @@ public class QnaDto {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date qnaUpDate;
     private String qnaFile;
+    private String qnaFileOri;
     private String qnaAnswer;
 
     public QnaDto() {
@@ -95,6 +96,14 @@ public class QnaDto {
         this.qnaFile = qnaFile;
     }
 
+    public String getQnaFileOri() {
+        return qnaFileOri;
+    }
+
+    public void setQnaFileOri(String qnaFileOri) {
+        this.qnaFileOri = qnaFileOri;
+    }
+
     public String getQnaAnswer() {
         return qnaAnswer;
     }
@@ -114,6 +123,7 @@ public class QnaDto {
                 ", qnaRegDate=" + qnaRegDate +
                 ", qnaUpDate=" + qnaUpDate +
                 ", qnaFile='" + qnaFile + '\'' +
+                ", qnaFileOri='" + qnaFileOri + '\'' +
                 ", qnaAnswer='" + qnaAnswer + '\'' +
                 '}';
     }

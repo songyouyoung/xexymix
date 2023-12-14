@@ -13,7 +13,7 @@
     </select>
     <!-- 리뷰 리스트 조회 -->
     <select id="selectRev" parameterType="String" resultType="reviewDto">
-        select revNo, userNo, userName, revScore, revTxt, revRegDate, revLike, revFile
+        select revNo, userNo, userName, revScore, revTxt, revRegDate, revLike, revFile, revFileOri
             from review
                 where itemNo = #{itemNo}
         <choose>

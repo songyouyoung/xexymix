@@ -208,7 +208,6 @@ h5{margin: 0;}
     justify-content: center;
     gap: 10px;
 }
-.pagination_point{font-weight: bold;}
 .pagination > * {
     padding: 5px;
     font-size: 15px;

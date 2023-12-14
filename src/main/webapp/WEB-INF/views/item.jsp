@@ -153,10 +153,6 @@
     <jsp:include page="footer.jsp"/>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
-<script src="<c:url value='/js/item_db.js'/>"></script>
-<script src="<c:url value='/js/common.js'/>"></script>
-<script src="<c:url value='/js/item.js'/>"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
 <script>
     var itemNo = "${param.itemNo}";
     let userNo = "${userNo}";
@@ -168,5 +164,9 @@
     let qnaMaxCnt = ${qnaMaxCnt};
     let qna = ${qna_js};
 </script>
+<script src="<c:url value='/js/item_db.js'/>"></script>
+<script src="<c:url value='/js/common.js'/>"></script>
+<script src="<c:url value='/js/item.js'/>"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
 </body>
 </html>

@@ -23,7 +23,7 @@ $(document).on('click', '.m_qna_area td', function(){
     //         icon: "warning",
     //         title: "로그인이 필요한 서비스입니다. "
     //     }).then(()=>{
-    //         location.href = "/" + C_PATH + "/login?prevPage="+location.pathname+"?itemNo="+itemNo;
+    //         location.href = "/" + C_PATH + "/login?prevPage="+location.pathname+"&itemNo="+itemNo;
     //     });
     // }else if (thisQna.userNo == userNo && qnaWrapChk){
         let jspPageURL = "/" + C_PATH + "/item/qna/detail";
@@ -32,23 +32,27 @@ $(document).on('click', '.m_qna_area td', function(){
             type: "GET",
             success: function(data) {
                 $("#wrap").append(data);
-                $("#qnaForm").prop("action", `/${C_PATH}/item/qna/update`);
+                let oriImg = thisQna.qnaFile==null?"":(thisQna.qnaFile).replaceAll("|", "%7C");
+                $("#qnaForm").prop("action", `/${C_PATH}/item/qna/update?prevPage=${location.pathname}&itemNo=${item.itemNo}&oriImg=${oriImg    }`);
                 $(".w_h>img").prop("src", `/${C_PATH}/img/item_list/${item.itemImg}`);
                 $(".w_h_title").html(`${item.itemName}`);
                 $("#qnaNo").prop("value", `${thisQna.qnaNo}`);
                 $("#qnaTxt").prop("readonly", true);
                 $("#qnaTxt").prop("value", `${thisQna.qnaTxt}`);
                 $(".w_m_file_upload").css({display:"none"});
-                $(".w_m_close").css({display:"none"});
-                qnaImg = thisQna.qnaFile == null?"":(thisQna.qnaFile).split("|");
+                qnaImg = thisQna.qnaFile == null?"":(thisQna.qnaFile.slice(0, -1)).split("|");
+                let qnaImgOri = [];
+                qnaImgOri = thisQna.qnaFileOri == null?"":(thisQna.qnaFileOri.slice(0, -1)).split("|");
                 let qnaImgBox = "";
+                let i = 0;
                 qnaImg == ""? "" : qnaImg.forEach((img)=>{
                     qnaImgBox += `<div class="w_m_file_item">
-                                    <img src="/${C_PATH}/img/qna/${img}" alt="문의 이미지" data-file = "${img}">
+                                    <img src="/${C_PATH}/img/qna/${img}" alt="문의 이미지" data-file = "${qnaImgOri[i++]}">
                                     <div class="w_m_close">X</div>
                                 </div>`;
                 });
                 $(".w_m_file_box").append(qnaImgBox);
+                $(".w_m_close").css({display:"none"});
                 $(".qnaSubmit").html("수정하기");
                 $(".qnaSubmit").prop("type", "button");
             },
@@ -88,19 +92,95 @@ $(document).on('click', '.qnaSubmit', function(){
     else{ $(".qnaSubmit").prop("type", "submit"); }
 });
 
+// 리뷰 페이지네이션
+let revPage = (revMaxCnt / 5) + 1; // 총 페이지 개수
+let nowRevPage = 1; // 현재 페이지
+let startRevPage = 1; // 시작 페이지
+// let startRevNo = 0; // 시작 글 번호
+// let endRevNo = 4; // 끝 글 번호
+// 문의 페이지네이션
+let qnaPage = (qnaMaxCnt / 10) + 1; // 총 페이지 개수
+let nowQnaPage = 1; // 현재 페이지
+let startQnaPage = 1; // 시작 페이지
+// let startQnaNo = 0; // 시작 글 번호
+// let endQnaNo = 9; // 끝 글 번호
+
+//////////////////////////////////////
+///////// 페이지네이션 선택 ///////////
+/////////////////////////////////////
+$(document).on('click', '.pagination>span', function() {
+    let pageCnt = 0;
+    let maxCnt = 0;
+    let startPg = 0;
+    let nowpg = 0;
+    // alert($(this).parent().parent().prop("id"))
+    let par = $(this).parent();
+    par.children().css({fontWeight: "normal"});
+    if (par.parent().prop("id") == "m_qna") {
+        pageCnt = 10;
+        maxCnt = qnaMaxCnt;
+        startPg = startQnaPage;
+        nowpg = nowQnaPage;
+    } else if (par.parent().prop("id") == "m_review") {
+        pageCnt = 5;
+        maxCnt = revMaxCnt;
+        startPg = startRevPage;
+        nowpg = nowRevPage;
+    }
+
+    if ($(this).text() == "<") {
+        let pagHtml = "";
+        startPg = startPg - pageCnt;
+        nowpg = startPg;
+        pagHtml = startPg == 1 ? "" : `<span class="prevBtn">&lt;</span>`;
+        for (let i = startPg; i <= startPg + pageCnt - 1; i++) {
+            pagHtml += `<span class="page">${i}</span>`;
+        }
+        pagHtml += `<span class="nextBtn">&gt;</span>`;
+
+        par.html(pagHtml);
+        par.children(".page").eq(0).css({fontWeight: "bold"});
+
+    } else if ($(this).text() == ">") {
+        let pagHtml = "";
+        startPg = startPg + pageCnt;
+        nowpg = startPg;
+        pagHtml = `<span class="prevBtn">&lt;</span>`;
+        for (let i = startPg; i <= (maxCnt - startPg > pageCnt ? startPg + pageCnt - 1 : maxCnt); i++) {
+            pagHtml += `<span class="page">${i}</span>`;
+        }
+        pagHtml += maxCnt - startPg > pageCnt ? `<span class="nextBtn">&gt;</span>` : "";
+
+        par.html(pagHtml);
+        par.children(".page").eq(0).css({fontWeight: "bold"});
+    } else {
+        $(this).css({fontWeight: "bold"});
+        nowpg = Number($(this).text());
+    }
+    $.ajax({
+        type: 'POST',
+        url: '/' + C_PATH + '/item/qna/select',
+        // headers: {"content-type": "application/json"},
+        data: JSON.stringify({limit: (nowpg - 1)*pageCnt, itemNo: item.itemNo}),
+        success: function (data) {
+
+        },
+        error: function (e) {
+            Swal.fire({
+                title: "개인정보 수정 ERROR. \n 관리자에게 전달해주세요.",
+            });
+        }
+    });
+    if (par.parent().prop("id") == "m_qna") {
+        startQnaPage = startPg;
+        nowQnaPage = nowpg;
+    } else if (par.parent().prop("id") == "m_review") {
+        startRevPage = startPg;
+        nowRevPage = nowpg;
+    }
+});
 
 $(document).ready(function(){
-// 리뷰 페이지네이션
-    let revPage = (revMaxCnt / 5) + 1; // 총 페이지 개수
-    let nowRevPage = 1; // 현재 페이지
-    let startRevNo = 0; // 시작 글 번호
-    let endRevNo = 4; // 끝 글 번호
-// 문의 페이지네이션
-    let qnaPage = (qnaMaxCnt / 10) + 1; // 총 페이지 개수
-    let nowQnaPage = 1; // 현재 페이지
-    let startQnaNo = 0; // 시작 글 번호
-    let endQnaNo = 4; // 끝 글 번호
-
     let orderPrice;
     if(item.evPer != null && item.evPer > 0){
         orderPrice = Math.ceil(item.itemPrice / 100 * (100 - item.evPer));
@@ -141,9 +221,8 @@ $(document).ready(function(){
                 let year = dt.getFullYear();
                 let month = dt.getMonth()+1 < 10 ? "0" + (dt.getMonth()+1) : dt.getMonth()+1;
                 let date = dt.getDate() < 10 ? "0" + dt.getDate() : dt.getDate();
-                let revImg = revBest.revFile == null?"":(revBest.revFile).split("|");
+                let revImg = revBest.revFile == null?"":(revBest.revFile.slice(0, -1)).split("|");
                 let revImgBox = "";
-                console.log("img", revImg[0]);
                 revImg == ""? "": revImgBox += `<img src="img/review/${revImg[0]}" alt="리뷰이미지">`;
 
                 revBox += `<div class="m_rev_best_item">
@@ -188,7 +267,7 @@ $(document).ready(function(){
             let year = dt.getFullYear();
             let month = dt.getMonth()+1 < 10 ? "0" + (dt.getMonth()+1) : dt.getMonth()+1;
             let date = dt.getDate() < 10 ? "0" + dt.getDate() : dt.getDate();
-            let revImg = rev.revFile == null?"":(rev.revFile).split("|");
+            let revImg = rev.revFile == null?"":(rev.revFile.slice(0, -1)).split("|");
             let revImgBox = "";
             revImg == ""? "" : revImg.forEach((img)=>{
                 revImgBox += `<div class="m_rev_img_box">
@@ -216,10 +295,10 @@ $(document).ready(function(){
 
         // 페이지네이션
         revBox += `<div class="pagination">`;
-        for(let i = 1; i <= revPage; i++){
-            revBox += `<span class="page">${i}</span>`;
+        for(let i = 1; i <= (revPage>5?5:revPage); i++){
+            revBox += `<span class="page" style=${i==1?"font-weight:bold":""}>${i}</span>`;
         }
-        revBox += revPage > 10 ? `<span class="nextBtn">&gt;</span>` : "";
+        revBox += revPage > 5 ? `<span class="nextBtn">&gt;</span>` : "";
         revBox += `</div>
                 </div>`;
 
@@ -269,7 +348,6 @@ $(document).ready(function(){
 ///////////// 문의 출력 //////////////
 /////////////////////////////////////
     let qnaBox = "";
-    console.log("qna크기", qna.length);
     if(qna.length == 0){
         qnaBox = `<p class="m_none">아직 작성한 리뷰가 없습니다.</p>`;
     }else{
@@ -298,8 +376,8 @@ $(document).ready(function(){
 
         // 페이지네이션
         qnaBox += `<div class="pagination">`;
-        for(let i = 1; i <= qnaPage; i++){
-            qnaBox += `<span class="page">${i}</span>`;
+        for(let i = 1; i <= (qnaPage>10?10:qnaPage); i++){
+            qnaBox += `<span class="page" style=${i==1?"font-weight:bold":""}>${i}</span>`;
         }
         qnaBox += qnaPage > 10 ? `<span class="nextBtn">&gt;</span>` : "";
         qnaBox += `</div>`;
@@ -310,6 +388,7 @@ $(document).ready(function(){
         });
     }
     $("#m_qna").append(qnaBox);
+    $("#m_qna").children(".pagination .page").eq(0).css({fontWeight: "bold"});
 
 /////////////////////////////////////
 ///////////// 상품 선택 //////////////
@@ -386,10 +465,6 @@ $(document).ready(function(){
         }
         $('.price_total > span').text(price_total.toLocaleString('ko'));
     }
-
-/////////////////////////////////////
-////////// 리뷰 페이지 선택 ///////////
-/////////////////////////////////////
     
 /////////////////////////////////////
 ////////// 내부 스크롤 이동 //////////

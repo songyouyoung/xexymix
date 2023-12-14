@@ -23,6 +23,7 @@
             <div class="w_m_file_box">
                 <input type="file" name="qFile" id="w_m_file_input" accept="image/*" multiple style="display: none;">
                 <input type="file" name="wFile" id="w_input" accept="image/*" multiple style="display: none;">
+                <input type="hidden" name="w_cancel" id="w_cancel">
                 <div class="w_m_file_upload">+</div>
             </div>
         </main>

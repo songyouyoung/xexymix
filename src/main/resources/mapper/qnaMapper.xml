@@ -13,13 +13,15 @@
     </select>
     <!-- 문의 리스트 조회 -->
     <select id="selectQna" parameterType="String" resultType="qnaDto">
-        select qnaNo, userNo, userName, qnaTxt, qnaRegDate, qnaFile
+        select qnaNo, userNo, userName, qnaTxt, qnaRegDate, qnaFile, qnaFileOri
             from qna
                 where itemNo = #{itemNo}
         limit ${limit}, 10
     </select>
     <!-- 문의 수정 -->
     <update id="updateQna" parameterType="String">
-        update qna set qnaTxt = #{qnaTxt} where qnaNo = #{qnaNo}
+        update qna
+            set qnaTxt = #{qnaTxt}, qnaFile = #{qnaFile}, qnaFileOri = #{qnaFileOri}
+                where qnaNo = ${qnaNo}
     </update>
 </mapper>
