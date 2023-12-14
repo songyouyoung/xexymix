@@ -1,3 +1,4 @@
+let search = "new"
 /////////////////////////////////////
 /////////////// 상품정렬 /////////////
 /////////////////////////////////////
@@ -9,6 +10,37 @@ $(document).mouseup(function (e){
     });
 });
 
+// 정렬 선택 시 재정렬
+$(document).on('click', '.sort_list li', function(){
+    let searchTmp = $(this).data("search");
+    if (search != searchTmp){
+        search = searchTmp;
+        $.ajax({
+            type: 'POST',
+            url: '/' + C_PATH + "/item/review/select",
+            headers: {"content-type": "application/json"},
+            data: JSON.stringify({limit: (nowRevPage - 1)*5, itemNo: item.itemNo, search: search}),
+            success: function (data) {
+                nowRevPage = 1;
+                startRevPage = 1;
+                review = data;
+                $(".m_rev_area").html(createRev(data));
+                let revBox = "";
+                for(let i = 1; i <= (revPage>10?10:revPage); i++){
+                    revBox += `<span class="page" style=${i==1?"font-weight:bold":""}>${i}</span>`;
+                }
+                revBox += revPage > 10 ? `<span class="nextBtn">&gt;</span>` : "";
+                $(".pagination").html(revBox);
+            },
+            error: function (e) {
+                Swal.fire({
+                    title: "페이지 조회 ERROR. \n 관리자에게 문의해주세요.",
+                });
+            }
+        });
+    }
+});
+
 /////////////////////////////////////
 ////////////// 문의 선택 /////////////
 /////////////////////////////////////
@@ -18,14 +50,14 @@ let qnaImg;
 $(document).on('click', '.m_qna_area td', function(){
     let thisQna = qna[($(this).parent()).index() - 1];
     qnaNo = thisQna.qnaNo;
-    // if(userNo == ""){
-    //     Swal.fire({
-    //         icon: "warning",
-    //         title: "로그인이 필요한 서비스입니다. "
-    //     }).then(()=>{
-    //         location.href = "/" + C_PATH + "/login?prevPage="+location.pathname+"&itemNo="+itemNo;
-    //     });
-    // }else if (thisQna.userNo == userNo && qnaWrapChk){
+    if(userNo == ""){
+        Swal.fire({
+            icon: "warning",
+            title: "로그인이 필요한 서비스입니다. "
+        }).then(()=>{
+            location.href = "/" + C_PATH + "/login?prevPage="+location.pathname+"&itemNo="+itemNo;
+        });
+    }else if (thisQna.userNo == userNo && qnaWrapChk){
         let jspPageURL = "/" + C_PATH + "/item/qna/detail";
         $.ajax({
             url: jspPageURL,
@@ -33,7 +65,7 @@ $(document).on('click', '.m_qna_area td', function(){
             success: function(data) {
                 $("#wrap").append(data);
                 let oriImg = thisQna.qnaFile==null?"":(thisQna.qnaFile).replaceAll("|", "%7C");
-                $("#qnaForm").prop("action", `/${C_PATH}/item/qna/update?prevPage=${location.pathname}&itemNo=${item.itemNo}&oriImg=${oriImg    }`);
+                $("#qnaForm").prop("action", `/${C_PATH}/item/qna/update?prevPage=${location.pathname}&itemNo=${item.itemNo}&oriImg=${oriImg}`);
                 $(".w_h>img").prop("src", `/${C_PATH}/img/item_list/${item.itemImg}`);
                 $(".w_h_title").html(`${item.itemName}`);
                 $("#qnaNo").prop("value", `${thisQna.qnaNo}`);
@@ -63,12 +95,12 @@ $(document).on('click', '.m_qna_area td', function(){
                 });
             }
         });
-    // }else{
-    //     Swal.fire({
-    //         icon: "warning",
-    //         title: "조회 권한이 없습니다. "
-    //     });
-    // }
+    }else{
+        Swal.fire({
+            icon: "warning",
+            title: "조회 권한이 없습니다. "
+        });
+    }
 });
 // 문의 닫기
 $(document).on('click', '.w_h_close', function(){
@@ -93,17 +125,13 @@ $(document).on('click', '.qnaSubmit', function(){
 });
 
 // 리뷰 페이지네이션
-let revPage = (revMaxCnt / 5) + 1; // 총 페이지 개수
+let revPage = Math.ceil(revMaxCnt / 5); // 총 페이지 개수
 let nowRevPage = 1; // 현재 페이지
 let startRevPage = 1; // 시작 페이지
-// let startRevNo = 0; // 시작 글 번호
-// let endRevNo = 4; // 끝 글 번호
 // 문의 페이지네이션
-let qnaPage = (qnaMaxCnt / 10) + 1; // 총 페이지 개수
+let qnaPage = Math.ceil(qnaMaxCnt / 10); // 총 페이지 개수
 let nowQnaPage = 1; // 현재 페이지
 let startQnaPage = 1; // 시작 페이지
-// let startQnaNo = 0; // 시작 글 번호
-// let endQnaNo = 9; // 끝 글 번호
 
 //////////////////////////////////////
 ///////// 페이지네이션 선택 ///////////
@@ -118,12 +146,12 @@ $(document).on('click', '.pagination>span', function() {
     par.children().css({fontWeight: "normal"});
     if (par.parent().prop("id") == "m_qna") {
         pageCnt = 10;
-        maxCnt = qnaMaxCnt;
+        maxCnt = qnaPage;
         startPg = startQnaPage;
         nowpg = nowQnaPage;
     } else if (par.parent().prop("id") == "m_review") {
         pageCnt = 5;
-        maxCnt = revMaxCnt;
+        maxCnt = revPage;
         startPg = startRevPage;
         nowpg = nowRevPage;
     }
@@ -133,7 +161,7 @@ $(document).on('click', '.pagination>span', function() {
         startPg = startPg - pageCnt;
         nowpg = startPg;
         pagHtml = startPg == 1 ? "" : `<span class="prevBtn">&lt;</span>`;
-        for (let i = startPg; i <= startPg + pageCnt - 1; i++) {
+        for (let i = startPg; i <= startPg + 10 - 1; i++) {
             pagHtml += `<span class="page">${i}</span>`;
         }
         pagHtml += `<span class="nextBtn">&gt;</span>`;
@@ -145,11 +173,14 @@ $(document).on('click', '.pagination>span', function() {
         let pagHtml = "";
         startPg = startPg + pageCnt;
         nowpg = startPg;
+        console.log("startPg : " + startPg)
+        console.log("pageCnt : " + pageCnt)
+        console.log("maxCnt : " + maxCnt)
         pagHtml = `<span class="prevBtn">&lt;</span>`;
-        for (let i = startPg; i <= (maxCnt - startPg > pageCnt ? startPg + pageCnt - 1 : maxCnt); i++) {
+        for (let i = startPg; i <= (maxCnt - startPg > 10 ? startPg + 9 : maxCnt); i++) {
             pagHtml += `<span class="page">${i}</span>`;
         }
-        pagHtml += maxCnt - startPg > pageCnt ? `<span class="nextBtn">&gt;</span>` : "";
+        pagHtml += maxCnt - startPg > 10 ? `<span class="nextBtn">&gt;</span>` : "";
 
         par.html(pagHtml);
         par.children(".page").eq(0).css({fontWeight: "bold"});
@@ -157,27 +188,39 @@ $(document).on('click', '.pagination>span', function() {
         $(this).css({fontWeight: "bold"});
         nowpg = Number($(this).text());
     }
-    $.ajax({
-        type: 'POST',
-        url: '/' + C_PATH + '/item/qna/select',
-        // headers: {"content-type": "application/json"},
-        data: JSON.stringify({limit: (nowpg - 1)*pageCnt, itemNo: item.itemNo}),
-        success: function (data) {
-
-        },
-        error: function (e) {
-            Swal.fire({
-                title: "개인정보 수정 ERROR. \n 관리자에게 전달해주세요.",
-            });
-        }
-    });
+    let ajaxLink;
+    let jsonData = {};
     if (par.parent().prop("id") == "m_qna") {
         startQnaPage = startPg;
         nowQnaPage = nowpg;
+        ajaxLink = "/item/qna/select";
+        jsonData = {limit: (nowpg - 1)*pageCnt, itemNo: item.itemNo};
     } else if (par.parent().prop("id") == "m_review") {
         startRevPage = startPg;
         nowRevPage = nowpg;
+        ajaxLink = "/item/review/select";
+        jsonData = {limit: (nowpg - 1)*pageCnt, itemNo: item.itemNo, search: search};
     }
+    $.ajax({
+        type: 'POST',
+        url: '/' + C_PATH + ajaxLink,
+        headers: {"content-type": "application/json"},
+        data: JSON.stringify(jsonData),
+        success: function (data) {
+            if (par.parent().prop("id") == "m_qna") {
+                qna = data;
+                $(".m_qna_area").html(createQna(data));
+            } else if (par.parent().prop("id") == "m_review") {
+                review = data;
+                $(".m_rev_area").html(createRev(data));
+            }
+        },
+        error: function (e) {
+            Swal.fire({
+                title: "페이지 조회 ERROR. \n 관리자에게 문의해주세요.",
+            });
+        }
+    });
 });
 
 $(document).ready(function(){
@@ -252,55 +295,24 @@ $(document).ready(function(){
                     <div class="m_rev_sort">
                         <div class="sort">리뷰정렬
                             <ul class="sort_list sort_list_none" style="width: 70px">
-                                <li>최신순</li>
-                                <li>인기순</li>
-                                <li>높은 별점순</li>
-                                <li>낮은 별점순</li>
+                                <li data-search="new">최신순</li>
+<!--                                <li data-search="best">인기순</li>-->
+                                <li data-search="likeDesc">높은 별점순</li>
+                                <li data-search="likeAsc">낮은 별점순</li>
                             </ul>
                         </div>
                     </div>
                     <div class="m_rev_area">`;
-
         // 전체 리뷰
-        review.forEach((rev)=>{
-            let dt = new Date(rev.revRegDate);
-            let year = dt.getFullYear();
-            let month = dt.getMonth()+1 < 10 ? "0" + (dt.getMonth()+1) : dt.getMonth()+1;
-            let date = dt.getDate() < 10 ? "0" + dt.getDate() : dt.getDate();
-            let revImg = rev.revFile == null?"":(rev.revFile.slice(0, -1)).split("|");
-            let revImgBox = "";
-            revImg == ""? "" : revImg.forEach((img)=>{
-                revImgBox += `<div class="m_rev_img_box">
-                                <img src="img/review/${img}" alt="리뷰이미지">
-                            </div>`;
-            });
-            let revUD = "";
-            if (rev.userNo == userNo){
-                revUD = `<div class="m_rev_update">수정</div>
-                        <div class="m_rev_delete">삭제</div>`;
-            }
-            revBox += `<div class="m_rev_item">
-                            <div class="m_rev_title">
-                                <div class="m_rev_name">${(rev.userName).slice(0, 1)+"**"}</div>
-                                <div class="m_rev_right">
-                                    <div class="m_rev_regDate">${year}.${month}.${date}</div>
-                                    ${revUD}
-                                </div>
-                            </div>
-                            <div class="m_rev_score">${"★".repeat(rev.revScore) + "☆".repeat(5-rev.revScore)}</div>
-                            <div class="m_rev_txt">${rev.revTxt}</div>
-                            <div class="m_rev_img">${revImgBox}</div>
-                        </div>`;
-        });
-
+        revBox += createRev(review);
+        revBox += `</div>`;
         // 페이지네이션
         revBox += `<div class="pagination">`;
-        for(let i = 1; i <= (revPage>5?5:revPage); i++){
+        for(let i = 1; i <= (revPage>10?10:revPage); i++){
             revBox += `<span class="page" style=${i==1?"font-weight:bold":""}>${i}</span>`;
         }
-        revBox += revPage > 5 ? `<span class="nextBtn">&gt;</span>` : "";
-        revBox += `</div>
-                </div>`;
+        revBox += revPage > 10 ? `<span class="nextBtn">&gt;</span>` : "";
+        revBox += `</div>`;
 
         //차트
         $(function(){
@@ -351,27 +363,8 @@ $(document).ready(function(){
     if(qna.length == 0){
         qnaBox = `<p class="m_none">아직 작성한 리뷰가 없습니다.</p>`;
     }else{
-        qnaBox += `<table class="m_qna_area">
-                        <tr>
-                            <th>번호</th>
-                            <th>제목</th>
-                            <th>작성자</th>
-                            <th>작성일</th>
-                        </tr>`;
-        // 전체 문의
-        let i = 1;
-        qna.forEach((qna)=>{
-            let dt = new Date(qna.qnaRegDate);
-            let year = dt.getFullYear();
-            let month = dt.getMonth()+1 < 10 ? "0" + (dt.getMonth()+1) : dt.getMonth()+1;
-            let date = dt.getDate() < 10 ? "0" + dt.getDate() : dt.getDate();
-            qnaBox += `<tr>
-                            <td class="qnaNo">${i++}</td>
-                            <td>상품관련 문의드려요!</td>
-                            <td>${(qna.userName).slice(0, 1)+"**"}</td>
-                            <td>${year}.${month}.${date}</td>
-                        </tr>`;
-        });
+        qnaBox += `<table class="m_qna_area">`;
+        qnaBox += createQna(qna);
         qnaBox += `</table>`;
 
         // 페이지네이션
@@ -517,3 +510,62 @@ $(document).ready(function(){
         }
     });
 });
+
+const createQna = (qna)=>{
+    let qnaBox = `<tr>
+                <th>번호</th>
+                <th>제목</th>
+                <th>작성자</th>
+                <th>작성일</th>
+            </tr>`;
+    // 전체 문의
+    let i = (nowQnaPage - 1)*10+1;
+    qna.forEach((qna)=>{
+        let dt = new Date(qna.qnaRegDate);
+        let year = dt.getFullYear();
+        let month = dt.getMonth()+1 < 10 ? "0" + (dt.getMonth()+1) : dt.getMonth()+1;
+        let date = dt.getDate() < 10 ? "0" + dt.getDate() : dt.getDate();
+        qnaBox += `<tr>
+                            <td class="qnaNo">${i++}</td>
+                            <td>상품관련 문의드려요!</td>
+                            <td>${(qna.userName).slice(0, 1)+"**"}</td>
+                            <td>${year}.${month}.${date}</td>
+                        </tr>`;
+    });
+    return qnaBox;
+};
+
+const createRev = (review)=>{
+    let revBox = "";
+    review.forEach((rev)=>{
+        let dt = new Date(rev.revRegDate);
+        let year = dt.getFullYear();
+        let month = dt.getMonth()+1 < 10 ? "0" + (dt.getMonth()+1) : dt.getMonth()+1;
+        let date = dt.getDate() < 10 ? "0" + dt.getDate() : dt.getDate();
+        let revImg = rev.revFile == null?"":(rev.revFile.slice(0, -1)).split("|");
+        let revImgBox = "";
+        revImg == ""? "" : revImg.forEach((img)=>{
+            revImgBox += `<div class="m_rev_img_box">
+                                <img src="img/review/${img}" alt="리뷰이미지">
+                            </div>`;
+        });
+        let revUD = "";
+        if (rev.userNo == userNo){
+            revUD = `<div class="m_rev_update">수정</div>
+                        <div class="m_rev_delete">삭제</div>`;
+        }
+        revBox += `<div class="m_rev_item">
+                            <div class="m_rev_title">
+                                <div class="m_rev_name">${(rev.userName).slice(0, 1)+"**"}</div>
+                                <div class="m_rev_right">
+                                    <div class="m_rev_regDate">${year}.${month}.${date}</div>
+                                    ${revUD}
+                                </div>
+                            </div>
+                            <div class="m_rev_score">${"★".repeat(rev.revScore) + "☆".repeat(5-rev.revScore)}</div>
+                            <div class="m_rev_txt">${rev.revTxt}</div>
+                            <div class="m_rev_img">${revImgBox}</div>
+                        </div>`;
+    });
+    return revBox;
+}

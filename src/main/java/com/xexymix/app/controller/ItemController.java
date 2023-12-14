@@ -3,6 +3,7 @@ package com.xexymix.app.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.xexymix.app.domain.QnaDto;
+import com.xexymix.app.domain.ReviewDto;
 import com.xexymix.app.service.ItemService;
 import com.xexymix.app.service.QnaService;
 import com.xexymix.app.service.ReviewService;
@@ -61,8 +62,8 @@ public class ItemController {
         return "write_qna";
     }
 
-    // private static final String F_PATH = "C:/Users/user/Desktop/portfolio/github/xexymix/src/main/webapp/resources/img/qna/"; //집
-     private static final String F_PATH = "C:/Users/user1/Documents/GitHub/xexymix/src/main/webapp/resources/img/qna/"; //학원
+    private static final String F_PATH = "C:/Users/user/Desktop/portfolio/github/xexymix/src/main/webapp/resources/img/qna/"; //집
+//     private static final String F_PATH = "C:/Users/user1/Documents/GitHub/xexymix/src/main/webapp/resources/img/qna/"; //학원
     @PostMapping("/qna/update")
     public String updateQna(@RequestParam(value="wFile", required = false) List<MultipartFile> imgFiles, QnaDto qnaDesc, String w_cancel, String oriImg, String prevPage, String itemNo){
         List<String> origImg = new ArrayList<>(Arrays.asList(oriImg.split("\\|")));
@@ -104,8 +105,21 @@ public class ItemController {
         return "redirect:" + prevPage + (itemNo!=null?"?itemNo="+itemNo:"");
     }
 
-    @PostMapping("/item/qna/select")
-    public String showQna(){
-        return "";
+    @PostMapping("/qna/select")
+    @ResponseBody
+    public List<QnaDto> showQna(@RequestBody Map<String, String> qnaDesc){
+        System.out.println("qnaDesc : " + qnaDesc);
+        List<QnaDto> qnaList = qnaService.showQna(qnaDesc);
+        System.out.println("qnaList : " + qnaList);
+        return qnaList;
+    }
+
+    @PostMapping("/review/select")
+    @ResponseBody
+    public List<ReviewDto> showRev(@RequestBody Map<String, String> revDesc){
+        System.out.println("revDesc : " + revDesc);
+        List<ReviewDto> revList = reviewService.showReview(revDesc);
+        System.out.println("revList : " + revList);
+        return revList;
     }
 }
