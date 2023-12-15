@@ -32,4 +32,10 @@ public class IndexController {
         model.addAttribute("cate_js", cate_js);
         return "index";
     }
+
+    @GetMapping("/login")
+    public String showIndex(HttpSession session){
+        session.setAttribute("userNo", 1);
+        return "redirect:/";
+    }
 }

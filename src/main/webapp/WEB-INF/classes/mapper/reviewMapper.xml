@@ -27,7 +27,7 @@
                 order by revScore desc, revRegDate desc
             </when>
             <when test="search == 'likeAsc'">
-                order by revRegDate, revRegDate desc
+                order by revScore, revRegDate desc
             </when>
         </choose>
         limit ${limit}, 5

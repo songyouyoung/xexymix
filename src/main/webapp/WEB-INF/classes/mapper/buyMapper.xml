@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.xexymix.app.dao.buyMapper">
+<!--/////////////////////////////////////////////////////-->
+<!--//////////////////// 상세 페이지 /////////////////////-->
+<!--/////////////////////////////////////////////////////-->
+    <!-- 구매 / 취소 -->
+    <insert id="insertBuy" parameterType="java.util.List">
+        <foreach collection = "list" item = "buys" separator=";">
+            insert into buy (buyNo, itemNo, buyCnt, buyOpt, buyCode, userNo)
+                values (#{buys.buyNo}, #{buys.itemNo}, #{buys.buyCnt}, #{buys.buyOpt}, #{buys.buyCode}, #{buys.userNo})
+        </foreach>
+    </insert>
+    <select id="selectBuyNo" resultType="String">
+        SELECT CONCAT(DATE_FORMAT(NOW(), '%Y%m%d'), LPAD(RIGHT(IFNULL(MAX(buyNo) + 1, '0000001'), 7), 7, '0')) FROM buy
+    </select>
+</mapper>

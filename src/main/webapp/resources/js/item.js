@@ -57,7 +57,7 @@ $(document).on('click', '.m_qna_area td', function(){
         }).then(()=>{
             location.href = "/" + C_PATH + "/login?prevPage="+location.pathname+"&itemNo="+itemNo;
         });
-    }else if (thisQna.userNo == userNo && qnaWrapChk){
+    }else if (thisQna.userNo == userNo){ // && qnaWrapChk
         let jspPageURL = "/" + C_PATH + "/item/qna/detail";
         $.ajax({
             url: jspPageURL,
@@ -569,3 +569,68 @@ const createRev = (review)=>{
     });
     return revBox;
 }
+
+let buyPar;
+let buyCnt;
+// 구매 / 장바구니 체크
+const buyCartChk = (buyCart)=>{
+    buyPar = $(".order_item_box");
+    buyCnt = buyPar.children().length;
+    if (userNo == ""){
+        Swal.fire({
+            icon: "warning",
+            title: "로그인이 필요한 서비스입니다. "
+        }).then(()=>{
+            location.href = "/" + C_PATH + "/login?prevPage="+location.pathname+"&itemNo="+itemNo;
+        });
+    }else if(buyCnt == 0){
+        Swal.fire({
+            icon: "warning",
+            title: "상품이 선택되지 않았습니다. "
+        });
+    }else {
+        let buyLink = buyCart =="cart"?"/item/cart":"/item/buy";
+        let buyTxt = buyCart =="cart"?"장바구니에 추가됐습니다.":"구매해주셔서 감사합니다.";
+        let buyErrorTxt = buyCart =="cart"?"장바구니":"구매";
+        let buyItem = [];
+        for (let i = 0; i < buyCnt; i++){
+            if(buyCart = "cart"){
+                buyItem.push({itemNo: item.itemNo, cartCnt: buyPar.find(".order_cnt").eq(i).text(), cartOpt: buyPar.find(".order_size").eq(i).text()});
+            }else{
+                buyItem.push({itemNo: item.itemNo, buyCnt: buyPar.find(".order_cnt").eq(i).text(), buyOpt: buyPar.find(".order_size").eq(i).text(), buyCode: "buy"});
+            }
+        }
+        $.ajax({
+            type: 'POST',
+            url: '/' + C_PATH + buyLink,
+            headers: {"content-type": "application/json"},
+            data: JSON.stringify(buyItem),
+            success: function (data) {
+                if (data > 0){
+                    Swal.fire({
+                        icon: "success",
+                        title: buyTxt
+                    }).then(() => {
+                        location.reload();
+                    });
+                }else{
+                    Swal.fire({
+                        icon: "warning",
+                        title: buyErrorTxt+" ERROR. \n 관리자에게 문의해주세요."
+                    });
+                }
+            },
+            error: function (e) {
+                Swal.fire({
+                    icon: "warning",
+                    title: buyErrorTxt+" ERROR. \n 관리자에게 문의해주세요."
+                });
+            }
+        });
+    }
+
+}
+// 구매하기
+const buyit = ()=>{ buyCartChk("buy"); }
+// 장바구니
+const cartit = ()=>{ buyCartChk("cart"); }
