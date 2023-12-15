@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.xexymix.app.dao.itemMapper">
+<!--/////////////////////////////////////////////////////-->
+<!--////////////////////// header ///////////////////////-->
+<!--/////////////////////////////////////////////////////-->
+    <!-- 조회한 상품 출력 -->
+    <select id="selectLookItem" parameterType="String" resultType="itemDto">
+        select itemNo, itemName, itemPrice, itemImg
+            from item
+                where
+                <trim prefixOverrides="OR">
+                    <foreach collection = "lookList" item = "item">
+                        OR itemNo = #{item}
+                    </foreach>
+                </trim>
+    </select>
+
+<!--/////////////////////////////////////////////////////-->
+<!--////////////////////// index ////////////////////////-->
+<!--/////////////////////////////////////////////////////-->
+    <!-- 메인배너 상품 출력 -->
+    <select id="selectMainBanner" resultType="itemDto">
+        select i.itemNo, i.itemName, i.itemCate, mi.mainDesc as itemDesc, mi.mainImg as itemImg
+            from item i, mainItem mi
+                where i.itemNo = mi.itemNo
+    </select>
+    <!-- md pick 상품 출력-->
+    <select id="selectMdPick" resultType="map">
+        select i.itemNo, i.itemName, i.itemDesc, i.itemImg, concat(md.itemSub1, ',', md.itemSub2, ',', md.itemSub3, ',', md.itemSub4) as itemSub
+            from item i, mdPick md
+                where i.itemNo = md.itemNo;
+    </select>
+    <!-- 상품 출력-->
+    <!-- search = "best"면 베스트 상품 출력 (정렬, limit)-->
+    <!-- search = "md"면 md pick 연관 상품 출력-->
+    <!-- search = "cate"면 해당 cate에 맞는 상품 출력-->
+    <!-- 그 외 해당 상품번호 출력-->
+    <select id="selectItem" parameterType="String" resultType="itemDto">
+        select i.itemNo, i.itemName, i.itemPrice, i.itemDesc, i.itemCate, i.itemImg, i.itemImgSub, i.itemImgDetail, i.revCnt, i.itemSize, i.itemColor, i.itemUni, i.itemEco, i.itemCnt, i.itemSale, i.itemRegDate, e.evPer, e.evTxt
+        from item i left join event e on i.evNo = e.evNo
+        <choose>
+            <when test="search == 'best'">
+                order by itemSale DESC
+                limit 0, 10;
+            </when>
+            <when test="search == 'md'">
+                where
+                <trim prefixOverrides="OR">
+                    <foreach collection = "val" item = "item">
+                        OR itemNo = #{item}
+                    </foreach>
+                </trim>
+            </when>
+            <when test="search == 'cate'">
+                where itemCateDetail = #{val}
+                limit 0, ${limit}
+            </when>
+            <otherwise>
+                where itemNo = #{itemNo}
+            </otherwise>
+        </choose>
+    </select>
+</mapper>

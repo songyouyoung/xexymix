@@ -12,6 +12,7 @@ public class BuyDto {
     private String buyOpt;
     private String buyCode;
     private int userNo;
+    private int itemPrice;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date buyDate;
 
@@ -71,6 +72,14 @@ public class BuyDto {
         this.userNo = userNo;
     }
 
+    public int getItemPrice() {
+        return itemPrice;
+    }
+
+    public void setItemPrice(int itemPrice) {
+        this.itemPrice = itemPrice;
+    }
+
     public Date getBuyDate() {
         return buyDate;
     }
@@ -89,6 +98,7 @@ public class BuyDto {
                 ", buyOpt='" + buyOpt + '\'' +
                 ", buyCode='" + buyCode + '\'' +
                 ", userNo=" + userNo +
+                ", itemPrice=" + itemPrice +
                 ", buyDate=" + buyDate +
                 '}';
     }
