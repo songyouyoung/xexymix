@@ -8,5 +8,6 @@
         <typeAlias alias="qnaDto" type="com.xexymix.app.domain.QnaDto" />
         <typeAlias alias="buyDto" type="com.xexymix.app.domain.BuyDto" />
         <typeAlias alias="cartDto" type="com.xexymix.app.domain.CartDto" />
+        <typeAlias alias="pointDto" type="com.xexymix.app.domain.PointDto" />
     </typeAliases>
 </configuration>

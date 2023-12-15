@@ -20,6 +20,7 @@ public class BuyController {
     public int buyItem(@RequestBody List<BuyDto> buyDesc, HttpSession session){
         Integer userNo = (Integer) session.getAttribute("userNo");
         for(BuyDto buys:buyDesc){ buys.setUserNo(userNo); }
+
         return buyService.insertBuy(buyDesc);
     }
 }
