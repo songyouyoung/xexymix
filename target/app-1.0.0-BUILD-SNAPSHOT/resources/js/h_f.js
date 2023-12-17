@@ -1,13 +1,42 @@
 ///////////////////////////////////////////////
-//////////// 최근 본 상품 전체 선택 ////////////
+//////////////// 최근 본 상품 ///////////////////
 ///////////////////////////////////////////////
-function selectAll(select)  {
-    let checkboxes = document.querySelectorAll('input[name="history"]');
-
-    checkboxes.forEach((checkbox) => {
-        checkbox.checked = select.checked
+$(".history").hover(()=>{
+    let cookies = document.cookie.split(";");
+    let c_itemNo = [];
+    let c_itemPrice = [];
+    let c_itemImg = [];
+    let c_itemName = [];
+    cookies.forEach((cookie)=>{
+        let c_name = cookie.split("=");
+        if(c_name[0].trim().startsWith("historyItem")){
+            c_itemNo.push(c_name[1].trim());
+        }else if(c_name[0].trim().startsWith("historyPrice")){
+            c_itemPrice.push(Number(c_name[1].trim()));
+        }else if(c_name[0].trim().startsWith("historyImg")){
+            c_itemImg.push(c_name[1].trim());
+        }else if(c_name[0].trim().startsWith("historyName")){
+            c_itemName.push(decodeURIComponent(c_name[1].trim()).replaceAll("+", " "));
+        }
     });
-}
+    let historyItem = "";
+    if (c_itemNo.length > $(".h_t_icon_box .history_item_list").children().length){
+        for(let i = 0; i < c_itemNo.length; i++){
+            historyItem += `<a href="item?itemNo=${c_itemNo[i]}" class="history_item">
+                                <div class="history_img">
+                                    <img src="/${C_PATH}/img/item_list/${c_itemImg[i]}" alt="${c_itemName[i]}">
+                                </div>
+                                <div class="history_desc">
+                                    <div class="item_title">${c_itemName[i]}</div>
+                                    <div class="item_price">${c_itemPrice[i].toLocaleString("ko")}</div>
+                                </div>
+                            </a>`;
+        }
+    }else if(c_itemNo.length == 0){
+        historyItem = "최근 본 상품이 없습니다. ";
+    }
+    $(".history_item_list").append(historyItem);
+});
 
 $(document).ready(function(){
 ///////////////////////////////////////////////

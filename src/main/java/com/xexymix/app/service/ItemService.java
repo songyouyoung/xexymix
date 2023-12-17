@@ -79,9 +79,7 @@ public class ItemService {
 ///////////////////
 //    상세페이지
 ///////////////////
-    public Map<String, Object> showItemDetail(String itemNo){
-        Map<String, Object> itemDetail = new HashMap<>();
-        itemDetail.put("item", itemDao.selectItemDetail(itemNo));
-        return itemDetail;
+    public ItemDto showItemDetail(String itemNo){
+        return itemDao.selectItemDetail(itemNo);
     }
 }

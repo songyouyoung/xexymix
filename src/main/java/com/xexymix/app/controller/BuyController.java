@@ -37,7 +37,7 @@ public class BuyController {
                 buyChk = false;
                 throw new Exception("적립 오류");
             }
-            System.out.println("buyDesc : " + buyDesc);
+            //System.out.println("buyDesc : " + buyDesc);
             return new ResponseEntity<Boolean>(buyChk, HttpStatus.OK); // 200
         } catch (Exception e) {
             e.printStackTrace();

@@ -78,71 +78,7 @@
                     <div class="history_box">
                         <div class="history_item_box">
                             <div class="history_item_box_point"></div>
-                            <label class="history_chkAll">
-                                <input type="checkbox" name="history" onclick='selectAll(this)'> 전체 선택
-                            </label>
-                            <div class="history_item_list">
-                                <div class="history_item">
-                                    <input type="checkbox" name="history">
-                                    <div class="history_img">
-                                        <img src="<c:url value='/img/main_banner/main_banner_230911_2.jpg'/>" alt="">
-                                    </div>
-                                    <div class="history_desc">
-                                        <div class="item_title">스트레치 밴딩 부츠컷 슬랙스 1+1</div>
-                                        <div class="item_price">25,800</div>
-                                        <div class="history_btn">
-                                            <div class="history_btn_cart">장바구니</div>
-                                            <div class="history_btn_buy">구매하기</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="history_item">
-                                    <input type="checkbox" name="history">
-                                    <div class="history_img">
-                                        <img src="<c:url value='/img/main_banner/main_banner_230911_2.jpg'/>" alt="">
-                                    </div>
-                                    <div class="history_desc">
-                                        <div class="item_title">스트레치 밴딩 부츠컷 슬랙스 1+1</div>
-                                        <div class="item_price">25,800</div>
-                                        <div class="history_btn">
-                                            <div class="history_btn_cart">장바구니</div>
-                                            <div class="history_btn_buy">구매하기</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="history_item">
-                                    <input type="checkbox" name="history">
-                                    <div class="history_img">
-                                        <img src="<c:url value='/img/main_banner/main_banner_230911_2.jpg'/>" alt="">
-                                    </div>
-                                    <div class="history_desc">
-                                        <div class="item_title">스트레치 밴딩 부츠컷 슬랙스 1+1</div>
-                                        <div class="item_price">25,800</div>
-                                        <div class="history_btn">
-                                            <div class="history_btn_cart">장바구니</div>
-                                            <div class="history_btn_buy">구매하기</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="history_item">
-                                    <input type="checkbox" name="history">
-                                    <div class="history_img">
-                                        <img src="<c:url value='/img/main_banner/main_banner_230914.jpg'/>" alt="">
-                                    </div>
-                                    <div class="history_desc">
-                                        <div class="item_title">스트레치 밴딩 부츠컷 슬랙스 1+1asdfasdfasdfasdfasdfasdfafsadfsadfsafd</div>
-                                        <div class="item_price">25,800</div>
-                                        <div class="history_btn">
-                                            <div class="history_btn_cart">장바구니</div>
-                                            <div class="history_btn_buy">구매하기</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="history_btn">
-                                <div class="history_btn_cart">장바구니</div>
-                                <div class="history_btn_buy">구매하기</div>
-                            </div>
+                            <div class="history_item_list"></div>
                         </div>
                     </div>
                 </li><!--history-->
@@ -284,74 +220,9 @@
                     <div class="history_box">
                         <div class="history_item_box">
                             <div class="history_item_box_point"></div>
-                            <label class="history_chkAll">
-                                <input type="checkbox" name="history" onclick='selectAll(this)'> 전체 선택
-                            </label>
-                            <div class="history_item_list">
-                                <div class="history_item">
-                                    <input type="checkbox" name="history">
-                                    <div class="history_img">
-                                        <img src="<c:url value='/img/main_banner/main_banner_230911_2.jpg'/>" alt="">
-                                    </div>
-                                    <div class="history_desc">
-                                        <div class="item_title">스트레치 밴딩 부츠컷 슬랙스 1+1</div>
-                                        <div class="item_price">25,800</div>
-                                        <div class="history_btn">
-                                            <div class="history_btn_cart">장바구니</div>
-                                            <div class="history_btn_buy">구매하기</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="history_item">
-                                    <input type="checkbox" name="history">
-                                    <div class="history_img">
-                                        <img src="<c:url value='/img/main_banner/main_banner_230911_2.jpg'/>" alt="">
-                                    </div>
-                                    <div class="history_desc">
-                                        <div class="item_title">스트레치 밴딩 부츠컷 슬랙스 1+1</div>
-                                        <div class="item_price">25,800</div>
-                                        <div class="history_btn">
-                                            <div class="history_btn_cart">장바구니</div>
-                                            <div class="history_btn_buy">구매하기</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="history_item">
-                                    <input type="checkbox" name="history">
-                                    <div class="history_img">
-                                        <img src="<c:url value='/img/main_banner/main_banner_230911_2.jpg'/>" alt="">
-                                    </div>
-                                    <div class="history_desc">
-                                        <div class="item_title">스트레치 밴딩 부츠컷 슬랙스 1+1</div>
-                                        <div class="item_price">25,800</div>
-                                        <div class="history_btn">
-                                            <div class="history_btn_cart">장바구니</div>
-                                            <div class="history_btn_buy">구매하기</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="history_item">
-                                    <input type="checkbox" name="history">
-                                    <div class="history_img">
-                                        <img src="<c:url value='/img/main_banner/main_banner_230914.jpg'/>" alt="">
-                                    </div>
-                                    <div class="history_desc">
-                                        <div class="item_title">스트레치 밴딩 부츠컷 슬랙스 1</div>
-                                        <div class="item_price">25,800</div>
-                                        <div class="history_btn">
-                                            <div class="history_btn_cart">장바구니</div>
-                                            <div class="history_btn_buy">구매하기</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="history_btn">
-                                <div class="history_btn_cart">장바구니</div>
-                                <div class="history_btn_buy">구매하기</div>
-                            </div>
+                            <div class="history_item_list"></div>
                         </div>
                     </div>
-                    </svg>
                 </li><!--history-->
                 <li class="cart h_b icon_box">
                     <a href="cart.jsp">

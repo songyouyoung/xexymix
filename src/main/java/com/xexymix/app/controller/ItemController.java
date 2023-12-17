@@ -2,6 +2,7 @@ package com.xexymix.app.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.xexymix.app.domain.ItemDto;
 import com.xexymix.app.domain.QnaDto;
 import com.xexymix.app.domain.ReviewDto;
 import com.xexymix.app.service.ItemService;
@@ -13,8 +14,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.*;
 
 @Controller
@@ -28,9 +34,12 @@ public class ItemController {
     QnaService qnaService;
 
     @GetMapping("")
-    public String showItem(HttpSession session, String itemNo, Model model) throws JsonProcessingException {
+    public String showItem(HttpSession session, HttpServletResponse response, HttpServletRequest request, String itemNo, Model model) throws JsonProcessingException, UnsupportedEncodingException {
+        // 화면 구현
+        ItemDto itemDetail = itemService.showItemDetail(itemNo);
+
         ObjectMapper mapper = new ObjectMapper();
-        String item_js = mapper.writeValueAsString(itemService.showItemDetail(itemNo).get("item"));
+        String item_js = mapper.writeValueAsString(itemDetail);
         Map<String, String> revDesc = new HashMap<>();
         revDesc.put("itemNo", itemNo);
         revDesc.put("limit", "0");
@@ -43,7 +52,8 @@ public class ItemController {
         qnaDesc.put("limit", "0");
         String qna_js = mapper.writeValueAsString(qnaService.showQna(qnaDesc));
 
-        model.addAttribute("item", itemService.showItemDetail(itemNo).get("item"));
+
+        model.addAttribute("item", itemDetail);
         model.addAttribute("item_js", item_js);
         model.addAttribute("revMaxCnt", reviewService.cntReview(itemNo));
         model.addAttribute("review_js", review_js);
@@ -52,6 +62,45 @@ public class ItemController {
         model.addAttribute("qnaMaxCnt", qnaService.cntQna(itemNo));
         model.addAttribute("qna_js", qna_js);
 
+        // 쿠키 생성 (history)
+        int historyNo = 0;
+        String prevHistory = "";
+        boolean historyChk = true;
+        Cookie[] cookies = request.getCookies();
+        for (Cookie c : cookies) {
+            if (c.getName().startsWith("historyItem")) {
+                prevHistory = c.getValue();
+                if (prevHistory.equals(itemNo)){
+                    historyChk = false;
+                    break;
+                }
+                int no = Integer.parseInt(c.getName().replace("historyItem", ""));
+                historyNo = Math.max(no, historyNo);
+            }
+        }
+        if (historyChk) {
+            historyNo += 1;
+            Cookie cookie = new Cookie("historyItem" + historyNo, itemNo);
+            cookie.setMaxAge(60 * 60 * 24);
+            cookie.setPath("/");
+            Cookie cookie2 = new Cookie("historyImg" + historyNo, itemDetail.getItemImg());
+            cookie2.setMaxAge(60 * 60 * 24);
+            cookie2.setPath("/");
+            Cookie cookie3 = new Cookie("historyName" + historyNo, URLEncoder.encode(itemDetail.getItemName(), "UTF-8"));
+            cookie3.setMaxAge(60 * 60 * 24);
+            cookie3.setPath("/");
+            System.out.println("itemDetail.getItemPrice() : " + itemDetail.getItemPrice());
+            System.out.println("evPer : " + itemDetail.getEvPer());
+            int historyPrice = itemDetail.getItemPrice() / 100 * (itemDetail.getEvPer() > 0?100-itemDetail.getEvPer():100);
+            System.out.println("historyPrice : " + historyPrice);
+            Cookie cookie4 = new Cookie("historyPrice" + historyNo, historyPrice+"");
+            cookie4.setMaxAge(60 * 60 * 24);
+            cookie4.setPath("/");
+            response.addCookie(cookie);
+            response.addCookie(cookie2);
+            response.addCookie(cookie3);
+            response.addCookie(cookie4);
+        }
         return "item";
     }
 
