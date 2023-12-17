@@ -363,7 +363,7 @@ $(document).ready(function(){
 /////////////////////////////////////
     let qnaBox = "";
     if(qna.length == 0){
-        qnaBox = `<p class="m_none">아직 작성한 리뷰가 없습니다.</p>`;
+        qnaBox = `<p class="m_none">아직 작성한 문의가 없습니다.</p>`;
     }else{
         qnaBox += `<table class="m_qna_area">`;
         qnaBox += createQna(qna);
