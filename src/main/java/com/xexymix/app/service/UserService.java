@@ -39,4 +39,14 @@ public class UserService {
         }
         return userChkResult;
     }
+
+///////////////////////////////////
+//////////// 아이디 / 비밀번호 찾기
+///////////////////////////////////
+    public String userFindId(UserDto userDto){
+        return userDao.selectFindId(userDto);
+    }
+    public Integer userFindPw(UserDto userDto){
+        return userDao.selectFindPw(userDto);
+    }
 }

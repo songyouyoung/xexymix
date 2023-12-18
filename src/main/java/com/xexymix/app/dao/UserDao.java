@@ -36,4 +36,14 @@ public class UserDao {
     public int selectEmailChk(String userEmail){
         return session.selectOne(namespace + "selectEmailChk", userEmail);
     }
+
+///////////////////////////////////
+//////////// 아이디 / 비밀번호 찾기
+///////////////////////////////////
+    public String selectFindId(UserDto userDto){
+        return session.selectOne(namespace + "selectFindId", userDto);
+    }
+    public Integer selectFindPw(UserDto userDto){
+        return session.selectOne(namespace + "selectFindPw", userDto);
+    }
 }

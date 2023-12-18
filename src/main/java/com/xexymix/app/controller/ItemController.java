@@ -89,10 +89,7 @@ public class ItemController {
             Cookie cookie3 = new Cookie("historyName" + historyNo, URLEncoder.encode(itemDetail.getItemName(), "UTF-8"));
             cookie3.setMaxAge(60 * 60 * 24);
             cookie3.setPath("/");
-            System.out.println("itemDetail.getItemPrice() : " + itemDetail.getItemPrice());
-            System.out.println("evPer : " + itemDetail.getEvPer());
             int historyPrice = itemDetail.getItemPrice() / 100 * (itemDetail.getEvPer() > 0?100-itemDetail.getEvPer():100);
-            System.out.println("historyPrice : " + historyPrice);
             Cookie cookie4 = new Cookie("historyPrice" + historyNo, historyPrice+"");
             cookie4.setMaxAge(60 * 60 * 24);
             cookie4.setPath("/");
@@ -143,30 +140,22 @@ public class ItemController {
         }
         qnaDesc.setQnaFile(String.valueOf(qnaFile));
         qnaDesc.setQnaFileOri(String.valueOf(qnaFileOri));
-        System.out.println(qnaDesc.getQnaFile());
         qnaService.updateQna(qnaDesc);
-        System.out.println("1 prevPage : " + prevPage);
         prevPage = prevPage.replace("/app","");
-        System.out.println("2 prevPage : " + prevPage);
-        System.out.println("redirect:" + prevPage + (itemNo!=null?"?itemNo="+itemNo:""));
         return "redirect:" + prevPage + (itemNo!=null?"?itemNo="+itemNo:"");
     }
 
     @PostMapping("/qna/select")
     @ResponseBody
     public List<QnaDto> showQna(@RequestBody Map<String, String> qnaDesc){
-        System.out.println("qnaDesc : " + qnaDesc);
         List<QnaDto> qnaList = qnaService.showQna(qnaDesc);
-        System.out.println("qnaList : " + qnaList);
         return qnaList;
     }
 
     @PostMapping("/review/select")
     @ResponseBody
     public List<ReviewDto> showRev(@RequestBody Map<String, String> revDesc){
-        System.out.println("revDesc : " + revDesc);
         List<ReviewDto> revList = reviewService.showReview(revDesc);
-        System.out.println("revList : " + revList);
         return revList;
     }
 }

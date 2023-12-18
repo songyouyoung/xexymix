@@ -11,11 +11,12 @@
     <link rel="stylesheet" href="<c:url value='/css/h_f.css'/>">
     <link rel="stylesheet" href="<c:url value='/css/login_join.css'/>">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 </head>
 <body>
 <div id="wrap" class="logjoin">
     <div class="find logo"><a href="<c:url value='/'/>">xexymix</a></div>
-    <form class="find_box" onsubmit="findit()">
+    <div class="find_box">
         <div class="find_title">비밀번호 찾기</div>
         <input type="text" name="userId" id="id" class="idpw" placeholder="아이디" autofocus required>
         <input type="text" name="userName" id="name" class="idpw" placeholder="이름" required>
@@ -24,8 +25,8 @@
             <input type="number" name="userPhone" id="phone" class="idpw" placeholder="전화번호" required onkeyup="checkPw()">
         </div>
         <input type="date" name="userBirth" id="birth" class="idpw" placeholder="생년월일" required max="9999-12-31">
-        <input type="submit" value="비밀번호 찾기" class="btn_sub">
-    </form>
+        <button class="btn_sub" onclick="findit('pw')">비밀번호 찾기</button>
+    </div>
     <div class="login_btn_etc">
         <div class="login_find">
             <a class="login_id" href="<c:url value="/login/login"/>">로그인</a>

@@ -3,14 +3,15 @@ package com.xexymix.app.controller;
 import com.xexymix.app.domain.UserDto;
 import com.xexymix.app.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.Date;
 import java.util.Map;
 
 @Controller
@@ -23,9 +24,15 @@ public class LoginController {
 // 로그인
 //////////////////////
 //폼 보여주기
+    String prevPage = "";
     @GetMapping("/login")
     public String showLogin(HttpServletRequest request, Model model){
-        model.addAttribute("prevPage", request.getHeader("REFERER"));
+        String prevPageTmp = request.getHeader("REFERER");
+        if(!prevPageTmp.contains("find_") || prevPage.equals("")){
+            prevPage = prevPageTmp;
+        }
+        System.out.println("prevPage : " + prevPage);
+        model.addAttribute("prevPage", prevPage);
         return "login";
     }
 // 실제 로그인
@@ -92,6 +99,22 @@ public class LoginController {
     public String findId(){
         return "find_id";
     }
+    @PostMapping("/find_id")
+    @ResponseBody
+    public ResponseEntity<String> getFindId(@RequestBody UserDto userDto){
+        try {
+            System.out.println("userDto : " + userDto);
+            String userId = userService.userFindId(userDto);
+            System.out.print("userId : ");
+            System.out.println(userId);
+            if (userId.isEmpty()){ throw new Exception("아이디찾기 결과 없음. "); }
+            return new ResponseEntity<String>("", HttpStatus.OK);
+        }
+        catch (Exception e) {
+            return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
 // 비밀번호 찾기 폼 보여주기
     @GetMapping("/find_pw")
     public String findPw(){

@@ -31,4 +31,21 @@
     <select id="selectEmailChk" parameterType="String" resultType="int">
         select count(userId) from user where userEmail = #{userEmail}
     </select>
+
+<!--/////////////////////////////////////////////////////-->
+<!--/////////////// 아이디 / 비밀번호 찾기 ////////////////-->
+<!--/////////////////////////////////////////////////////-->
+    <select id="selectFindId" parameterType="userDto" resultType="String">
+        select userId from user
+            where userName = #{userName}
+                and userPhone = #{userPhone}
+                and userBirth = #{userBirth}
+    </select>
+    <select id="selectFindPw" parameterType="userDto" resultType="int">
+        select count(userPw) from user
+            where userId = #{userId}
+                and userName = #{userName}
+                and userPhone = #{userPhone}
+                and userBirth = #{userBirth}
+    </select>
 </mapper>

@@ -1,3 +1,4 @@
+const C_PATH = (location.pathname).split("/")[1];
 $(document).ready(function(){
 /////////////////////////////////
 ///////////// 공용 //////////////
@@ -72,6 +73,36 @@ function checkPw(){
 /////////////////////////////////
 /////// 아이디/비밀번호 찾기 /////
 /////////////////////////////////
-function findit(){
-    
+function findit(find){
+    let findLink = "";
+    let findData = {};
+    findLink = "/login/find_"+find
+    let findDesc = $(".logjoin").find("input")
+    for(let i = 0; i < findDesc.length; i++){
+        findData[findDesc.eq(i).prop("name")] = findDesc.eq(i).prop("value");
+    }
+    console.log(findData)
+
+    $.ajax({
+        type: 'POST',
+        url: '/' + C_PATH + findLink,
+        headers: {"content-type": "application/json"},
+        data: JSON.stringify(findData),
+        success: function (data) {
+            if (find == "id"){
+                Swal.fire({
+                    title: "아이디는 "+data+"입니다. ",
+                }).then(() => {
+                    location.replace('/'+C_PATH+'/login/login');
+                });
+            }else {
+
+            }
+        },
+        error: function (e) {
+            Swal.fire({
+                title: "일치하는 회원정보가<br>없습니다.",
+            });
+        }
+    });
 }
