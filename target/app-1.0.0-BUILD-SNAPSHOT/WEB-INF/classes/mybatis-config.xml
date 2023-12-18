@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "https://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <typeAliases>
+        <typeAlias alias="itemDto" type="com.xexymix.app.domain.ItemDto" />
+        <typeAlias alias="reviewDto" type="com.xexymix.app.domain.ReviewDto" />
+        <typeAlias alias="qnaDto" type="com.xexymix.app.domain.QnaDto" />
+        <typeAlias alias="buyDto" type="com.xexymix.app.domain.BuyDto" />
+        <typeAlias alias="cartDto" type="com.xexymix.app.domain.CartDto" />
+        <typeAlias alias="pointDto" type="com.xexymix.app.domain.PointDto" />
+        <typeAlias alias="userDto" type="com.xexymix.app.domain.UserDto" />
+    </typeAliases>
+</configuration>

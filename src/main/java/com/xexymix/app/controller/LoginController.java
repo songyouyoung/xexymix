@@ -9,8 +9,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
 
@@ -37,13 +40,22 @@ public class LoginController {
     }
 // 실제 로그인
     @PostMapping("/login")
-    public String login(UserDto userDto, Boolean login_rem, String prevPage, Model model, HttpSession session){
+    public String login(UserDto userDto, Boolean login_rem, String prevPage, Model model, HttpSession session, HttpServletResponse response){
         if (userService.userLogin(userDto) < 1){
             model.addAttribute("welcom", "아이디 / 비밀번호를 다시 한 번 확인해주세요.");
             return "login";
         }
         session.setAttribute("userId", userDto.getUserId());
-        if (login_rem != null && login_rem) { session.setAttribute("rememberId", userDto.getUserId()); }
+        
+        //아이디 기억하기
+        Cookie cookie = new Cookie("rememberId", userDto.getUserId());
+        if (login_rem != null && login_rem) {
+            cookie.setMaxAge(60 * 60 * 24 * 30);
+        }else {
+            cookie.setMaxAge(0);
+        }
+            cookie.setPath("/");
+            response.addCookie(cookie);
 
         return "redirect:"+prevPage;
     }
@@ -99,6 +111,7 @@ public class LoginController {
     public String findId(){
         return "find_id";
     }
+// 실제 아이디 찾기
     @PostMapping("/find_id")
     @ResponseBody
     public ResponseEntity<String> getFindId(@RequestBody UserDto userDto){
@@ -108,7 +121,7 @@ public class LoginController {
             System.out.print("userId : ");
             System.out.println(userId);
             if (userId.isEmpty()){ throw new Exception("아이디찾기 결과 없음. "); }
-            return new ResponseEntity<String>("", HttpStatus.OK);
+            return new ResponseEntity<String>(userId, HttpStatus.OK);
         }
         catch (Exception e) {
             return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);

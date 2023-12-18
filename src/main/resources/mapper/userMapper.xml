@@ -39,13 +39,13 @@
         select userId from user
             where userName = #{userName}
                 and userPhone = #{userPhone}
-                and userBirth = #{userBirth}
+                and userBirth = DATE_FORMAT(#{userBirth}, '%Y-%m-%d')
     </select>
     <select id="selectFindPw" parameterType="userDto" resultType="int">
         select count(userPw) from user
             where userId = #{userId}
                 and userName = #{userName}
                 and userPhone = #{userPhone}
-                and userBirth = #{userBirth}
+                and userBirth = DATE_FORMAT(#{userBirth}, '%Y-%m-%d')
     </select>
 </mapper>
