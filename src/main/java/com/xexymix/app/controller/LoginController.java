@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Map;
 
@@ -23,15 +24,19 @@ public class LoginController {
 //////////////////////
 //폼 보여주기
     @GetMapping("/login")
-    public String showLogin(){
+    public String showLogin(HttpServletRequest request, Model model){
+        model.addAttribute("prevPage", request.getHeader("REFERER"));
         return "login";
     }
 // 실제 로그인
     @PostMapping("/login")
-    public String login(UserDto userDto, Boolean login_rem, String prevPage){
-        System.out.print("login_rem : ");
-        System.out.println(login_rem);
-        if ()
+    public String login(UserDto userDto, Boolean login_rem, String prevPage, Model model, HttpSession session){
+        if (userService.userLogin(userDto) < 1){
+            model.addAttribute("welcom", "아이디 / 비밀번호를 다시 한 번 확인해주세요.");
+            return "login";
+        }
+        session.setAttribute("userId", userDto.getUserId());
+        if (login_rem != null && login_rem) { session.setAttribute("rememberId", userDto.getUserId()); }
 
         return "redirect:"+prevPage;
     }

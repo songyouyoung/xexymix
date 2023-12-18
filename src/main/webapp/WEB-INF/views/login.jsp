@@ -16,15 +16,16 @@
 <div id="wrap" class="logjoin">
     <div class="logo"><a href="<c:url value='/'/>">xexymix</a></div>
     <div style="text-align: center">${welcom}</div>
-    <form class="login_box" onsubmit="loginit()">
-        <div class="join_hint" id="">일치하는 회원 정보가 없습니다. </div>
+    <form action="<c:url value="/login/login"/>" method="POST" class="login_box">
+<%--        <div class="join_hint" id="">일치하는 회원 정보가 없습니다. </div>--%>
+        <input type="hidden" name="prevPage" value="${prevPage}">
         <input type="text" name="userId" id="id" class="idpw" placeholder="아이디" autofocus required>
         <div class="pw_area">
             <input type="password" name="userPw" id="pw" class="idpw" placeholder="비밀번호" required>
             <div class="pw_img"></div>
         </div>
         <div class="login_rem_area">
-            <input type="checkbox" name="login_rem" id="login_rem">
+            <input type="checkbox" name="login_rem" id="login_rem" autocomplete='off'>
             <span>아이디저장</span>
         </div>
         <input type="submit" value="로그인" class="btn_sub">
