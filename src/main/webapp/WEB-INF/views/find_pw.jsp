@@ -25,7 +25,7 @@
             <input type="number" name="userPhone" id="phone" class="idpw" placeholder="전화번호" required onkeyup="checkPw()">
         </div>
         <input type="date" name="userBirth" id="birth" class="idpw" placeholder="생년월일" required max="9999-12-31">
-        <button class="btn_sub" onclick="findit('pw')">비밀번호 찾기</button>
+        <button class="btn_sub" onclick="findit('pw')">비밀번호 변경하기</button>
     </div>
     <div class="login_btn_etc">
         <div class="login_find">

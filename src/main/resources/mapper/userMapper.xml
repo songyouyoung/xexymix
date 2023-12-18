@@ -48,4 +48,12 @@
                 and userPhone = #{userPhone}
                 and userBirth = DATE_FORMAT(#{userBirth}, '%Y-%m-%d')
     </select>
+    <!-- 비밀번호 변경 -->
+    <update id="updatePw" parameterType="userDto">
+        update user set userPw = #{userPw}
+            where userId = #{userId}
+                and userName = #{userName}
+                and userPhone = #{userPhone}
+                and userBirth = DATE_FORMAT(#{userBirth}, '%Y-%m-%d')
+    </update>
 </mapper>

@@ -31,9 +31,8 @@ public class LoginController {
     @GetMapping("/login")
     public String showLogin(HttpServletRequest request, Model model){
         String prevPageTmp = request.getHeader("REFERER");
-        if(!prevPageTmp.contains("find_") || prevPage.equals("")){
-            prevPage = prevPageTmp;
-        }
+        if(!prevPageTmp.contains("find_") || prevPage.isEmpty()){ prevPage = prevPageTmp; }
+        if (prevPage.isEmpty() || prevPage.contains("find_")){ prevPage = "http://localhost:8080/app/"; }
         System.out.println("prevPage : " + prevPage);
         model.addAttribute("prevPage", prevPage);
         return "login";
@@ -133,4 +132,40 @@ public class LoginController {
     public String findPw(){
         return "find_pw";
     }
+// 실제 비밀번호 찾기
+    UserDto findUserDto = new UserDto();
+    @PostMapping("/find_pw")
+    @ResponseBody
+    public ResponseEntity<String> getFindPw(@RequestBody UserDto userDto){
+        try {
+            findUserDto = userDto;
+
+            Integer userPwChk = userService.userFindPw(userDto);
+            if (userPwChk != 1){ throw new Exception("아이디찾기 결과 없음. "); }
+            return new ResponseEntity<String>(HttpStatus.OK);
+        }
+        catch (Exception e) {
+            return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
+        }
+    }
+// 비밀번호 변경 폼 보여주기
+    @GetMapping("/change_pw")
+    public String showChangePw(){
+        return "change_pw";
+    }
+    @PostMapping("/change_pw")
+    public String changePw(Model model, String userPw){
+        try {
+            findUserDto.setUserPw(userPw);
+            Integer changePw = userService.updatePw(findUserDto);
+            if (changePw < 1){ throw new Exception("비밀번호 변경 오류. "); }
+            model.addAttribute("welcom", "비밀번호 변경 완료!<br>로그인 후 다양한 서비스를 이용해 보세요.");
+            return "login";
+        }catch (Exception e){
+            e.printStackTrace();
+            model.addAttribute("error", "비밀번호 변경 오류<br>관리자에게 문의해주세요.");
+            return "join";
+        }
+    }
+
 }

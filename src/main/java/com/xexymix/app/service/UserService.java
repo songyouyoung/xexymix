@@ -49,4 +49,7 @@ public class UserService {
     public Integer userFindPw(UserDto userDto){
         return userDao.selectFindPw(userDto);
     }
+    public Integer updatePw(UserDto userDto){
+        return userDao.updatePw(userDto);
+    }
 }

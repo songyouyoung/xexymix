@@ -46,4 +46,8 @@ public class UserDao {
     public Integer selectFindPw(UserDto userDto){
         return session.selectOne(namespace + "selectFindPw", userDto);
     }
+
+    public Integer updatePw(UserDto userDto){
+        return session.update(namespace + "updatePw", userDto);
+    }
 }

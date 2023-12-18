@@ -25,38 +25,50 @@ const chkId = /^[a-z]+[a-z0-9]{5,20}$/g;
 const chkPw = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,16}$/;
 const chkName = /^[가-힣]+$/;
 const chkPhone = /^[0-9]{8}/
-function joinit(){
+function joinit(chk){
     let joinChk = true;
 
-    if (!chkId.test($("#id").val().trim())) {
-        $("#id").focus();
-        joinChk = false;
-        joinHint(joinChk, $("#id_chk").prev());
-    }else{joinHint(true, $("#id_chk").prev());}
+    if(chk) {
+        if (!chkId.test($("#id").val().trim())) {
+            $("#id").focus();
+            joinChk = false;
+            joinHint(joinChk, $("#id_chk").prev());
+        } else {
+            joinHint(true, $("#id_chk").prev());
+        }
 
+        if (!chkName.test($("#name").val())) {
+            $("#name").focus();
+            joinChk = false;
+            joinHint(joinChk, $("#name").prev());
+        } else {
+            joinHint(true, $("#name").prev());
+        }
+
+        if (!chkPhone.test($("#phone").val())) {
+            $("#phone").focus();
+            joinChk = false;
+            joinHint(joinChk, $("#phone").prev());
+        } else {
+            joinHint(true, $("#phone").prev());
+        }
+    }
     if (!chkPw.test($("#pw").val())) {
         $("#pw").focus();
         joinChk = false;
         joinHint(joinChk, $("#pw_chk"));
-    }else{joinHint(true, $("#pw_chk"));}
+    } else {
+        joinHint(true, $("#pw_chk"));
+    }
 
-    if($("#pw").val() != $("#pw_re").val()){
+    if ($("#pw").val() != $("#pw_re").val()) {
         $("#pw").focus();
         joinChk = false;
         joinHint(joinChk, $("#pw_equal"));
-    }else{joinHint(true, $("#pw_equal"));}
+    } else {
+        joinHint(true, $("#pw_equal"));
+    }
 
-    if (!chkName.test($("#name").val())) {
-        $("#name").focus();
-        joinChk = false;
-        joinHint(joinChk, $("#name").prev());
-    }else{joinHint(true, $("#name").prev());}
-
-    if (!chkPhone.test($("#phone").val())) {
-        $("#phone").focus();
-        joinChk = false;
-        joinHint(joinChk, $("#phone").prev());
-    }else{joinHint(true, $("#phone").prev());}
 
     return joinChk;
 }
@@ -81,7 +93,6 @@ function findit(find){
     for(let i = 0; i < findDesc.length; i++){
         findData[findDesc.eq(i).prop("name")] = findDesc.eq(i).prop("value");
     }
-    console.log(findData)
 
     $.ajax({
         type: 'POST',
@@ -96,7 +107,7 @@ function findit(find){
                     location.replace('/'+C_PATH+'/login/login?idTmp='+data);
                 });
             }else {
-
+                location.replace('/'+C_PATH+'/login/change_pw');
             }
         },
         error: function (e) {
