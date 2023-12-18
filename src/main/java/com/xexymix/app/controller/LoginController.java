@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/login")
@@ -27,8 +28,10 @@ public class LoginController {
     }
 // 실제 로그인
     @PostMapping("/login")
-    public String login(UserDto userDto, String prevPage){
-//        int
+    public String login(UserDto userDto, Boolean login_rem, String prevPage){
+        System.out.print("login_rem : ");
+        System.out.println(login_rem);
+        if ()
 
         return "redirect:"+prevPage;
     }
@@ -52,15 +55,27 @@ public class LoginController {
     }
 // 실제 회원가입
     @PostMapping("/join")
-    public String join(UserDto userDto, Model model){
-//    public String join(Model model){
-        System.out.println("userDto : " + userDto);
-        int joinChk = userService.joinUser(userDto);
-        if (joinChk == 0){
-            model.addAttribute("error", "회원가입 오류<br>관리자에게 문의해주세요.");
-            return "redirect:/login/join";
-        }else {
-            return "redirect:/login/join";
+    public String join(UserDto userDto, Model model) throws Exception{
+        String error = "";
+        try {
+            // 아이디, 전화번호, 이메일 중복 체크
+            Map<String, String> userChk = userService.userChk(userDto);
+            if (!userChk.isEmpty()){
+                error += userChk.get("id") == null? "" : userChk.get("id");
+                error += (!error.equals("")? "<br>" : "") + (userChk.get("phone") == null? "" : userChk.get("phone"));
+                error += (!error.endsWith("<br>")? "<br>" : "") + (userChk.get("email") == null? "" : userChk.get("email"));
+                throw new Exception("회원가입 오류. 아이디/전화번호 중복.");
+            }
+            // 회원가입 실패 체크
+            int joinChk = userService.joinUser(userDto);
+            if (joinChk == 0) { throw new Exception("회원가입 오류."); }
+            
+            model.addAttribute("welcom", "회원가입 완료!<br>로그인 후 다양한 서비스를 이용해 보세요.");
+            return "login";
+        }catch (Exception e){
+            e.printStackTrace();
+            model.addAttribute("error", (error.equals("")?"회원가입 오류<br>관리자에게 문의해주세요.":error));
+            return "join";
         }
     }
 

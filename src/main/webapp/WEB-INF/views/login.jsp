@@ -15,6 +15,7 @@
 <body>
 <div id="wrap" class="logjoin">
     <div class="logo"><a href="<c:url value='/'/>">xexymix</a></div>
+    <div style="text-align: center">${welcom}</div>
     <form class="login_box" onsubmit="loginit()">
         <div class="join_hint" id="">일치하는 회원 정보가 없습니다. </div>
         <input type="text" name="userId" id="id" class="idpw" placeholder="아이디" autofocus required>

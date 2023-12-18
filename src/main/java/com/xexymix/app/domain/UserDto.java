@@ -11,7 +11,8 @@ public class UserDto {
     private String userName;
     private String userPhone;
     private String userEmail;
-    private Integer userBirth;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date userBirth;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date userRegDate;
     private Integer userPo;
@@ -29,7 +30,6 @@ public class UserDto {
     }
 
     public void setUserId(String userId) {
-        System.out.println("userId : " + userId);
         this.userId = userId;
     }
 
@@ -38,7 +38,6 @@ public class UserDto {
     }
 
     public void setUserPw(String userPw) {
-        System.out.println("userPw : " + userPw);
         this.userPw = userPw;
     }
 
@@ -47,7 +46,6 @@ public class UserDto {
     }
 
     public void setUserName(String userName) {
-        System.out.println("userName : " + userName);
         this.userName = userName;
     }
 
@@ -56,7 +54,6 @@ public class UserDto {
     }
 
     public void setUserPhone(String userPhone) {
-        System.out.println("String, userPhone : " + userPhone);
         this.userPhone = userPhone;
     }
 
@@ -65,17 +62,14 @@ public class UserDto {
     }
 
     public void setUserEmail(String userEmail) {
-
-        System.out.println("userEmail : " + userEmail);
         this.userEmail = userEmail;
     }
 
-    public Integer getUserBirth() {
+    public Date getUserBirth() {
         return userBirth;
     }
 
-    public void setUserBirth(Integer userBirth) {
-        System.out.println("userBirth : " + userBirth);
+    public void setUserBirth(Date userBirth) {
         this.userBirth = userBirth;
     }
 

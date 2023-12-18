@@ -7,7 +7,16 @@
     <!--/////////////////////////////////////////////////////-->
     <!-- 구매 / 취소 -->
     <insert id="insertUser" parameterType="userDto">
-        insert into buy (userId, userPw, userName, userPhone, userEmail, userBirth)
+        insert into user (userId, userPw, userName, userPhone, userEmail, userBirth)
             values (#{userId}, #{userPw}, #{userName}, #{userPhone}, #{userEmail}, #{userBirth})
     </insert>
+
+    <!-- 아이디 중복 체크 -->
+    <select id="selectIdChk" parameterType="String" resultType="int">
+        select count(userId) from user where userId = #{userId}
+    </select>
+    <!-- 핸드폰번호 중복 체크 -->
+    <select id="selectPhoneChk" parameterType="String" resultType="int">
+        select count(userId) from user where userPhone = #{userPhone}
+    </select>
 </mapper>
