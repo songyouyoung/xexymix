@@ -8,8 +8,8 @@
     <!-- 구매 / 취소 -->
     <insert id="insertBuy" parameterType="java.util.List">
         <foreach collection = "list" item = "buys" separator=";">
-            insert into buy (buyNo, itemNo, buyCnt, buyOpt, buyCode, userNo)
-                values (#{buys.buyNo}, #{buys.itemNo}, #{buys.buyCnt}, #{buys.buyOpt}, #{buys.buyCode}, #{buys.userNo})
+            insert into buy (buyNo, itemNo, buyCnt, buyOpt, buyCode, userNo, itemPrice)
+                values (#{buys.buyNo}, #{buys.itemNo}, #{buys.buyCnt}, #{buys.buyOpt}, #{buys.buyCode}, #{buys.userNo}, #{buys.itemPrice})
         </foreach>
     </insert>
     <select id="selectBuyNo" resultType="String">

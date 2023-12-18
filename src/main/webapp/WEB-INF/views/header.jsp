@@ -1,13 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" session = "false"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%--<c:set var="sessionId" value="${ pageContext.request.getSession(false).getAttribute('liogdin')!=null? pageContext.request.getSession(false).getAttribute('liogdin'):null}" />--%>
-<%--<c:set var="sessionNick" value="${ pageContext.request.getSession(false).getAttribute('liogdinn')!=null? pageContext.request.getSession(false).getAttribute('liogdinn'):null}" />--%>
+<c:set var="sessionId" value="${ pageContext.request.getSession(false).getAttribute('userNo')!=null? pageContext.request.getSession(false).getAttribute('userNo'):null}" />
 
-<%--<c:set var="logIO_link" value="${ sessionId==null?'/login/login':'/login/logout'}" />--%>
-<%--<c:set var="logIO_txt" value="${ sessionId==null?'로그인':'로그아웃'}" />--%>
-
-<%--<c:set var="signIO_link" value="${ sessionId==null?'/signUp/add':'/myPage'}" />--%>
-<%--<c:set var="signIO_txt" value="${ sessionId==null?'회원가입':'마이페이지'}" />--%>
+<c:set var="logIO_link" value="${ sessionId==null?'/login':'/logout'}" />
+<c:set var="signIO_link" value="${ sessionId==null?'/join':'/myPage'}" />
 <html>
 <head>
     <link rel="stylesheet" href="<c:url value='/css/h_f.css'/>">
@@ -36,7 +32,7 @@
             </div>
             <ul class="h_t_icon_box">
                 <li>
-                    <a href="login.jsp">
+                    <a href="<c:url value='${logIO_link}'/>">
                         <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28">
                             <g data-name="*ic_header_logout">
                                 <path data-name="Rectangle 2119" style="opacity:.5;fill:none" d="M0 0h28v28H0z"/>
@@ -49,7 +45,7 @@
                     </a>
                 </li><!--login-->
                 <li>
-                    <a href="join.jsp">
+                    <a href="<c:url value='${signIO_link}'/>">
                         <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28">
                             <g data-name="*ic_header_recent">
                                 <path data-name="Rectangle 2075" style="opacity:.5;fill:none" d="M0 0h28v28H0z"/>
@@ -178,7 +174,7 @@
                     </a>
                 </li><!--searcg-->
                 <li>
-                    <a href="login.jsp" class="h_b icon_box">
+                    <a href="<c:url value='${logIO_link}'/>" class="h_b icon_box">
                         <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28">
                             <g data-name="*ic_header_logout">
                                 <path data-name="Rectangle 2119" style="opacity:.5;fill:none" d="M0 0h28v28H0z"/>
@@ -191,7 +187,7 @@
                     </a>
                 </li><!--login-->
                 <li>
-                    <a href="join.jsp" class="h_b icon_box">
+                    <a href="<c:url value='${signIO_link}'/>" class="h_b icon_box">
                         <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28">
                             <g data-name="*ic_header_recent">
                                 <path data-name="Rectangle 2075" style="opacity:.5;fill:none" d="M0 0h28v28H0z"/>
