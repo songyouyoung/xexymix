@@ -12,4 +12,8 @@
                 values (#{carts.itemNo}, #{carts.cartCnt}, #{carts.cartOpt}, #{carts.userNo})
         </foreach>
     </insert>
+    <!-- 장바구니 수 구하기 -->
+    <select id="selectCartCnt" parameterType="int" resultType="int">
+        select count(cartNo) from cart where userNo = #{userNo}
+    </select>
 </mapper>

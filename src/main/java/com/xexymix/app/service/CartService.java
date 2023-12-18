@@ -16,4 +16,8 @@ public class CartService {
     public int insertCart(List<CartDto> cartDesc){
         return cartDao.insertCart(cartDesc);
     }
+
+    public int selectCartCnt(int userNo){
+        return cartDao.selectCartCnt(userNo);
+    }
 }

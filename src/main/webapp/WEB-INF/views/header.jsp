@@ -2,8 +2,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:set var="sessionId" value="${ pageContext.request.getSession(false).getAttribute('userNo')!=null? pageContext.request.getSession(false).getAttribute('userNo'):null}" />
 
-<c:set var="logIO_link" value="${ sessionId==null?'/login':'/logout'}" />
-<c:set var="signIO_link" value="${ sessionId==null?'/join':'/myPage'}" />
+<c:set var="logIO_link" value="${ sessionId==null?'/login/login':'/login/logout'}" />
+<c:set var="signIO_link" value="${ sessionId==null?'/login/join':'/myPage'}" />
 <html>
 <head>
     <link rel="stylesheet" href="<c:url value='/css/h_f.css'/>">
@@ -90,6 +90,7 @@
                             </g>
                         </svg>
                     </a>
+                    <span class="h_cart_cnt"></span>
                 </li><!--cart-->
             </ul>
         </div>
@@ -232,6 +233,7 @@
                             </g>
                         </svg>
                     </a>
+                    <span class="h_cart_cnt"></span>
                 </li><!--cart-->
             </ul>
         </div>

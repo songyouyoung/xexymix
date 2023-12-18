@@ -30,8 +30,8 @@ function joinit(){
     if (!chkId.test($("#id").val().trim())) {
         $("#id").focus();
         joinChk = false;
-        joinHint(joinChk, $("#id").prev());
-    }else{joinHint(true, $("#id").prev());}
+        joinHint(joinChk, $("#id_chk").prev());
+    }else{joinHint(true, $("#id_chk").prev());}
 
     if (!chkPw.test($("#pw").val())) {
         $("#pw").focus();

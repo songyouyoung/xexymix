@@ -16,8 +16,9 @@
 <body>
 <div id="wrap" class="logjoin">
     <div class="logo"><a href="<c:url value='/'/>">xexymix</a></div>
-    <form action="#" method="POST" name="join" onsubmit="return joinit();" class="join_box">
-        <div class="join_hint">아이디: 5~20자의 영문 소문자, 숫자만 사용해 주세요.</div>
+    <div style="text-align: center">${error}</div>
+    <form action="<c:url value="/login/join"/>" method="POST" name="join" onsubmit="return joinit();" class="join_box">
+        <div class="join_hint" id="id_chk">아이디: 5~20자의 영문 소문자, 숫자만 사용해 주세요.</div>
         <input type="text" name="userId" id="id" class="idpw" placeholder="아이디" autofocus required>
         <div class="pw_area">
             <div class="join_hint" id="pw_chk">비밀번호: 8~16자의 영문 대/소문자, 숫자, 특수문자를 사용해 주세요.</div>

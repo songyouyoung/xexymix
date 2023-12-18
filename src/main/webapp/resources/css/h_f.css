@@ -83,8 +83,7 @@
     cursor: pointer;
     position: relative;
 }
-.cart::after{
-    content: "0";
+.h_cart_cnt{
     width: 15px;
     height: 15px;
     line-height: 15px;
@@ -94,7 +93,7 @@
     background-color: #111;
     border-radius: 50%;
 
-    display: inherit;
+    /*display: inherit;*/
     position: absolute;
     top: 5%;
     right: -5%;

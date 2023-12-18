@@ -20,4 +20,8 @@ public class CartDao {
     public int insertCart(List<CartDto> cartDesc){
         return session.insert(namespace + "insertCart", cartDesc);
     }
+
+    public int selectCartCnt(int userNo){
+        return session.selectOne(namespace + "selectCartCnt", userNo);
+    }
 }

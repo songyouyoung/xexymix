@@ -28,7 +28,7 @@
 .pw_img{
     width: 20px;
     height: 50px;
-    background-image: url("../img/hidden_pw.png'/>">);
+    background-image: url("../img/hidden_pw.png");
     background-repeat: no-repeat;
     background-position: right 70%;
     background-size: 100%;
@@ -39,7 +39,7 @@
     cursor: pointer;
 }
 .pw_chk{
-    background-image: url("../img/text_pw.png'/>">);
+    background-image: url("../img/text_pw.png");
 }
 .btn_sub{
     width: 100%;

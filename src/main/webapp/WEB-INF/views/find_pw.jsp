@@ -28,10 +28,10 @@
     </form>
     <div class="login_btn_etc">
         <div class="login_find">
-            <a class="login_id" href="login.jsp">로그인</a>
-            <a class="login_pw" href="find_id.jsp">아이디 찾기</a>
+            <a class="login_id" href="<c:url value="/login/login"/>">로그인</a>
+            <a class="login_pw" href="<c:url value="/login/find_id"/>">아이디 찾기</a>
         </div>
-        <a href="join.jsp" class="login_join">회원가입</a>
+        <a href="<c:url value="/login/join"/>" class="login_join">회원가입</a>
     </div>
 </div>
 <script src="<c:url value='/js/login_join.js'/>"></script>
