@@ -8,6 +8,8 @@ public class QnaDto {
     private int qnaNo;
     private int userNo;
     private String itemNo;
+    private String itemName;
+    private String itemImg;
     private String userName;
     private String qnaTxt;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -54,6 +56,22 @@ public class QnaDto {
 
     public void setItemNo(String itemNo) {
         this.itemNo = itemNo;
+    }
+
+    public String getItemName() {
+        return itemName;
+    }
+
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
+    }
+
+    public String getItemImg() {
+        return itemImg;
+    }
+
+    public void setItemImg(String itemImg) {
+        this.itemImg = itemImg;
     }
 
     public String getUserName() {
@@ -118,6 +136,8 @@ public class QnaDto {
                 "qnaNo=" + qnaNo +
                 ", userNo=" + userNo +
                 ", itemNo='" + itemNo + '\'' +
+                ", itemName='" + itemName + '\'' +
+                ", itemImg='" + itemImg + '\'' +
                 ", userName='" + userName + '\'' +
                 ", qnaTxt='" + qnaTxt + '\'' +
                 ", qnaRegDate=" + qnaRegDate +

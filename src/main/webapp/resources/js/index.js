@@ -13,7 +13,7 @@ $(document).ready(function(){
     function init(){
         $('.md_pick_img_item').eq(1).css({transform: 'scale(1)'});
         $('.md_pick .item_desc_none').eq(1).css({display: 'none'});
-        for(let i=0; i<MDPICK.length; i++){
+        for(let i=0; i<mdPick.length; i++){
             if(i==1) continue;
             $('.md_pick_item').eq(i).css({display: 'none'});
             $('.md_pick_title').eq(i).css({display: 'none'});
@@ -97,7 +97,7 @@ $(document).ready(function(){
         speed: 500,
         on: {
             slideNextTransitionEnd: function () {
-                for(let i=0; i<MDPICK.length; i++){
+                for(let i=0; i<mdPick.length; i++){
                     $('.md_pick .item_desc_none').eq(i).css({display: 'block'});
                     $('.md_pick_img_item').eq(i).css({transform: 'scale(0.6)'});
                     $('.md_pick_item').eq(i).css({display: 'none'});

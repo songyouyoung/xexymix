@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" session = "false"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<c:set var="sessionId" value="${ pageContext.request.getSession(false).getAttribute('userNo')!=null? pageContext.request.getSession(false).getAttribute('userNo'):null}" />
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,19 +18,25 @@
     <main>
         <div class="w_main">
             <div class="my_more">회원정보수정</div>
-            <div class="my_user"><b>ㅇㅇㅇ</b>님<br>오늘도 젝시믹스와 함께 좋은 하루 되세요🖤</div>
+            <div class="my_user"><b>${user.user.userName}</b>님<br>오늘도 젝시믹스와 함께 좋은 하루 되세요🖤</div>
             <div class="my_info">
                 <div class="my_info_item">
                     <div class="my_info_title">적립금</div>
-                    <a class="my_info_desc" href="my_point.jsp">3,000원</a>
+                    <a class="my_info_desc" href="my_point.jsp">
+                        <fmt:formatNumber type="number" pattern="###,###,###,###,###,###" value="${user.user.userPo}" />원
+                    </a>
                 </div>
                 <div class="my_info_item">
                     <div class="my_info_title">주문완료</div>
-                    <a class="my_info_desc" href="my_buy.jsp?buy=done">0</a>
+                    <a class="my_info_desc" href="my_buy.jsp?buy=done">
+                        <fmt:formatNumber type="number" pattern="###,###,###,###,###,###" value="${user.buyCnt}" />
+                    </a>
                 </div>
                 <div class="my_info_item">
                     <div class="my_info_title">주문취소</div>
-                    <a class="my_info_desc" href="my_buy.jsp?buy=cancel">0</a>
+                    <a class="my_info_desc" href="my_buy.jsp?buy=cancel">
+                        <fmt:formatNumber type="number" pattern="###,###,###,###,###,###" value="${user.cancelCnt}" />
+                    </a>
                 </div>
             </div>
         </div>
@@ -79,23 +87,34 @@
                 </div>
             </div>
         </div>
-        <div class="w_main">
+        <div class="w_main" id="m_qna">
             <a class="my_more" href="my_qna.jsp">더보기 &gt;</a>
             <div class="my_title">최근 문의 내역</div>
-            <table class="m_qna_area">
-                <tr>
-                    <th>번호</th>
-                    <th>제목</th>
-                    <th>작성일</th>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>상품관련 문의드려요!</td>
-                    <td>2023.11.13</td>
-                </tr>
-            </table>
+<%--            <table class="m_qna_area">--%>
+<%--                <tr>--%>
+<%--                    <th>번호</th>--%>
+<%--                    <th>제목</th>--%>
+<%--                    <th>상품명</th>--%>
+<%--                    <th>작성일</th>--%>
+<%--                </tr>--%>
+<%--                <tr>--%>
+<%--                    <td>1</td>--%>
+<%--                    <td>상품관련 문의드려요!</td>--%>
+<%--                    <td>상품바지</td>--%>
+<%--                    <td>2023.11.13</td>--%>
+<%--                </tr>--%>
+<%--            </table>--%>
         </div>
     </main>
     <jsp:include page="footer.jsp"/>
+    <script>
+        const C_PATH = (location.pathname).split("/")[1];
+
+        let userNo = ${sessionId};
+        let userJs = ${user_js};
+        let qna = userJs.qna;
+    </script>
+    <script src="<c:url value='/js/item_qna.js'/>"></script>
+    <script src="<c:url value='/js/mypage.js'/>"></script>
 </body>
 </html>

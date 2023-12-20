@@ -34,7 +34,7 @@ public class ItemController {
     QnaService qnaService;
 
     @GetMapping("")
-    public String showItem(HttpSession session, HttpServletResponse response, HttpServletRequest request, String itemNo, Model model) throws JsonProcessingException, UnsupportedEncodingException {
+    public String showItem(HttpServletResponse response, HttpServletRequest request, String itemNo, Model model) throws JsonProcessingException, UnsupportedEncodingException {
         // 화면 구현
         ItemDto itemDetail = itemService.showItemDetail(itemNo);
 

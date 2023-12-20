@@ -8,6 +8,7 @@ public class ReviewDto {
     private int revNo;
     private int userNo;
     private String itemNo;
+    private String itemName;
     private String userName;
     private int revScore;
     private String revTxt;
@@ -41,6 +42,14 @@ public class ReviewDto {
 
     public void setItemNo(String itemNo) {
         this.itemNo = itemNo;
+    }
+
+    public String getItemName() {
+        return itemName;
+    }
+
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
     }
 
     public String getUserName() {
@@ -113,6 +122,7 @@ public class ReviewDto {
                 "revNo=" + revNo +
                 ", userNo=" + userNo +
                 ", itemNo='" + itemNo + '\'' +
+                ", itemName='" + itemName + '\'' +
                 ", userName='" + userName + '\'' +
                 ", revScore=" + revScore +
                 ", revTxt='" + revTxt + '\'' +

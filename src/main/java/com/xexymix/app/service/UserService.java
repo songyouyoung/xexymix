@@ -49,4 +49,23 @@ public class UserService {
     public Integer userFindPw(UserDto userDto){
         return userDao.selectFindPw(userDto);
     }
+
+///////////////////////////////////
+//////////// 마이페이지
+///////////////////////////////////
+    // 회원정보 불러오기
+    public Map<String, Object> selectMyPage(Integer userNo){
+        Map<String, Object> mypageDesc = new HashMap<>();
+        mypageDesc.put("user", userDao.selectUser(userNo));
+        mypageDesc.put("buy", userDao.selectUserBuy(userNo));
+        Map<String, String> userBuy = new HashMap<>();
+        userBuy.put("userNo", userNo+"");
+        userBuy.put("buyCode", "buy");
+        mypageDesc.put("buyCnt", userDao.selectUserBuyCnt(userBuy));
+        userBuy.put("buyCode", "cancel");
+        mypageDesc.put("cancelCnt", userDao.selectUserBuyCnt(userBuy));
+        mypageDesc.put("qna", userDao.selectUserQna(userNo));
+        mypageDesc.put("rev", userDao.selectUserRev(userNo));
+        return mypageDesc;
+    }
 }

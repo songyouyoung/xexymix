@@ -13,9 +13,9 @@
     </select>
     <!-- 문의 리스트 조회 -->
     <select id="selectQna" parameterType="String" resultType="qnaDto">
-        select qnaNo, userNo, userName, qnaTxt, qnaRegDate, qnaFile, qnaFileOri
-            from qna
-                where itemNo = #{itemNo}
+        select q.qnaNo, q.userNo, q.userName, q.qnaTxt, q.qnaRegDate, q.qnaFile, q.qnaFileOri, q.itemNo, i.itemImg, i.itemName
+            from qna q, item i
+                where q.itemNo = #{itemNo} and q.itemNo = i.itemNo
         limit ${limit}, 10
     </select>
     <!-- 문의 수정 -->

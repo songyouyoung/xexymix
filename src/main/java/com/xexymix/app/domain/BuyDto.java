@@ -8,6 +8,8 @@ public class BuyDto {
     private Integer buyAuto;
     private long buyNo;
     private String itemNo;
+    private String itemName;
+    private String itemImg;
     private int buyCnt;
     private String buyOpt;
     private String buyCode;
@@ -38,6 +40,22 @@ public class BuyDto {
 
     public void setItemNo(String itemNo) {
         this.itemNo = itemNo;
+    }
+
+    public String getItemName() {
+        return itemName;
+    }
+
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
+    }
+
+    public String getItemImg() {
+        return itemImg;
+    }
+
+    public void setItemImg(String itemImg) {
+        this.itemImg = itemImg;
     }
 
     public int getBuyCnt() {
@@ -94,6 +112,8 @@ public class BuyDto {
                 "buyAuto=" + buyAuto +
                 ", buyNo=" + buyNo +
                 ", itemNo='" + itemNo + '\'' +
+                ", itemName='" + itemName + '\'' +
+                ", itemImg='" + itemImg + '\'' +
                 ", buyCnt=" + buyCnt +
                 ", buyOpt='" + buyOpt + '\'' +
                 ", buyCode='" + buyCode + '\'' +

@@ -38,11 +38,12 @@ public class LoginController {
 // 실제 로그인
     @PostMapping("/login")
     public String login(UserDto userDto, Boolean login_rem, String prevPage, Model model, HttpSession session){
-        if (userService.userLogin(userDto) < 1){
+        Integer userNo = userService.userLogin(userDto);
+        if (userNo == null && userNo < 1){
             model.addAttribute("welcom", "아이디 / 비밀번호를 다시 한 번 확인해주세요.");
             return "login";
         }
-        session.setAttribute("userId", userDto.getUserId());
+        session.setAttribute("userNo", userNo);
         if (login_rem != null && login_rem) { session.setAttribute("rememberId", userDto.getUserId()); }
 
         return "redirect:"+prevPage;

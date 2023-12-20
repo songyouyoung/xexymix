@@ -164,9 +164,9 @@
     let qnaMaxCnt = ${qnaMaxCnt};
     let qna = ${qna_js};
 </script>
-<script src="<c:url value='/js/item_db.js'/>"></script>
 <script src="<c:url value='/js/common.js'/>"></script>
 <script src="<c:url value='/js/item.js'/>"></script>
+<script src="<c:url value='/js/item_qna.js'/>"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
 </body>
 </html>

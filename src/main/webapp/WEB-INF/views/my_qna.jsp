@@ -18,11 +18,13 @@
         <table class="m_qna_area">
             <tr>
                 <th>번호</th>
+                <th>상품명</th>
                 <th>제목</th>
                 <th>작성일</th>
             </tr>
             <tr>
                 <td>1</td>
+                <td>스판바지</td>
                 <td>상품관련 문의드려요!</td>
                 <td>2023.11.13</td>
             </tr>

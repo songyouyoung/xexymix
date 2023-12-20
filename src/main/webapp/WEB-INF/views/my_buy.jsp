@@ -147,6 +147,6 @@
         </div>
     </main>
     <jsp:include page="footer.jsp"/>
-    <script src="<c:url value='/js/mypage.js'/>"></script>
+    <script src="<c:url value='/js/buy.js'/>"></script>
 </body>
 </html>

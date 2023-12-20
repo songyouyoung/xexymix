@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" session = "false"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<c:set var="sessionId" value="${ pageContext.request.getSession(false).getAttribute('userId')!=null? pageContext.request.getSession(false).getAttribute('userId'):null}" />
+<c:set var="sessionId" value="${ pageContext.request.getSession(false).getAttribute('userNo')!=null? pageContext.request.getSession(false).getAttribute('userNo'):null}" />
 
 <c:set var="logIO_link" value="${ sessionId==null?'/login/login':'/login/logout'}" />
 <c:set var="signIO_link" value="${ sessionId==null?'/login/join':'/myPage'}" />
