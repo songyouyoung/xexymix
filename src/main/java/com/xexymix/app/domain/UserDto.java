@@ -15,7 +15,7 @@ public class UserDto {
     private Date userBirth;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date userRegDate;
-    private Integer userPo;
+    private Integer point;
 
     public Integer getUserNo() {
         return userNo;
@@ -81,12 +81,12 @@ public class UserDto {
         this.userRegDate = userRegDate;
     }
 
-    public Integer getUserPo() {
-        return userPo;
+    public Integer getPoint() {
+        return point;
     }
 
-    public void setUserPo(Integer userPo) {
-        this.userPo = userPo;
+    public void setPoint(Integer point) {
+        this.point = point;
     }
 
     @Override
@@ -100,7 +100,7 @@ public class UserDto {
                 ", userEmail='" + userEmail + '\'' +
                 ", userBirth=" + userBirth +
                 ", userRegDate=" + userRegDate +
-                ", userPo=" + userPo +
+                ", point=" + point +
                 '}';
     }
 }

@@ -32,7 +32,7 @@ public class LoginController {
     public String showLogin(HttpServletRequest request, Model model){
         String prevPageTmp = request.getHeader("REFERER");
         if(!prevPageTmp.contains("find_") || prevPage.isEmpty()){ prevPage = prevPageTmp; }
-        if (prevPage.isEmpty() || prevPage.contains("find_")){ prevPage = "http://localhost:8080/app/"; }
+        if (prevPage.isEmpty() || prevPage.contains("login")){ prevPage = "http://localhost:8080/app/"; }
         System.out.println("prevPage : " + prevPage);
         model.addAttribute("prevPage", prevPage);
         return "login";
@@ -41,7 +41,7 @@ public class LoginController {
     @PostMapping("/login")
     public String login(UserDto userDto, Boolean login_rem, String prevPage, Model model, HttpSession session) {
         Integer userNo = userService.userLogin(userDto);
-        if (userNo == null && userNo < 1) {
+        if (userNo == null || userNo < 1) {
             model.addAttribute("welcom", "아이디 / 비밀번호를 다시 한 번 확인해주세요.");
             return "login";
         }

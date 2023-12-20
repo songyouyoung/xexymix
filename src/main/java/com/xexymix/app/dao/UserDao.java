@@ -20,7 +20,7 @@ public class UserDao {
 ///////////////////////////////////
 //////////// 로그인
 ///////////////////////////////////
-    public int selectLogin(UserDto userDto){
+    public Integer selectLogin(UserDto userDto){
         return session.selectOne(namespace + "selectLogin", userDto);
     }
 

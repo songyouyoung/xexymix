@@ -98,9 +98,53 @@ const createQna = (qna, nowQnaPage, jsp)=>{
         qnaBox += `<tr>
                             <td class="qnaNo">${i++}</td>
                             <td>상품관련 문의드려요!</td>
-                            <td>${jsp == "item"?`${(qna.userName).slice(0, 1)+"**"}`:qna.itemName}</td>
+                            <td>${jsp == "item"?(qna.userName).slice(0, 1)+"**":qna.itemName}</td>
                             <td>${year}.${month}.${date}</td>
                         </tr>`;
     });
     return qnaBox;
 };
+
+const createRev = (review, jsp)=>{
+    let revBox = "";
+    review.forEach((rev)=>{
+        let dt = new Date(rev.revRegDate);
+        let year = dt.getFullYear();
+        let month = dt.getMonth()+1 < 10 ? "0" + (dt.getMonth()+1) : dt.getMonth()+1;
+        let date = dt.getDate() < 10 ? "0" + dt.getDate() : dt.getDate();
+        let revImg = rev.revFile == null?"":(rev.revFile.slice(0, -1)).split("|");
+        let revImgBox = "";
+        revImg == ""? "" : revImg.forEach((img)=>{
+            revImgBox += `<div class="m_rev_img_box">
+                                <img src="img/review/${img}" alt="리뷰이미지">
+                            </div>`;
+        });
+        let revUD = "";
+        if (rev.userNo == userNo){
+            revUD = `<div class="m_rev_update">수정</div>
+                        <div class="m_rev_delete">삭제</div>`;
+        }
+        revBox += `<div class="m_rev_item">
+                            <div class="m_rev_title">`;
+        if(jsp == "item"){
+            revBox += `<div class="m_rev_name">${(rev.userName).slice(0, 1)+"**"}</div>
+                        <div class="m_rev_right">
+                            <div class="m_rev_regDate">${year}.${month}.${date}</div>
+                            ${revUD}
+                        </div>
+                    </div>
+                    <div class="m_rev_score">${"★".repeat(rev.revScore) + "☆".repeat(5-rev.revScore)}</div>`;
+        }else{
+            revBox += `<div class="m_rev_score">${"★".repeat(rev.revScore) + "☆".repeat(5-rev.revScore)}</div>
+                        <div class="m_rev_right">
+                            <div class="m_rev_regDate">${year}.${month}.${date}</div>
+                            ${revUD}
+                        </div>
+                    </div>`;
+        }
+        revBox += `<div class="m_rev_txt">${rev.revTxt}</div>
+                    <div class="m_rev_img">${revImgBox}</div>
+                </div>`;
+    });
+    return revBox;
+}

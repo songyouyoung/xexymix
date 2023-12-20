@@ -11,6 +11,7 @@
     <link rel="shortcut icon" href="https://www.xexymix.com/design/xexymix/image/common/xexymix.ico" type="image/x-icon">
     <link rel="stylesheet" href="<c:url value='/css/common.css'/>">
     <link rel="stylesheet" href="<c:url value='/css/mypage.css'/>">
+    <link rel="stylesheet" href="<c:url value='/css/item.css'/>">
 </head>
 <body>
 <div id="wrap">
@@ -23,7 +24,7 @@
                 <div class="my_info_item">
                     <div class="my_info_title">적립금</div>
                     <a class="my_info_desc" href="my_point.jsp">
-                        <fmt:formatNumber type="number" pattern="###,###,###,###,###,###" value="${user.user.userPo}" />원
+                        <fmt:formatNumber type="number" pattern="###,###,###,###,###,###" value="${user.user.point}" />원
                     </a>
                 </div>
                 <div class="my_info_item">
@@ -44,66 +45,50 @@
             <a class="my_more" href="my_buy.jsp?buy=all">더보기 &gt;</a>
             <div class="my_title">최근 주문 내역</div>
             <div class="my_buy_list">
-                <div class="my_buy_title">
-                    <div class="my_buy_date">2023.11.13</div>
-                    <div class="my_buy_no">20231113-0000001</div>
-                </div>
-                <div class="my_buy_item_list">
-                    <div class="my_buy_item">
-                        <img src="<c:url value='/img/main_banner/main_banner_230911_2.jpg'/>" alt="블랙라벨 시그니처 380N 레깅스 1+1" class="my_buy_img">
-                        <div class="my_buy_desc">
-                            <div class="my_buy_itemName">블랙라벨 시그니처 380N 레깅스 1+1</div>
-                            <div class="my_buy_itemOption">[옵션 : L]</div>
+                <c:choose>
+                    <c:when test="${!empty user.buy}">
+                        <div class="my_buy_title">
+                            <div class="my_buy_date"><fmt:formatDate value="${user.buy[0].buyDate}" pattern="yyyy.MM.dd" /></div>
+                            <div class="my_buy_no">${user.buy[0].buyNo}</div>
                         </div>
-                        <div class="my_buy_btn">
-                            <div class="my_buy_curr">주문완료</div>
-                            <a class="my_buy_review">구매후기</a>
-                            <a class="my_buy_cancel">주문취소</a>
+                        <div class="my_buy_item_list">
+                            <c:forEach var="buy" items="${user.buy}">
+                                <div class="my_buy_item">
+                                    <img src="<c:url value='/img/item_list/${buy.itemImg}'/>" alt="${buy.itemName}" class="my_buy_img">
+                                    <div class="my_buy_desc">
+                                        <div class="my_buy_itemName">${buy.itemName}</div>
+                                        <div class="my_buy_itemOption">[옵션 : ${buy.buyOpt}]</div>
+                                    </div>
+                                    <div class="my_buy_btn">
+                                        <c:choose>
+                                            <c:when test="${buy.buyCode == 'buy'}">
+                                                <div class="my_buy_curr">주문완료</div>
+                                                <a class="my_buy_review">구매후기</a>
+                                                <a class="my_buy_cancel">주문취소</a>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <div class="my_buy_curr">주문취소</div>
+                                            </c:otherwise>
+                                        </c:choose>
+
+                                    </div>
+                                </div>
+                            </c:forEach>
                         </div>
-                    </div>
-                    <div class="my_buy_item">
-                        <img src="<c:url value='/img/main_banner/main_banner_230911_2.jpg'/>" alt="블랙라벨 시그니처 380N 레깅스 1+1" class="my_buy_img">
-                        <div class="my_buy_desc">
-                            <div class="my_buy_itemName">블랙라벨 시그니처 380N 레깅스 1+1</div>
-                            <div class="my_buy_itemOption">[옵션 : L]</div>
-                        </div>
-                        <div class="my_buy_btn">
-                            <div class="my_buy_curr">주문취소</div>
-                            <!-- <a class="my_buy_review">구매후기</a> -->
-                        </div>
-                    </div>
-                    <div class="my_buy_item">
-                        <img src="<c:url value='/img/main_banner/main_banner_230911_2.jpg'/>" alt="블랙라벨 시그니처 380N 레깅스 1+1" class="my_buy_img">
-                        <div class="my_buy_desc">
-                            <div class="my_buy_itemName">블랙라벨 시그니처 380N 레깅스 1+1</div>
-                            <div class="my_buy_itemOption">[옵션 : L]</div>
-                        </div>
-                        <div class="my_buy_btn">
-                            <div class="my_buy_curr">주문완료</div>
-                            <a class="my_buy_review">구매후기</a>
-                            <a class="my_buy_cancel">주문취소</a>
-                        </div>
-                    </div>
-                </div>
+                    </c:when>
+                    <c:otherwise>
+                        <p class="m_none">아직 구매한 상품이 없습니다.</p>
+                    </c:otherwise>
+                </c:choose>
             </div>
         </div>
+        <section class="w_main" id="m_review">
+            <a class="my_more" href="my_review.jsp">더보기 &gt;</a>
+            <div class="my_title">최근 리뷰 내역</div>
+        </section>
         <div class="w_main" id="m_qna">
             <a class="my_more" href="my_qna.jsp">더보기 &gt;</a>
             <div class="my_title">최근 문의 내역</div>
-<%--            <table class="m_qna_area">--%>
-<%--                <tr>--%>
-<%--                    <th>번호</th>--%>
-<%--                    <th>제목</th>--%>
-<%--                    <th>상품명</th>--%>
-<%--                    <th>작성일</th>--%>
-<%--                </tr>--%>
-<%--                <tr>--%>
-<%--                    <td>1</td>--%>
-<%--                    <td>상품관련 문의드려요!</td>--%>
-<%--                    <td>상품바지</td>--%>
-<%--                    <td>2023.11.13</td>--%>
-<%--                </tr>--%>
-<%--            </table>--%>
         </div>
     </main>
     <jsp:include page="footer.jsp"/>
@@ -113,8 +98,9 @@
         let userNo = ${sessionId};
         let userJs = ${user_js};
         let qna = userJs.qna;
+        let rev = userJs.rev;
     </script>
-    <script src="<c:url value='/js/item_qna.js'/>"></script>
+    <script src="<c:url value='/js/item_qnaRev.js'/>"></script>
     <script src="<c:url value='/js/mypage.js'/>"></script>
 </body>
 </html>

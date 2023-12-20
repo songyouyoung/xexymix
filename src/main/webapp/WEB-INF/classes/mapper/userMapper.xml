@@ -54,7 +54,7 @@
 <!--/////////////////////////////////////////////////////-->
 <!--    회원 정보 불러오기-->
     <select id="selectUser" parameterType="int" resultType="userDto">
-        select userId, userName, userPhone, userEmail, userBirth, userPo
+        select userId, userName, userPhone, userEmail, userBirth, point
             from user
                 where userNo = #{userNo}
     </select>
