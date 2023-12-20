@@ -54,6 +54,10 @@ public class UserService {
 //////////// 마이페이지
 ///////////////////////////////////
     // 회원정보 불러오기
+    public UserDto selectUser(Integer userNo){
+        return userDao.selectUser(userNo);
+    }
+    // 회원정보 전체 불러오기
     public Map<String, Object> selectMyPage(Integer userNo){
         Map<String, Object> mypageDesc = new HashMap<>();
         mypageDesc.put("user", userDao.selectUser(userNo));

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.xexymix.app.dao.cartMapper">
+    <!--/////////////////////////////////////////////////////-->
+    <!--//////////////////// 상세 페이지 /////////////////////-->
+    <!--/////////////////////////////////////////////////////-->
+    <!-- 장바구니 / 취소 -->
+    <insert id="insertCart" parameterType="java.util.List">
+        <foreach collection = "list" item = "carts" separator=";">
+            insert into cart (itemNo, cartCnt, cartOpt, userNo)
+                values (#{carts.itemNo}, #{carts.cartCnt}, #{carts.cartOpt}, #{carts.userNo})
+        </foreach>
+    </insert>
+    <!-- 장바구니 수 구하기 -->
+    <select id="selectCartCnt" parameterType="int" resultType="int">
+        select count(cartNo) from cart where userNo = #{userNo}
+    </select>
+</mapper>

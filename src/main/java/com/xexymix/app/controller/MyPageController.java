@@ -32,4 +32,13 @@ public class MyPageController {
         System.out.println(mypageDesc);
         return "mypage";
     }
+
+    @GetMapping("/update")
+    public String showMyPageUpdate(HttpSession session, Model model) throws JsonProcessingException {
+        Integer userNo = (Integer) session.getAttribute("userNo");
+        ObjectMapper mapper = new ObjectMapper();
+        String user = mapper.writeValueAsString(userService.selectUser(userNo));
+        model.addAttribute("user", user);
+        return "join";
+    }
 }
