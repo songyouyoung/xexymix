@@ -68,4 +68,7 @@ public class UserService {
         mypageDesc.put("rev", userDao.selectUserRev(userNo));
         return mypageDesc;
     }
+    public Integer updatePw(UserDto userDto){
+        return userDao.updatePw(userDto);
+    }
 }

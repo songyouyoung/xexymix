@@ -68,7 +68,10 @@ public class UserDao {
     public List<QnaDto> selectUserQna(Integer userNo){
         return session.selectList(namespace + "selectUserQna", userNo);
     }
-    public List<ReviewDto> selectUserRev(Integer userNo){
+    public List<ReviewDto> selectUserRev(Integer userNo) {
         return session.selectList(namespace + "selectUserRev", userNo);
+    }
+    public Integer updatePw(UserDto userDto){
+        return session.update(namespace + "updatePw", userDto);
     }
 }

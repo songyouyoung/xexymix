@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" session = "false"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<c:set var="rememberId" value="${ pageContext.request.getSession(false).getAttribute('rememberId')!=null? pageContext.request.getSession(false).getAttribute('rememberId'):''}" />
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,15 +18,14 @@
     <div class="logo"><a href="<c:url value='/'/>">xexymix</a></div>
     <div style="text-align: center">${welcom}</div>
     <form action="<c:url value="/login/login"/>" method="POST" class="login_box">
-<%--        <div class="join_hint" id="">일치하는 회원 정보가 없습니다. </div>--%>
         <input type="hidden" name="prevPage" value="${prevPage}">
-        <input type="text" name="userId" id="id" class="idpw" placeholder="아이디" autofocus required>
+        <input type="text" name="userId" id="id" class="idpw" placeholder="아이디" value="${empty param.idTmp?cookie.rememberId.value : param.idTmp}" autofocus required>
         <div class="pw_area">
             <input type="password" name="userPw" id="pw" class="idpw" placeholder="비밀번호" required>
             <div class="pw_img"></div>
         </div>
         <div class="login_rem_area">
-            <input type="checkbox" name="login_rem" id="login_rem" autocomplete='off'>
+            <input type="checkbox" name="login_rem" id="login_rem" autocomplete='off' ${empty param.idTmp?(empty cookie.rememberId.value?"":"checked class='login_rem_chk'"):""}>
             <span>아이디저장</span>
         </div>
         <input type="submit" value="로그인" class="btn_sub">
