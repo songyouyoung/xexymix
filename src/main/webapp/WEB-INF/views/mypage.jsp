@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="<c:url value='/css/common.css'/>">
     <link rel="stylesheet" href="<c:url value='/css/mypage.css'/>">
     <link rel="stylesheet" href="<c:url value='/css/item.css'/>">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 </head>
 <body>
 <div id="wrap">
@@ -99,6 +100,14 @@
         let userJs = ${user_js};
         let qna = userJs.qna;
         let rev = userJs.rev;
+
+        let welcome = "${param.welcome}";
+        if (welcome == "성공"){
+            Swal.fire({
+                icon: "success",
+                title: "회원정보 수정 완료!",
+            }).then(()=>{ location.replace('/'+C_PATH+'/myPage'); });
+        }
     </script>
     <script src="<c:url value='/js/item_qnaRev.js'/>"></script>
     <script src="<c:url value='/js/mypage.js'/>"></script>

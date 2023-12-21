@@ -75,4 +75,8 @@ public class UserService {
     public Integer updatePw(UserDto userDto){
         return userDao.updatePw(userDto);
     }
+
+    public Integer updateUser(UserDto userDto){
+        return userDao.updateUser(userDto);
+    }
 }

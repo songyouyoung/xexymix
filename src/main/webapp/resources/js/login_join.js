@@ -21,13 +21,15 @@ $(document).ready(function(){
 ////////// 회원 정보 수정 /////////
 /////////////////////////////////
     if(C_PATH_MY){
-        console.log("회원 정보 수정 들어옴");
+        $("#id").css({color:"#6d6f6d", pointerEvents: "none", userSelect: "none"});
         $("#id").prop("readonly", true);
         $("#id").val(user.userId);
+        $("#name").css({color:"#6d6f6d", pointerEvents: "none", userSelect: "none"});
         $("#name").prop("readonly", true);
         $("#name").val(user.userName);
         $("#phone").val(user.userPhone);
         $("#email").val(user.userEmail);
+        $("#birth").css({color:"#6d6f6d", pointerEvents: "none", userSelect: "none"});
         $("#birth").prop("readonly", true);
         let dt = new Date(user.userBirth);
         let year = dt.getFullYear();
@@ -35,6 +37,8 @@ $(document).ready(function(){
         let date = dt.getDate() < 10 ? "0" + dt.getDate() : dt.getDate();
         $("#birth").val(year+"-"+month+"-"+date);
         $(".btn_sub").val("수정하기");
+        $(".join_box").prop("action", `/${C_PATH}/myPage/update`);
+        $(".join_box").on("submit", function() { console.log("onsubmit부름"); return joinit('update'); });
     }
 });
 
@@ -49,7 +53,7 @@ const chkPhone = /^[0-9]{8}/
 function joinit(chk){
     let joinChk = true;
 
-    if(chk) {
+    if(chk == 'join') {
         if (!chkId.test($("#id").val().trim())) {
             $("#id").focus();
             joinChk = false;
@@ -65,13 +69,14 @@ function joinit(chk){
         } else {
             joinHint(true, $("#name").prev());
         }
-
+    }
+    if(chk == 'join' || chk == 'update'){
         if (!chkPhone.test($("#phone").val())) {
             $("#phone").focus();
             joinChk = false;
-            joinHint(joinChk, $("#phone").prev());
+            joinHint(joinChk, $(".phone_area").prev());
         } else {
-            joinHint(true, $("#phone").prev());
+            joinHint(true, $(".phone_area").prev());
         }
     }
     if (!chkPw.test($("#pw").val())) {
@@ -89,7 +94,7 @@ function joinit(chk){
     } else {
         joinHint(true, $("#pw_equal"));
     }
-
+    console.log("joinChk", joinChk)
     return joinChk;
 }
 const joinHint = (chk, hint) => {

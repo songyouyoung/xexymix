@@ -74,4 +74,7 @@ public class UserDao {
     public Integer updatePw(UserDto userDto){
         return session.update(namespace + "updatePw", userDto);
     }
+    public Integer updateUser(UserDto userDto){
+        return session.update(namespace + "updateUser", userDto);
+    }
 }

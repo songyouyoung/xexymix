@@ -97,4 +97,9 @@
                 and userPhone = #{userPhone}
                 and userBirth = DATE_FORMAT(#{userBirth}, '%Y-%m-%d')
     </update>
+    <!-- 회원 정보 변경 -->
+    <update id="updateUser" parameterType="userDto">
+        update user set userPw = #{userPw}, userPhone = #{userPhone}, userEmail = #{userEmail}
+            where userId = #{userId}
+    </update>
 </mapper>
