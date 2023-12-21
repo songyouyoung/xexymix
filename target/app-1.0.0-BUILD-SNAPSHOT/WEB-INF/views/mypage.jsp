@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="<c:url value='/css/common.css'/>">
     <link rel="stylesheet" href="<c:url value='/css/mypage.css'/>">
     <link rel="stylesheet" href="<c:url value='/css/item.css'/>">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 </head>
 <body>
 <div id="wrap">
@@ -29,20 +30,20 @@
                 </div>
                 <div class="my_info_item">
                     <div class="my_info_title">주문완료</div>
-                    <a class="my_info_desc" href="my_buy.jsp?buy=done">
+                    <a class="my_info_desc" href="<c:url value="/myPage/buy?buyCode=buy"/>">
                         <fmt:formatNumber type="number" pattern="###,###,###,###,###,###" value="${user.buyCnt}" />
                     </a>
                 </div>
                 <div class="my_info_item">
                     <div class="my_info_title">주문취소</div>
-                    <a class="my_info_desc" href="my_buy.jsp?buy=cancel">
+                    <a class="my_info_desc" href="<c:url value="/myPage/buy?buyCode=cancel"/>">
                         <fmt:formatNumber type="number" pattern="###,###,###,###,###,###" value="${user.cancelCnt}" />
                     </a>
                 </div>
             </div>
         </div>
         <div class="w_main mypage">
-            <a class="my_more" href="my_buy.jsp?buy=all">더보기 &gt;</a>
+            <a class="my_more" href="<c:url value="/myPage/buy?buyCode=all"/>">더보기 &gt;</a>
             <div class="my_title">최근 주문 내역</div>
             <div class="my_buy_list">
                 <c:choose>
@@ -99,6 +100,14 @@
         let userJs = ${user_js};
         let qna = userJs.qna;
         let rev = userJs.rev;
+
+        let welcome = "${param.welcome}";
+        if (welcome == "성공"){
+            Swal.fire({
+                icon: "success",
+                title: "회원정보 수정 완료!",
+            }).then(()=>{ location.replace('/'+C_PATH+'/myPage'); });
+        }
     </script>
     <script src="<c:url value='/js/item_qnaRev.js'/>"></script>
     <script src="<c:url value='/js/mypage.js'/>"></script>

@@ -2,6 +2,7 @@ package com.xexymix.app.service;
 
 import com.xexymix.app.dao.CartDao;
 import com.xexymix.app.dao.UserDao;
+import com.xexymix.app.domain.BuyDto;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static org.junit.Assert.*;
@@ -33,5 +35,14 @@ public class UserServiceTest {
         assertTrue( userDao.selectUserBuyCnt(userBuy) > 0);
 //        mypageDesc.put("qna", userDao.selectUserQna(userNo));
 //        mypageDesc.put("rev", userDao.selectUserRev(userNo));
+    }
+
+    @Test
+    public void selectUserBuyAll(){
+        Map<String, String> userDesc = new HashMap<>();
+        userDesc.put("userNo", "1");
+        userDesc.put("limit", "0");
+        userDesc.put("buyCode", "cancel");
+        assertTrue(userDao.selectUserBuyAll(userDesc) != null);
     }
 }

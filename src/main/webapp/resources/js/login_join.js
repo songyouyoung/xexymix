@@ -38,7 +38,7 @@ $(document).ready(function(){
         $("#birth").val(year+"-"+month+"-"+date);
         $(".btn_sub").val("수정하기");
         $(".join_box").prop("action", `/${C_PATH}/myPage/update`);
-        $(".join_box").on("submit", function() { console.log("onsubmit부름"); return joinit('update'); });
+        $(".join_box").on("submit", function() { return joinit('update'); });
     }
 });
 

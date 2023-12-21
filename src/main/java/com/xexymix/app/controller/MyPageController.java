@@ -60,11 +60,14 @@ public class MyPageController {
     }
 
     @GetMapping("/buy")
-    public String showUserBuy(Model model, String buy){
+    public String showUserBuy(Model model, String buyCode){
         Map<String, String> userDesc = new HashMap<>();
         userDesc.put("userNo", userNo+"");
         userDesc.put("limit", "0");
+        userDesc.put("buyCode", buyCode);
         List<BuyDto> buyList = userService.selectUserBuyAll(userDesc);
+        System.out.println("buyCode = " + buyCode);
+        System.out.println(buyList);
         model.addAttribute("buy", buyList);
         return "my_buy";
     }

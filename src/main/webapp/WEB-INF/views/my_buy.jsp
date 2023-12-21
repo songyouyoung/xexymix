@@ -15,9 +15,9 @@
     <jsp:include page="header.jsp"/>
     <main class="w_main">
         <div class="myBuy my_title">
-            <div class="my_buy_title_all">전체 주문 내역 조회</div>
-            <div class="my_buy_title_done">주문완료 내역 조회</div>
-            <div class="my_buy_title_cancel">주문취소 내역 조회</div>
+            <a class="my_buy_title_all" href="<c:url value="/myPage/buy?buyCode=all"/>">전체 주문 내역 조회</a>
+            <a class="my_buy_title_done" href="<c:url value="/myPage/buy?buyCode=buy"/>">주문완료 내역 조회</a>
+            <a class="my_buy_title_cancel" href="<c:url value="/myPage/buy?buyCode=cancel"/>">주문취소 내역 조회</a>
         </div>
         <ul class="my_date">
             <li id="my_date_today">오늘</li>

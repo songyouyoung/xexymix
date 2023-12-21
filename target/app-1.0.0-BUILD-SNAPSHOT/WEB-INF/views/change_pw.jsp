@@ -17,7 +17,7 @@
 <div id="wrap" class="logjoin">
     <div class="logo"><a href="<c:url value='/'/>">xexymix</a></div>
     <div style="text-align: center">${error}</div>
-    <form action="<c:url value="/login/change_pw"/>" method="POST" name="changePw" onsubmit="return joinit(false);" class="join_box">
+    <form action="<c:url value="/login/change_pw"/>" method="POST" name="changePw" onsubmit="return joinit('pw');" class="join_box">
         <div class="pw_area">
             <div class="join_hint" id="pw_chk">비밀번호: 8~16자의 영문 대/소문자, 숫자, 특수문자를 사용해 주세요.</div>
             <div class="join_hint" id="pw_equal">비밀번호가 일치하지 않습니다. </div>
