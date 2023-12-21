@@ -1,11 +1,13 @@
 package com.xexymix.app.service;
 
 import com.xexymix.app.dao.UserDao;
+import com.xexymix.app.domain.BuyDto;
 import com.xexymix.app.domain.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -78,5 +80,9 @@ public class UserService {
 
     public Integer updateUser(UserDto userDto){
         return userDao.updateUser(userDto);
+    }
+
+    public List<BuyDto> selectUserBuyAll(Map<String, String> userDesc){
+        return userDao.selectUserBuyAll(userDesc);
     }
 }

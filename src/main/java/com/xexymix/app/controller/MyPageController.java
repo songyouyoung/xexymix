@@ -2,6 +2,7 @@ package com.xexymix.app.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.xexymix.app.domain.BuyDto;
 import com.xexymix.app.domain.UserDto;
 import com.xexymix.app.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -20,9 +23,10 @@ public class MyPageController {
     @Autowired
     UserService userService;
 
+    Integer userNo;
     @GetMapping("")
     public String showMyPage(HttpSession session, Model model) throws JsonProcessingException {
-        Integer userNo = (Integer) session.getAttribute("userNo");
+        userNo = (Integer) session.getAttribute("userNo");
         if (userNo == null || userNo < 1){ return "redirect:/"; }
 
         Map<String, Object> mypageDesc = userService.selectMyPage(userNo);
@@ -36,8 +40,7 @@ public class MyPageController {
     }
 
     @GetMapping("/update")
-    public String showMyPageUpdate(HttpSession session, Model model) throws JsonProcessingException {
-        Integer userNo = (Integer) session.getAttribute("userNo");
+    public String showMyPageUpdate(Model model) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
         String user = mapper.writeValueAsString(userService.selectUser(userNo));
         model.addAttribute("user", user);
@@ -57,8 +60,12 @@ public class MyPageController {
     }
 
     @GetMapping("/buy")
-    public String showUserBuy(Model model){
-
+    public String showUserBuy(Model model, String buy){
+        Map<String, String> userDesc = new HashMap<>();
+        userDesc.put("userNo", userNo+"");
+        userDesc.put("limit", "0");
+        List<BuyDto> buyList = userService.selectUserBuyAll(userDesc);
+        model.addAttribute("buy", buyList);
         return "my_buy";
     }
 }

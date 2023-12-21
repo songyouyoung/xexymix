@@ -103,7 +103,7 @@
             where userId = #{userId}
     </update>
     <!-- 회원 구매 내역 전체 -->
-    <select id="selectUserBuy" parameterType="int" resultType="buyDto">
+    <select id="selectUserBuyAll" parameterType="int" resultType="buyDto">
         SELECT b.buyAuto, b.buyNo, b.itemNo, b.buyCnt, b.buyOpt, b.buyCode, b.buyDate, i.itemImg, i.itemName
             FROM buy b
             JOIN item i ON b.itemNo = i.itemNo
@@ -111,7 +111,7 @@
                     FROM buy
                         WHERE userNo = #{userNo}
                 ORDER BY buyNo DESC
-                limit #{limit}, 3) bb
+                limit ${limit}, 3) bb
             ON b.buyNo = bb.buyNo;
     </select>
 </mapper>

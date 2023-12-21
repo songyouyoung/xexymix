@@ -77,4 +77,8 @@ public class UserDao {
     public Integer updateUser(UserDto userDto){
         return session.update(namespace + "updateUser", userDto);
     }
+
+    public List<BuyDto> selectUserBuyAll(Map<String, String> userDesc){
+        return session.selectList(namespace + "selectUserBuyAll", userDesc);
+    }
 }
