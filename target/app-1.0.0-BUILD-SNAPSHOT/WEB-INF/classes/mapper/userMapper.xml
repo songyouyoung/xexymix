@@ -107,12 +107,13 @@
         SELECT b.buyAuto, b.buyNo, b.itemNo, b.buyCnt, b.buyOpt, b.buyCode, b.buyDate, i.itemImg, i.itemName
             FROM buy b
             JOIN item i ON b.itemNo = i.itemNo
-            JOIN (SELECT buyNo
+            JOIN (SELECT DISTINCT buyNo
                     FROM buy
                         WHERE userNo = ${userNo}
                         <if test="buyCode != 'all'">
                             AND buyCode = #{buyCode}
                         </if>
+                            AND buyDate BETWEEN #{startDate} AND #{endDate}
                 ORDER BY buyNo DESC
                 limit ${limit}, 3) bb
             ON b.buyNo = bb.buyNo

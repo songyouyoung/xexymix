@@ -33,8 +33,7 @@ $(document).on('click', '.sort_list li', function(){
                 }
                 revBox += revPage > 10 ? `<span class="nextBtn">&gt;</span>` : "";
                 $(".pagination").html(revBox);
-            },
-            error: function (e) {
+            }, error: function (e) {
                 Swal.fire({
                     title: "페이지 조회 ERROR. \n 관리자에게 문의해주세요.",
                 });
@@ -133,8 +132,7 @@ $(document).on('click', '.pagination>span', function() {
                 review = data;
                 $(".m_rev_area").html(createRev(data));
             }
-        },
-        error: function (e) {
+        }, error: function (e) {
             Swal.fire({
                 title: "페이지 조회 ERROR. \n 관리자에게 문의해주세요.",
             });
@@ -467,8 +465,7 @@ const buyCartChk = (buyCart)=>{
                 }).then(() => {
                     location.reload();
                 });
-            },
-            error: function (e) {
+            }, error: function (e) {
                 Swal.fire({
                     icon: "warning",
                     title: buyErrorTxt+" ERROR. \n 관리자에게 문의해주세요."

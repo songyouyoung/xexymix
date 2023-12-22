@@ -23,3 +23,14 @@ if(rev.length == 0){
     revBox += `</table>`;
 }
 $("#m_review").append(revBox);
+
+/////////////////////////////////////
+///////////// 구매 출력 //////////////
+/////////////////////////////////////
+let buyBox = "";
+if(buy.length == 0){
+    buyBox = `<p class="m_none">아직 주문한 상품이 없습니다.</p>`;
+}else{
+    buyBox = createBuy(buy);
+}
+$("#m_buy").append(buyBox);

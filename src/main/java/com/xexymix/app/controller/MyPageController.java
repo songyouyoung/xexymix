@@ -71,8 +71,9 @@ public class MyPageController {
         startDate.setHours(0);
         startDate.setMinutes(0);
         startDate.setSeconds(0);
+        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-        List<BuyDto> buyList = buyList("0", buyCode, startDate, endDate);
+        List<BuyDto> buyList = buyList("0", buyCode, sdf1.format(startDate), sdf1.format(endDate));
         System.out.println("buyCode = " + buyCode);
         System.out.println(buyList);
 
@@ -84,29 +85,31 @@ public class MyPageController {
     }
     @PostMapping("/buy")
     @ResponseBody
-    public ResponseEntity<List<BuyDto>> showUserBuyPut(@RequestBody Map<String, Object> buyDesc){
+    public ResponseEntity<List<BuyDto>> showUserBuyPut(@RequestBody Map<String, String> buyDesc){
 //        Date startDate = new Date(String.valueOf(buyDesc.get("startDate")));
 //        System.out.println("startDate : " + startDate);
         System.out.print("buyDesc : ");
         System.out.println(buyDesc);
         try {
-            return new ResponseEntity<List<BuyDto>>((List<BuyDto>) null, HttpStatus.OK); // 200
+            List<BuyDto> buyDtos = buyList(buyDesc.get("limit"), buyDesc.get("buyCode"), buyDesc.get("startDate")+" 00:00:00", buyDesc.get("endDate")+" 23:59:59");
+            System.out.println(buyDtos);
+
+            return new ResponseEntity<List<BuyDto>>((List<BuyDto>) buyDtos, HttpStatus.OK); // 200
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<List<BuyDto>> (HttpStatus.BAD_REQUEST); // 400
         }
     }
 
-    public List<BuyDto> buyList(String limit, String buyCode, Date startDate, Date endDate) {
+    public List<BuyDto> buyList(String limit, String buyCode, String startDate, String endDate) {
         Map<String, String> userDesc = new HashMap<>();
         userDesc.put("userNo", userNo+"");
         userDesc.put("limit", limit);
         userDesc.put("buyCode", buyCode);
-        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        userDesc.put("startDate", sdf1.format(startDate));
-        userDesc.put("endDate", sdf1.format(endDate));
-        System.out.println("startDate : " + sdf1.format(startDate));
-        System.out.println("endDate : " + sdf1.format(endDate));
+        userDesc.put("startDate", startDate);
+        userDesc.put("endDate", endDate);
+        System.out.println("startDate : " + startDate);
+        System.out.println("endDate : " + endDate);
 
         return userService.selectUserBuyAll(userDesc);
     }
