@@ -43,8 +43,7 @@ $(document).on('click', '.m_qna_area td', function(){
                 $(".w_m_close").css({display:"none"});
                 $(".qnaSubmit").html("수정하기");
                 $(".qnaSubmit").prop("type", "button");
-            },
-            error: function() {
+            }, error: function() {
                 Swal.fire({
                     icon: "warning",
                     title: "문의 수정 오류.<br> 관리자에게 문의해주세요."
@@ -105,6 +104,9 @@ const createQna = (qna, nowQnaPage, jsp)=>{
     return qnaBox;
 };
 
+/////////////////////////////////////
+//////////////// 리뷰 ////////////////
+/////////////////////////////////////
 const createRev = (review, jsp)=>{
     let revBox = "";
     review.forEach((rev)=>{
@@ -147,4 +149,55 @@ const createRev = (review, jsp)=>{
                 </div>`;
     });
     return revBox;
+}
+
+/////////////////////////////////////
+//////////////// 리뷰 ////////////////
+/////////////////////////////////////
+const createBuy = (buy)=>{
+    let buyBox = "";
+    let today = new Date();
+    today.setDate(today.getDate() - 7)
+    for(let i = 0; i < buy.length; i++){
+        let dt = new Date(buy[i].buyDate);
+        let year = dt.getFullYear();
+        let month = dt.getMonth()+1 < 10 ? "0" + (dt.getMonth()+1) : dt.getMonth()+1;
+        let date = dt.getDate() < 10 ? "0" + dt.getDate() : dt.getDate();
+        let buyCancelChk = today < dt;
+        if (i == 0 || buy[i].buyNo != buy[i-1].buyNo){
+            buyBox += `<div class="my_buy_list">
+                            <div class="my_buy_title">
+                                <div class="my_buy_date">${year}.${month}.${date}</div>
+                                <div class="my_buy_no">${buy[i].buyNo}</div>
+                            </div>
+                            <div class="my_buy_item_list">`;
+        }
+        let buyChk;
+        if (buyCancelChk && buy[i].buyCode == 'buy'){
+            buyChk = `<div class="my_buy_curr">주문완료</div>
+                        <a class="my_buy_review">구매후기</a>
+                        <a class="my_buy_cancel">주문취소</a>`;
+        }else if(!buyCancelChk && buy[i].buyCode == 'buy'){
+            buyChk = `<div class="my_buy_curr">주문완료</div>
+                        <a class="my_buy_review">구매후기</a>`;
+        }else{
+            buyChk = `<div class="my_buy_curr">주문취소</div>`;
+        }
+
+        buyBox += `<div class="my_buy_item">
+                        <img src="/${C_PATH}/img/item_list/${buy[i].itemImg}" alt="${buy[i].itemName}" class="my_buy_img">
+                            <div class="my_buy_desc">
+                                <div class="my_buy_itemName">${buy[i].itemName}</div>
+                                <div class="my_buy_itemOption">[옵션 : ${buy[i].buyOpt}]</div>
+                            </div>
+                            <div class="my_buy_btn">
+                                ${buyChk}
+                            </div>
+                    </div>`;
+        if (i == buy.length-1 || buy[i].buyNo != buy[i+1].buyNo){
+            buyBox += "</div>";// my_buy_item_list
+            buyBox += "</div>";// my_buy_list
+        }
+    }
+    return buyBox;
 }

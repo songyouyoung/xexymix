@@ -134,8 +134,7 @@ function findit(find){
             }else {
                 location.replace('/'+C_PATH+'/login/change_pw');
             }
-        },
-        error: function (e) {
+        }, error: function (e) {
             Swal.fire({
                 title: "일치하는 회원정보가<br>없습니다.",
             });

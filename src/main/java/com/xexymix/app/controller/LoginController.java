@@ -31,7 +31,7 @@ public class LoginController {
     @GetMapping("/login")
     public String showLogin(HttpServletRequest request, Model model){
         String prevPageTmp = request.getHeader("REFERER");
-        if(!prevPageTmp.contains("find_") || prevPage.isEmpty()){ prevPage = prevPageTmp; }
+        if(!prevPageTmp.contains("login") || prevPage.isEmpty()){ prevPage = prevPageTmp; }
         if (prevPage.isEmpty() || prevPage.contains("login")){ prevPage = "http://localhost:8080/app/"; }
         System.out.println("prevPage : " + prevPage);
         model.addAttribute("prevPage", prevPage);

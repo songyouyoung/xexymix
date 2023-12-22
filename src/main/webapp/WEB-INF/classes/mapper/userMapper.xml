@@ -103,15 +103,23 @@
             where userId = #{userId}
     </update>
     <!-- 회원 구매 내역 전체 -->
-    <select id="selectUserBuyAll" parameterType="int" resultType="buyDto">
+    <select id="selectUserBuyAll" parameterType="String" resultType="buyDto">
         SELECT b.buyAuto, b.buyNo, b.itemNo, b.buyCnt, b.buyOpt, b.buyCode, b.buyDate, i.itemImg, i.itemName
             FROM buy b
             JOIN item i ON b.itemNo = i.itemNo
-            JOIN (SELECT buyNo
+            JOIN (SELECT DISTINCT buyNo
                     FROM buy
-                        WHERE userNo = #{userNo}
+                        WHERE userNo = ${userNo}
+                        <if test="buyCode != 'all'">
+                            AND buyCode = #{buyCode}
+                        </if>
+                            AND buyDate BETWEEN #{startDate} AND #{endDate}
                 ORDER BY buyNo DESC
                 limit ${limit}, 3) bb
-            ON b.buyNo = bb.buyNo;
+            ON b.buyNo = bb.buyNo
+        <if test="buyCode != 'all'">
+            where buyCode = #{buyCode}
+        </if>
+        order by buyNo DESC
     </select>
 </mapper>
