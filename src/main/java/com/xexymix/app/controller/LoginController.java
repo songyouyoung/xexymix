@@ -33,7 +33,6 @@ public class LoginController {
         String prevPageTmp = request.getHeader("REFERER");
         if(!prevPageTmp.contains("login") || prevPage.isEmpty()){ prevPage = prevPageTmp; }
         if (prevPage.isEmpty() || prevPage.contains("login")){ prevPage = "http://localhost:8080/app/"; }
-        System.out.println("prevPage : " + prevPage);
         model.addAttribute("prevPage", prevPage);
         return "login";
     }
@@ -49,6 +48,8 @@ public class LoginController {
         if (login_rem != null && login_rem) {
             session.setAttribute("rememberId", userDto.getUserId());
         }
+        System.out.println("prevPage : " + prevPage);
+        if (prevPage.isEmpty()){ prevPage = "http://localhost:8080/app/"; }
         return "redirect:"+prevPage;
     }
     public String login(UserDto userDto, Boolean login_rem, String prevPage, Model model, HttpSession session, HttpServletResponse response){

@@ -81,23 +81,38 @@ public class MyPageController {
         String buy = mapper.writeValueAsString(buyList);
 
         model.addAttribute("buy", buy);
+        Map<String, String> userBuy = new HashMap<>();
+        userBuy.put("userNo", userNo+"");
+        userBuy.put("buyCode", buyCode);
+        userBuy.put("startDate", sdf1.format(startDate));
+        userBuy.put("endDate", sdf1.format(endDate));
+        model.addAttribute("buyMaxCnt", userService.selectUserBuyCnt(userBuy));
         return "my_buy";
     }
     @PostMapping("/buy")
     @ResponseBody
-    public ResponseEntity<List<BuyDto>> showUserBuyPut(@RequestBody Map<String, String> buyDesc){
+    public ResponseEntity<Map<String, Object>> showUserBuyPut(@RequestBody Map<String, String> buyDesc){
 //        Date startDate = new Date(String.valueOf(buyDesc.get("startDate")));
 //        System.out.println("startDate : " + startDate);
         System.out.print("buyDesc : ");
         System.out.println(buyDesc);
         try {
+            Map<String, Object> buyResult = new HashMap<>();
             List<BuyDto> buyDtos = buyList(buyDesc.get("limit"), buyDesc.get("buyCode"), buyDesc.get("startDate")+" 00:00:00", buyDesc.get("endDate")+" 23:59:59");
             System.out.println(buyDtos);
+            buyResult.put("buy", buyDtos);
 
-            return new ResponseEntity<List<BuyDto>>((List<BuyDto>) buyDtos, HttpStatus.OK); // 200
+            Map<String, String> userBuy = new HashMap<>();
+            userBuy.put("userNo", userNo+"");
+            userBuy.put("buyCode", buyDesc.get("buyCode"));
+            userBuy.put("startDate", buyDesc.get("startDate")+" 00:00:00");
+            userBuy.put("endDate", buyDesc.get("endDate")+" 23:59:59");
+            buyResult.put("buyMaxCnt", userService.selectUserBuyCnt(userBuy));
+
+            return new ResponseEntity<Map<String, Object>>(buyResult, HttpStatus.OK); // 200
         } catch (Exception e) {
             e.printStackTrace();
-            return new ResponseEntity<List<BuyDto>> (HttpStatus.BAD_REQUEST); // 400
+            return new ResponseEntity<Map<String, Object>> (HttpStatus.BAD_REQUEST); // 400
         }
     }
 

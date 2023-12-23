@@ -72,7 +72,13 @@
     <select id="selectUserBuyCnt" parameterType="String" resultType="int">
         SELECT count(DISTINCT buyNo)
             FROM buy
-                WHERE userNo = ${userNo} and buyCode = #{buyCode}
+                WHERE userNo = ${userNo}
+                <if test="buyCode != 'all'">
+                    AND buyCode = #{buyCode}
+                </if>
+                <if test="startDate != null">
+                    AND buyDate BETWEEN #{startDate} AND #{endDate}
+                </if>
     </select>
 <!--    회원 취소 개수-->
 <!--    회원 문의 내역 불러오기-->

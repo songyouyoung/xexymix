@@ -67,12 +67,15 @@ public class UserService {
         Map<String, String> userBuy = new HashMap<>();
         userBuy.put("userNo", userNo+"");
         userBuy.put("buyCode", "buy");
-        mypageDesc.put("buyCnt", userDao.selectUserBuyCnt(userBuy));
+        mypageDesc.put("buyCnt", selectUserBuyCnt(userBuy));
         userBuy.put("buyCode", "cancel");
         mypageDesc.put("cancelCnt", userDao.selectUserBuyCnt(userBuy));
         mypageDesc.put("qna", userDao.selectUserQna(userNo));
         mypageDesc.put("rev", userDao.selectUserRev(userNo));
         return mypageDesc;
+    }
+    public Integer selectUserBuyCnt(Map<String, String> userBuy){
+        return userDao.selectUserBuyCnt(userBuy);
     }
     public Integer updatePw(UserDto userDto){
         return userDao.updatePw(userDto);

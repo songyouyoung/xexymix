@@ -2,10 +2,21 @@
 ///////////// 구매 출력 //////////////
 /////////////////////////////////////
 let buyBox = "";
+//페이지네이션
+let buyPage = Math.ceil(buyMaxCnt / 3); // 총 페이지 개수
+let nowBuyPage = 1; // 현재 페이지
+let startBuyPage = 1; // 시작 페이지
 if(buy.length == 0){
     buyBox = `<p class="m_none">주문한 상품이 없습니다.</p>`;
 }else{
     buyBox = createBuy(buy);
+    // 페이지네이션
+    buyBox += `<div class="pagination">`;
+    for(let i = 1; i <= (buyPage>10?10:buyPage); i++){
+        buyBox += `<span class="page" style=${i==1?"font-weight:bold":""}>${i}</span>`;
+    }
+    buyBox += buyPage > 10 ? `<span class="nextBtn">&gt;</span>` : "";
+    buyBox += `</div>`;
 }
 $("#m_buy").append(buyBox);
 
@@ -27,10 +38,7 @@ else if(buyLink == "cancel"){ buy_titleChk(".my_buy_title_cancel");}
 let prevDate = document.getElementById("my_date_prev");
 let nextDate = document.getElementById("my_date_next");
 let today = new Date();
-console.log("1today : ", today);
-// console.log("1today_iostring : ", today.toISOString());
 today = createDate(today, "-");
-console.log("2today : ", today);
 // 기본 3개월 내역 보여줄 거임.
 setMyDate(3, true);
 // 선택 시 일자 변경.
@@ -39,6 +47,7 @@ $(document).on('click', '#my_date_week', ()=>{ setMyDate(7, false); });
 $(document).on('click', '#my_date_month_1', ()=>{ setMyDate(1, false); });
 $(document).on('click', '#my_date_month_3', ()=>{ setMyDate(3, false); });
 $(document).on('click', '#my_date_month_6', ()=>{ setMyDate(6, false); });
+$(document).on('click', '#my_date_submit', ()=>{ aJax(0, true); });
 
 function setMyDate(dateChk, init){
     if(dateChk == 0){
@@ -53,11 +62,52 @@ function setMyDate(dateChk, init){
         prevDate.value = prevday;
         nextDate.value = today;
     }
-    if(!init){ aJax(0); }
+    if(!init){ aJax(0, true); }
 }
-// String limit,
-// let buyCode = ""; buyLink
-function aJax(limit){
+
+//////////////////////////////////////
+///////// 페이지네이션 선택 ///////////
+/////////////////////////////////////
+$(document).on('click', '.pagination>span', function() {
+    let par = $(this).parent();
+    par.children().css({fontWeight: "normal"});
+
+    if ($(this).text() == "<") {
+        let pagBox = "";
+        startBuyPage = startBuyPage - 3;
+        nowBuyPage = startBuyPage;
+        pagBox = startBuyPage == 1 ? "" : `<span class="prevBtn">&lt;</span>`;
+        for (let i = startBuyPage; i <= startBuyPage + 10 - 1; i++) {
+            pagBox += `<span class="page">${i}</span>`;
+        }
+        pagBox += `<span class="nextBtn">&gt;</span>`;
+
+        par.html(pagBox);
+        par.children(".page").eq(0).css({fontWeight: "bold"});
+
+    } else if ($(this).text() == ">") {
+        let pagBox = "";
+        startBuyPage = startBuyPage + 3;
+        nowBuyPage = startBuyPage;
+        console.log("startBuyPage : " + startBuyPage)
+        console.log("buyPage : " + buyPage)
+        pagBox = `<span class="prevBtn">&lt;</span>`;
+        for (let i = startBuyPage; i <= (buyPage - startBuyPage > 10 ? startBuyPage + 9 : buyPage); i++) {
+            pagBox += `<span class="page">${i}</span>`;
+        }
+        pagBox += buyPage - startBuyPage > 10 ? `<span class="nextBtn">&gt;</span>` : "";
+
+        par.html(pagBox);
+        par.children(".page").eq(0).css({fontWeight: "bold"});
+    } else {
+        $(this).css({fontWeight: "bold"});
+        nowBuyPage = Number($(this).text());
+    }
+
+    aJax((nowBuyPage - 1)*3, false);
+});
+
+function aJax(limit, pagChk){
     let startDate = $("#my_date_prev").val();
     let endDate = $("#my_date_next").val();
     let buyBox = "";
@@ -67,23 +117,32 @@ function aJax(limit){
         headers: {"content-type": "application/json"},
         data: JSON.stringify({limit: limit, buyCode: buyLink, startDate: startDate, endDate: endDate}),
         success: function(data) {
-            console.log(data);
-            if(data.length == 0){
+            console.log(data.buy);
+            if(data.buy.length == 0){
                 buyBox = `<p class="m_none">주문한 상품이 없습니다.</p>`;
             }else{
-                buyBox = createBuy(data);
+                buyPage = Math.ceil(data.buyMaxCnt / 3); // 총 페이지 개수
+                buyBox = createBuy(data.buy);
+                // 페이지네이션
+                if (pagChk) {
+                    let pagBox = "";
+                    for (let i = 1; i <= (buyPage > 10 ? 10 : buyPage); i++) {
+                        pagBox += `<span class="page" style=${i == 1 ? "font-weight:bold" : ""}>${i}</span>`;
+                    }
+                    pagBox += buyPage > 10 ? `<span class="nextBtn">&gt;</span>` : "";
+                    $(".pagination").html(pagBox);
+                }
             }
-            $("#m_buy").append(buyBox);
+            $("#m_buy").html(buyBox);
         }, error: function() {
             buyBox = `<p class="m_none">주문한 상품이 없습니다.</p>`;
-            $("#m_buy").append(buyBox);
             Swal.fire({
                 icon: "warning",
                 title: "구매 내역 오류.<br> 관리자에게 문의해주세요."
             });
+            $("#m_buy").html(buyBox);
         }
     });
-    $("#m_buy").html(buyBox);
 }
 
 function createDate(dt, mark){

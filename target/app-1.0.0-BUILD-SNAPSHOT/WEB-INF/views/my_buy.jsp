@@ -46,11 +46,13 @@
                 </div>
             </div>
         </div>
+        <div class="pagination"></div>
     </main>
     <jsp:include page="footer.jsp"/>
     <script>
         const C_PATH = (location.pathname).split("/")[1];
         let buy = ${buy};
+        let buyMaxCnt = ${buyMaxCnt};
     </script>
     <script src="<c:url value='/js/item_qnaRev.js'/>"></script>
     <script src="<c:url value='/js/buy.js'/>"></script>

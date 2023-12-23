@@ -177,9 +177,12 @@ const createBuy = (buy)=>{
             buyChk = `<div class="my_buy_curr">주문완료</div>
                         <a class="my_buy_review">구매후기</a>
                         <a class="my_buy_cancel">주문취소</a>`;
-        }else if(!buyCancelChk && buy[i].buyCode == 'buy'){
+        }else if(!buyCancelChk && buy[i].buyCode == 'buy' && buy[i].buyRevChk == true){
             buyChk = `<div class="my_buy_curr">주문완료</div>
-                        <a class="my_buy_review">구매후기</a>`;
+                        <a class="my_buy_review">후기보기</a>`;
+        }else if(!buyCancelChk && buy[i].buyCode == 'buy' && buy[i].buyRevChk == false){
+            buyChk = `<div class="my_buy_curr">주문완료</div>
+                        <a class="my_buy_review">후기작성</a>`;
         }else{
             buyChk = `<div class="my_buy_curr">주문취소</div>`;
         }

@@ -59,7 +59,7 @@ $(document).on('click', '.pagination>span', function() {
     let maxCnt = 0;
     let startPg = 0;
     let nowpg = 0;
-    // alert($(this).parent().parent().prop("id"))
+
     let par = $(this).parent();
     par.children().css({fontWeight: "normal"});
     if (par.parent().prop("id") == "m_qna") {
