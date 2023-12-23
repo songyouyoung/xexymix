@@ -479,3 +479,8 @@ const buyCartChk = (buyCart)=>{
 const buyit = ()=>{ buyCartChk("buy"); }
 // 장바구니
 const cartit = ()=>{ buyCartChk("cart"); }
+
+$(document).on('click', '.m_rev_update', function(){
+    console.log("클릭");
+    updateRev($(this), review, true);
+});

@@ -106,10 +106,11 @@ public class ItemController {
         return "write_qna";
     }
 
-    private static final String F_PATH = "C:/Users/user/Desktop/portfolio/github/xexymix/src/main/webapp/resources/img/qna/"; //집
-//     private static final String F_PATH = "C:/Users/user1/Documents/GitHub/xexymix/src/main/webapp/resources/img/qna/"; //학원
     @PostMapping("/qna/update")
     public String updateQna(@RequestParam(value="wFile", required = false) List<MultipartFile> imgFiles, QnaDto qnaDesc, String w_cancel, String oriImg, String prevPage, String itemNo){
+        String F_PATH = "C:/Users/user/Desktop/portfolio/github/xexymix/src/main/webapp/resources/img/qna/"; //집
+//     String F_PATH = "C:/Users/user1/Documents/GitHub/xexymix/src/main/webapp/resources/img/qna/"; //학원
+
         List<String> origImg = new ArrayList<>(Arrays.asList(oriImg.split("\\|")));
         List<String> deleteImg = List.of(w_cancel.split("\\|"));
         StringBuilder qnaFile = new StringBuilder();
@@ -157,5 +158,50 @@ public class ItemController {
     public List<ReviewDto> showRev(@RequestBody Map<String, String> revDesc){
         List<ReviewDto> revList = reviewService.showReview(revDesc);
         return revList;
+    }
+
+    @GetMapping("/rev/detail")
+    public String showRevDetail(){
+        return "write_review";
+    }
+
+    @PostMapping("/qna/update")
+    public String updateRev(@RequestParam(value="wFile", required = false) List<MultipartFile> imgFiles, ReviewDto revDesc, String w_cancel, String oriImg, String prevPage, String itemNo){
+        String F_PATH = "C:/Users/user/Desktop/portfolio/github/xexymix/src/main/webapp/resources/img/review/"; //집
+//     String F_PATH = "C:/Users/user1/Documents/GitHub/xexymix/src/main/webapp/resources/img/review/"; //학원
+
+        List<String> origImg = new ArrayList<>(Arrays.asList(oriImg.split("\\|")));
+        List<String> deleteImg = List.of(w_cancel.split("\\|"));
+        StringBuilder revFile = new StringBuilder();
+        boolean delFileChk = true;
+        for(String ori:origImg){
+            for(String del:deleteImg){
+                if(ori.equals(del)){
+                    delFileChk = false;
+                    break;
+                }
+            }
+            if (delFileChk) { revFile.append(ori).append("|"); }
+        }
+        StringBuilder revFileOri = new StringBuilder(revFile.substring(0));
+
+        for(MultipartFile mf : imgFiles) {
+            if (mf.getOriginalFilename().equals("")){ break; }
+            String originalFileName = mf.getOriginalFilename();
+            String safeFileName = System.currentTimeMillis() + originalFileName;
+            String safeFile = F_PATH + safeFileName;
+            revFile.append(safeFileName).append("|");
+            revFileOri.append(originalFileName).append("|");
+            try {
+                mf.transferTo(new File(safeFile));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        revDesc.setRevFile(String.valueOf(revFile));
+        revDesc.setRevFileOri(String.valueOf(revFileOri));
+        reviewService.updateRev(revDesc);
+        prevPage = prevPage.replace("/app","");
+        return "redirect:" + prevPage + (itemNo!=null?"?itemNo="+itemNo:"");
     }
 }

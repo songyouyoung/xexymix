@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="<c:url value='/css/write.css'/>">
 </head>
 <body>
-<div id="qnaWrap">
+<div id="qnaWrap" class="qnarevWrap">
     <form action="" method="POST" enctype="multipart/form-data" id="qnaForm" class="write">
         <header class="w_h">
             <img src="<c:url value='/img/main_banner/main_banner_230911_2.jpg'/>" alt="포터 라운드넥 골지니트 맨투맨">
@@ -29,7 +29,8 @@
         </main>
         <footer class="w_f">
             <button type="submit" class="qnaSubmit">문의하기</button>
-            <button type="button" class="qnaCencel">닫기</button>
+            <button type="button" class="qnaRemove">삭제하기</button>
+            <button type="button" class="btnCancel">닫기</button>
         </footer>
     </form>
 </div>

@@ -45,4 +45,8 @@ public class ReviewService {
         }
         return revChart;
     }
+
+    public int updateRev(ReviewDto revDesc) {
+        return reviewDao.updateRev(revDesc);
+    }
 }

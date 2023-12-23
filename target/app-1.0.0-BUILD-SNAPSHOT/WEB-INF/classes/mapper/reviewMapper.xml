@@ -13,9 +13,10 @@
     </select>
     <!-- 리뷰 리스트 조회 -->
     <select id="selectRev" parameterType="String" resultType="reviewDto">
-        select revNo, userNo, userName, revScore, revTxt, revRegDate, revLike, revFile, revFileOri
-            from review
-                where itemNo = #{itemNo}
+        select r.revNo, r.userNo, r.userName, r.revScore, r.revTxt, r.revRegDate, r.revLike, r.revFile, r.revFileOri, r.itemNo, i.itemName, i.itemImg
+            from review r, item i
+                where r.itemNo = i.itemNo
+                    AND r.itemNo = #{itemNo}
         <choose>
             <when test="search == 'new'">
                 order by revRegDate desc
@@ -46,4 +47,10 @@
             from review
                 where itemNo = #{itemNo} and revScore = ${revScore}
     </select>
+    <!-- 문의 수정 -->
+    <update id="updateRev" parameterType="String">
+        update review
+        set revTxt = #{revTxt}, revFile = #{revFile}, revFileOri = #{revFileOri}
+        where revNo = ${revNo}
+    </update>
 </mapper>

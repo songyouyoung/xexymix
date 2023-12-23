@@ -1,5 +1,6 @@
 package com.xexymix.app.dao;
 
+import com.xexymix.app.domain.QnaDto;
 import com.xexymix.app.domain.ReviewDto;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,5 +30,9 @@ public class ReviewDao {
 
     public int selectRevScore(Map<String, String> revDesc){
         return session.selectOne(namespace + "selectRevScore", revDesc);
+    }
+
+    public int updateRev(ReviewDto revDesc){
+        return session.update(namespace + "updateRev", revDesc);
     }
 }

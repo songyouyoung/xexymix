@@ -1,9 +1,12 @@
-/////////////////////////////////////
-////////////// 문의 선택 /////////////
-/////////////////////////////////////
 let qnaUpdateChk = false;
 let qnaNo;
 let qnaImg;
+
+let revUpdateChk = false;
+let revImg;
+/////////////////////////////////////
+////////////// 문의 선택 /////////////
+/////////////////////////////////////
 $(document).on('click', '.m_qna_area td', function(){
     let thisQna = qna[($(this).parent()).index() - 1];
     qnaNo = thisQna.qnaNo;
@@ -57,15 +60,93 @@ $(document).on('click', '.m_qna_area td', function(){
         });
     }
 });
-// 문의 닫기
+
+/////////////////////////////////////
+///////// 리뷰 수정 / 삭제 ////////////
+/////////////////////////////////////
+function updateRev(div, rev, revChk){
+    console.log("div : ", div);
+    console.log("방번호 : ", (div.parent().parent().parent()).index())
+    console.log("rev : ", rev);
+    let thisRev = rev[(div.parent().parent().parent()).index()];
+    let thisLocation = location.pathname.split("/")[1];
+    if(userNo == ""){
+        Swal.fire({
+            icon: "warning",
+            title: "로그인이 필요한 서비스입니다. "
+        }).then(()=>{
+            if (thisLocation == "item") {
+                location.href = "/" + C_PATH + "/login?prevPage=" + location.pathname + "&itemNo=" + itemNo;
+            }else{
+                location.href = "/" + C_PATH + "/login?prevPage=" + location.pathname;
+            }
+        });
+    }else if (thisRev.userNo == userNo){
+        $.ajax({
+            url: "/" + C_PATH + "/item/rev/detail",
+            type: "GET",
+            success: function(data) {
+                $("#wrap").append(data);
+                let oriImg = thisRev.revFile==null?"":(thisRev.revFile).replaceAll("|", "%7C");
+                if (thisLocation == "item" || revChk) {
+                    $("#revForm").prop("action", `/${C_PATH}/item/rev/update?prevPage=${location.pathname}&itemNo=${thisRev.itemNo}&oriImg=${oriImg}`);
+                    console.log("thisRev.revScore : ", thisRev.revScore)
+                    $("#revScore").val(thisRev.revScore).prop("selected", true);
+                }else{
+                    $("#revForm").prop("action", `/${C_PATH}/item/rev/insert?prevPage=${location.pathname}`);
+                }
+                $(".w_h>img").prop("src", `/${C_PATH}/img/item_list/${thisRev.itemImg}`);
+                $(".w_h_title").html(`${thisRev.itemName}`);
+                $("#revNo").prop("value", `${thisRev.revNo}`);
+                $("#revTxt").prop("readonly", true);
+                $("#revTxt").prop("value", `${thisRev.revTxt}`);
+                $(".w_m_file_upload").css({display:"none"});
+                revImg = thisRev.revFile == null?"":(thisRev.revFile.slice(0, -1)).split("|");
+                let revImgOri = [];
+                revImgOri = thisRev.revFileOri == null?"":(thisRev.revFileOri.slice(0, -1)).split("|");
+                let revImgBox = "";
+                let i = 0;
+                revImg == ""? "" : revImg.forEach((img)=>{
+                    revImgBox += `<div class="w_m_file_item">
+                                    <img src="/${C_PATH}/img/review/${img}" alt="리뷰 이미지" data-file = "${revImgOri[i++]}">
+                                    <div class="w_m_close">X</div>
+                                </div>`;
+                });
+                $(".w_m_file_box").append(revImgBox);
+                $(".w_m_close").css({display:"none"});
+                if (revChk) {
+                    $(".revSubmit").html("수정하기");
+                    $(".revSubmit").prop("type", "button");
+                }else{
+                    $(".revRemove").css({display:"none"});
+                }
+            }, error: function() {
+                Swal.fire({
+                    icon: "warning",
+                    title: "문의 수정 오류.<br> 관리자에게 문의해주세요."
+                });
+            }
+        });
+    }else{
+        Swal.fire({
+            icon: "warning",
+            title: "조회 권한이 없습니다. "
+        });
+    }
+}
+
+// 문의, 리뷰 닫기
 $(document).on('click', '.w_h_close', function(){
-    (document.getElementById("qnaWrap")).remove();
+    (document.getElementsByClassName("qnarevWrap")[0]).remove();
     qnaUpdateChk = false;
+    revUpdateChk = false;
 });
-$(document).on('click', '.qnaCencel', function(){
-    (document.getElementById("qnaWrap")).remove();
+$(document).on('click', '.btnCancel', function(){
+    (document.getElementsByClassName("qnarevWrap")[0]).remove();
     qnaUpdateChk = false;
+    revUpdateChk = false;
 });
+
 //문의 수정하기
 $(document).on('click', '.qnaSubmit', function(){
     if(!qnaUpdateChk) {
@@ -77,6 +158,18 @@ $(document).on('click', '.qnaSubmit', function(){
         qnaUpdateChk = true;
     }
     else{ $(".qnaSubmit").prop("type", "submit"); }
+});
+//리뷰 수정하기
+$(document).on('click', '.revSubmit', function(){
+    if(!revUpdateChk) {
+        $("#revTxt").prop("readonly", false);
+        $("#revTxt").focus();
+        revImg.length < 5?$(".w_m_file_upload").css({display:"flex"}):"";
+        $(".w_m_close").css({display:"block"});
+        $(".revSubmit").html(`리뷰 작성하기`);
+        revUpdateChk = true;
+    }
+    else{ $(".revSubmit").prop("type", "submit"); }
 });
 
 
@@ -152,7 +245,7 @@ const createRev = (review, jsp)=>{
 }
 
 /////////////////////////////////////
-//////////////// 리뷰 ////////////////
+//////////////// 구매 ////////////////
 /////////////////////////////////////
 const createBuy = (buy)=>{
     let buyBox = "";
@@ -177,9 +270,12 @@ const createBuy = (buy)=>{
             buyChk = `<div class="my_buy_curr">주문완료</div>
                         <a class="my_buy_review">구매후기</a>
                         <a class="my_buy_cancel">주문취소</a>`;
-        }else if(!buyCancelChk && buy[i].buyCode == 'buy'){
+        }else if(!buyCancelChk && buy[i].buyCode == 'buy' && buy[i].buyRevChk == true){
             buyChk = `<div class="my_buy_curr">주문완료</div>
-                        <a class="my_buy_review">구매후기</a>`;
+                        <a class="my_buy_review">후기보기</a>`;
+        }else if(!buyCancelChk && buy[i].buyCode == 'buy' && buy[i].buyRevChk == false){
+            buyChk = `<div class="my_buy_curr">주문완료</div>
+                        <a class="my_buy_review">후기작성</a>`;
         }else{
             buyChk = `<div class="my_buy_curr">주문취소</div>`;
         }

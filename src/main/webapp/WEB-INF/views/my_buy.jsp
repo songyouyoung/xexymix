@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" session = "false"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<c:set var="sessionId" value="${ pageContext.request.getSession(false).getAttribute('userNo')!=null? pageContext.request.getSession(false).getAttribute('userNo'):null}" />
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -51,6 +52,7 @@
     <jsp:include page="footer.jsp"/>
     <script>
         const C_PATH = (location.pathname).split("/")[1];
+        let userNo = ${sessionId};
         let buy = ${buy};
         let buyMaxCnt = ${buyMaxCnt};
     </script>

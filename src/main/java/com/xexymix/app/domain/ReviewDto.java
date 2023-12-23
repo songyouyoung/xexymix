@@ -9,6 +9,7 @@ public class ReviewDto {
     private int userNo;
     private String itemNo;
     private String itemName;
+    private String itemImg;
     private String userName;
     private int revScore;
     private String revTxt;
@@ -50,6 +51,14 @@ public class ReviewDto {
 
     public void setItemName(String itemName) {
         this.itemName = itemName;
+    }
+
+    public String getItemImg() {
+        return itemImg;
+    }
+
+    public void setItemImg(String itemImg) {
+        this.itemImg = itemImg;
     }
 
     public String getUserName() {
@@ -123,6 +132,7 @@ public class ReviewDto {
                 ", userNo=" + userNo +
                 ", itemNo='" + itemNo + '\'' +
                 ", itemName='" + itemName + '\'' +
+                ", itemImg='" + itemImg + '\'' +
                 ", userName='" + userName + '\'' +
                 ", revScore=" + revScore +
                 ", revTxt='" + revTxt + '\'' +

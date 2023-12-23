@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="<c:url value='/css/write.css'/>">
 </head>
 <body>
-<div id="revWrap">
+<div id="revWrap" class="qnarevWrap">
     <form action="" method="POST" enctype="multipart/form-data" id="revForm" class="write">
         <header class="w_h">
             <img src="<c:url value='/img/main_banner/main_banner_230911_2.jpg'/>" alt="포터 라운드넥 골지니트 맨투맨">
@@ -14,7 +14,7 @@
             <div class="w_h_close">X</div>
         </header>
         <main class="w_m">
-            <input type="hidden" name="itemNo" value="">
+            <input type="hidden" name="revNo" id="revNo" value="">
             <div class="w_m_title">만족도</div>
             <select name="revScore" id="revScore">
                 <option value="5">★★★★★</option>
@@ -32,7 +32,9 @@
             </div>
         </main>
         <footer class="w_f">
-            <button type="submit">리뷰 작성하고 적립금 받기</button>
+            <button type="submit" class="revSubmit">리뷰 작성하기</button>
+            <button type="button" class="revRemove">삭제하기</button>
+            <button type="button" class="btnCancel">닫기</button>
         </footer>
     </form>
 </div>
