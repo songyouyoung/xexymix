@@ -482,5 +482,5 @@ const cartit = ()=>{ buyCartChk("cart"); }
 
 $(document).on('click', '.m_rev_update', function(){
     console.log("클릭");
-    updateRev($(this), review, true);
+    updateRev(review[($(this).parent().parent().parent()).index()], true);
 });

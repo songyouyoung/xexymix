@@ -27,12 +27,14 @@
             <textarea name="revTxt" id="revTxt" required></textarea>
             <div class="w_m_title">사진 첨부</div>
             <div class="w_m_file_box">
-                <input type="file" name="revFile" id="w_m_file_input" accept="image/*" multiple style="display: none;">
+                <input type="file" name="rFile" id="w_m_file_input" accept="image/*" multiple style="display: none;">
+                <input type="file" name="wFile" id="w_input" accept="image/*" multiple style="display: none;">
+                <input type="hidden" name="w_cancel" id="w_cancel">
                 <div class="w_m_file_upload">+</div>
             </div>
         </main>
         <footer class="w_f">
-            <button type="submit" class="revSubmit">리뷰 작성하기</button>
+            <button type="submit" class="revSubmit">리뷰<br>작성하기</button>
             <button type="button" class="revRemove">삭제하기</button>
             <button type="button" class="btnCancel">닫기</button>
         </footer>

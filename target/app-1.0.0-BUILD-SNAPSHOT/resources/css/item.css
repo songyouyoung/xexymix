@@ -271,8 +271,20 @@ div.m_nav_after{
     width: calc((100% - 30px) / 4);
     font-size: 15px;
 }
-.m_rev_best_img{ font-size: 0; }
-.m_rev_best_img>img{ width: 100%; }
+.m_rev_best_img{
+    width: 100%;
+    height: 230px;
+    font-size: 0;
+    overflow: hidden;
+    position: relative;
+}
+.m_rev_best_img>img{
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
 .m_rev_best_desc{
     padding: 5px;
     border: 1px solid #d3d3d3;

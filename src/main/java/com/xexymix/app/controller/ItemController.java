@@ -67,6 +67,10 @@ public class ItemController {
         String prevHistory = "";
         boolean historyChk = true;
         Cookie[] cookies = request.getCookies();
+        if (cookies == null){
+            addCookie(historyNo, itemNo, itemDetail, response);
+            return "item";
+        }
         for (Cookie c : cookies) {
             if (c.getName().startsWith("historyItem")) {
                 prevHistory = c.getValue();
@@ -79,26 +83,29 @@ public class ItemController {
             }
         }
         if (historyChk) {
-            historyNo += 1;
-            Cookie cookie = new Cookie("historyItem" + historyNo, itemNo);
-            cookie.setMaxAge(60 * 60 * 24);
-            cookie.setPath("/");
-            Cookie cookie2 = new Cookie("historyImg" + historyNo, itemDetail.getItemImg());
-            cookie2.setMaxAge(60 * 60 * 24);
-            cookie2.setPath("/");
-            Cookie cookie3 = new Cookie("historyName" + historyNo, URLEncoder.encode(itemDetail.getItemName(), "UTF-8"));
-            cookie3.setMaxAge(60 * 60 * 24);
-            cookie3.setPath("/");
-            int historyPrice = itemDetail.getItemPrice() / 100 * (itemDetail.getEvPer() > 0?100-itemDetail.getEvPer():100);
-            Cookie cookie4 = new Cookie("historyPrice" + historyNo, historyPrice+"");
-            cookie4.setMaxAge(60 * 60 * 24);
-            cookie4.setPath("/");
-            response.addCookie(cookie);
-            response.addCookie(cookie2);
-            response.addCookie(cookie3);
-            response.addCookie(cookie4);
+            addCookie(historyNo, itemNo, itemDetail, response);
         }
         return "item";
+    }
+    public void addCookie(int historyNo, String itemNo, ItemDto itemDetail, HttpServletResponse response) throws UnsupportedEncodingException {
+        historyNo += 1;
+        Cookie cookie = new Cookie("historyItem" + historyNo, itemNo);
+        cookie.setMaxAge(60 * 60 * 24);
+        cookie.setPath("/");
+        Cookie cookie2 = new Cookie("historyImg" + historyNo, itemDetail.getItemImg());
+        cookie2.setMaxAge(60 * 60 * 24);
+        cookie2.setPath("/");
+        Cookie cookie3 = new Cookie("historyName" + historyNo, URLEncoder.encode(itemDetail.getItemName(), "UTF-8"));
+        cookie3.setMaxAge(60 * 60 * 24);
+        cookie3.setPath("/");
+        int historyPrice = itemDetail.getItemPrice() / 100 * (itemDetail.getEvPer() > 0?100-itemDetail.getEvPer():100);
+        Cookie cookie4 = new Cookie("historyPrice" + historyNo, historyPrice+"");
+        cookie4.setMaxAge(60 * 60 * 24);
+        cookie4.setPath("/");
+        response.addCookie(cookie);
+        response.addCookie(cookie2);
+        response.addCookie(cookie3);
+        response.addCookie(cookie4);
     }
 
     @GetMapping("/qna/detail")
@@ -111,36 +118,38 @@ public class ItemController {
         String F_PATH = "C:/Users/user/Desktop/portfolio/github/xexymix/src/main/webapp/resources/img/qna/"; //집
 //     String F_PATH = "C:/Users/user1/Documents/GitHub/xexymix/src/main/webapp/resources/img/qna/"; //학원
 
-        List<String> origImg = new ArrayList<>(Arrays.asList(oriImg.split("\\|")));
-        List<String> deleteImg = List.of(w_cancel.split("\\|"));
-        StringBuilder qnaFile = new StringBuilder();
-        boolean delFileChk = true;
-        for(String ori:origImg){
-            for(String del:deleteImg){
-                if(ori.equals(del)){
-                    delFileChk = false;
-                    break;
-                }
-            }
-            if (delFileChk) { qnaFile.append(ori).append("|"); }
-        }
-        StringBuilder qnaFileOri = new StringBuilder(qnaFile.substring(0));
+//        List<String> origImg = new ArrayList<>(Arrays.asList(oriImg.split("\\|")));
+//        List<String> deleteImg = List.of(w_cancel.split("\\|"));
+//        StringBuilder qnaFile = new StringBuilder();
+//        boolean delFileChk = true;
+//        for(String ori:origImg){
+//            for(String del:deleteImg){
+//                if(ori.equals(del)){
+//                    delFileChk = false;
+//                    break;
+//                }
+//            }
+//            if (delFileChk) { qnaFile.append(ori).append("|"); }
+//        }
+//        StringBuilder qnaFileOri = new StringBuilder(qnaFile.substring(0));
+//
+//        for(MultipartFile mf : imgFiles) {
+//            if (mf.getOriginalFilename().equals("")){ break; }
+//            String originalFileName = mf.getOriginalFilename();
+//            String safeFileName = System.currentTimeMillis() + originalFileName;
+//            String safeFile = F_PATH + safeFileName;
+//            qnaFile.append(safeFileName).append("|");
+//            qnaFileOri.append(originalFileName).append("|");
+//            try {
+//                mf.transferTo(new File(safeFile));
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        }
+        Map<String, String> files = updateFile(imgFiles, oriImg, w_cancel, F_PATH);
 
-        for(MultipartFile mf : imgFiles) {
-            if (mf.getOriginalFilename().equals("")){ break; }
-            String originalFileName = mf.getOriginalFilename();
-            String safeFileName = System.currentTimeMillis() + originalFileName;
-            String safeFile = F_PATH + safeFileName;
-            qnaFile.append(safeFileName).append("|");
-            qnaFileOri.append(originalFileName).append("|");
-            try {
-                mf.transferTo(new File(safeFile));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        qnaDesc.setQnaFile(String.valueOf(qnaFile));
-        qnaDesc.setQnaFileOri(String.valueOf(qnaFileOri));
+        qnaDesc.setQnaFile(files.get("file"));
+        qnaDesc.setQnaFileOri(files.get("fileOri"));
         qnaService.updateQna(qnaDesc);
         prevPage = prevPage.replace("/app","");
         return "redirect:" + prevPage + (itemNo!=null?"?itemNo="+itemNo:"");
@@ -165,14 +174,28 @@ public class ItemController {
         return "write_review";
     }
 
-    @PostMapping("/qna/update")
-    public String updateRev(@RequestParam(value="wFile", required = false) List<MultipartFile> imgFiles, ReviewDto revDesc, String w_cancel, String oriImg, String prevPage, String itemNo){
+    @PostMapping("/rev/update")
+    public String updateRev(@RequestParam(value="wFile", required = false) List<MultipartFile> imgFiles, ReviewDto revDesc, String w_cancel, String oriImg, String prevPage, String itemNo, HttpServletRequest request){
         String F_PATH = "C:/Users/user/Desktop/portfolio/github/xexymix/src/main/webapp/resources/img/review/"; //집
 //     String F_PATH = "C:/Users/user1/Documents/GitHub/xexymix/src/main/webapp/resources/img/review/"; //학원
+        Map<String, String> files = updateFile(imgFiles, oriImg, w_cancel, F_PATH);
 
+        revDesc.setRevFile(files.get("file"));
+        revDesc.setRevFileOri(files.get("fileOri"));
+        System.out.print("revDesc : ");
+        System.out.println(revDesc);
+        reviewService.updateRev(revDesc);
+        prevPage = prevPage.replace("/app","");
+        //prevPageTmp.contains("login")
+//        if (prevPage.contains("myPage"))
+        System.out.print("이전페이지 : ");
+        System.out.println(request.getHeader("REFERER"));
+        return "redirect:" + prevPage + (itemNo!=null?"?itemNo="+itemNo:"");
+    }
+    public Map<String, String> updateFile(List<MultipartFile> imgFiles, String oriImg, String w_cancel, String F_PATH){
         List<String> origImg = new ArrayList<>(Arrays.asList(oriImg.split("\\|")));
         List<String> deleteImg = List.of(w_cancel.split("\\|"));
-        StringBuilder revFile = new StringBuilder();
+        StringBuilder file = new StringBuilder();
         boolean delFileChk = true;
         for(String ori:origImg){
             for(String del:deleteImg){
@@ -181,27 +204,31 @@ public class ItemController {
                     break;
                 }
             }
-            if (delFileChk) { revFile.append(ori).append("|"); }
+            if (delFileChk) { file.append(ori).append("|"); }
         }
-        StringBuilder revFileOri = new StringBuilder(revFile.substring(0));
+        StringBuilder fileOri = new StringBuilder(file.substring(0));
 
         for(MultipartFile mf : imgFiles) {
             if (mf.getOriginalFilename().equals("")){ break; }
             String originalFileName = mf.getOriginalFilename();
             String safeFileName = System.currentTimeMillis() + originalFileName;
             String safeFile = F_PATH + safeFileName;
-            revFile.append(safeFileName).append("|");
-            revFileOri.append(originalFileName).append("|");
+            file.append(safeFileName).append("|");
+            fileOri.append(originalFileName).append("|");
             try {
                 mf.transferTo(new File(safeFile));
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-        revDesc.setRevFile(String.valueOf(revFile));
-        revDesc.setRevFileOri(String.valueOf(revFileOri));
-        reviewService.updateRev(revDesc);
-        prevPage = prevPage.replace("/app","");
-        return "redirect:" + prevPage + (itemNo!=null?"?itemNo="+itemNo:"");
+        Map<String, String> imgResult = new HashMap<>();
+        System.out.print("file : ");
+        System.out.println(file);
+        System.out.println(String.valueOf(file).isEmpty());
+        System.out.print("fileOri : ");
+        System.out.println(fileOri);
+        imgResult.put("file", String.valueOf(file).isEmpty() ?null:String.valueOf(file));
+        imgResult.put("fileOri", String.valueOf(fileOri).isEmpty() ?null:String.valueOf(fileOri));
+        return imgResult;
     }
 }

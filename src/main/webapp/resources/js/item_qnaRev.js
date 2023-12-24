@@ -64,11 +64,8 @@ $(document).on('click', '.m_qna_area td', function(){
 /////////////////////////////////////
 ///////// 리뷰 수정 / 삭제 ////////////
 /////////////////////////////////////
-function updateRev(div, rev, revChk){
-    console.log("div : ", div);
-    console.log("방번호 : ", (div.parent().parent().parent()).index())
-    console.log("rev : ", rev);
-    let thisRev = rev[(div.parent().parent().parent()).index()];
+// revChk = true면 update, false면 insert.
+function updateRev(thisRev, revChk){
     let thisLocation = location.pathname.split("/")[1];
     if(userNo == ""){
         Swal.fire({
@@ -88,38 +85,36 @@ function updateRev(div, rev, revChk){
             success: function(data) {
                 $("#wrap").append(data);
                 let oriImg = thisRev.revFile==null?"":(thisRev.revFile).replaceAll("|", "%7C");
-                if (thisLocation == "item" || revChk) {
+                if (revChk) { // thisLocation == "item" ||
                     $("#revForm").prop("action", `/${C_PATH}/item/rev/update?prevPage=${location.pathname}&itemNo=${thisRev.itemNo}&oriImg=${oriImg}`);
                     console.log("thisRev.revScore : ", thisRev.revScore)
                     $("#revScore").val(thisRev.revScore).prop("selected", true);
+                    $("#revTxt").prop("readonly", true);
+                    $("#revTxt").prop("value", `${thisRev.revTxt}`);
+                    $(".w_m_file_upload").css({display:"none"});
+                    revImg = thisRev.revFile == null?"":(thisRev.revFile.slice(0, -1)).split("|");
+                    let revImgOri = [];
+                    revImgOri = thisRev.revFileOri == null?"":(thisRev.revFileOri.slice(0, -1)).split("|");
+                    let revImgBox = "";
+                    let i = 0;
+                    revImg == ""? "" : revImg.forEach((img)=>{
+                        revImgBox += `<div class="w_m_file_item">
+                                    <img src="/${C_PATH}/img/review/${img}" alt="리뷰 이미지" data-file = "${revImgOri[i++]}">
+                                    <div class="w_m_close">X</div>
+                                </div>`;
+                    });
+                    $(".w_m_file_box").append(revImgBox);
+                    $(".w_m_close").css({display:"none"});
+                    $(".revSubmit").html("수정하기");
+                    $(".revSubmit").prop("type", "button");
                 }else{
                     $("#revForm").prop("action", `/${C_PATH}/item/rev/insert?prevPage=${location.pathname}`);
+                    $(".revRemove").css({display:"none"});
                 }
                 $(".w_h>img").prop("src", `/${C_PATH}/img/item_list/${thisRev.itemImg}`);
                 $(".w_h_title").html(`${thisRev.itemName}`);
                 $("#revNo").prop("value", `${thisRev.revNo}`);
-                $("#revTxt").prop("readonly", true);
-                $("#revTxt").prop("value", `${thisRev.revTxt}`);
-                $(".w_m_file_upload").css({display:"none"});
-                revImg = thisRev.revFile == null?"":(thisRev.revFile.slice(0, -1)).split("|");
-                let revImgOri = [];
-                revImgOri = thisRev.revFileOri == null?"":(thisRev.revFileOri.slice(0, -1)).split("|");
-                let revImgBox = "";
-                let i = 0;
-                revImg == ""? "" : revImg.forEach((img)=>{
-                    revImgBox += `<div class="w_m_file_item">
-                                    <img src="/${C_PATH}/img/review/${img}" alt="리뷰 이미지" data-file = "${revImgOri[i++]}">
-                                    <div class="w_m_close">X</div>
-                                </div>`;
-                });
-                $(".w_m_file_box").append(revImgBox);
-                $(".w_m_close").css({display:"none"});
-                if (revChk) {
-                    $(".revSubmit").html("수정하기");
-                    $(".revSubmit").prop("type", "button");
-                }else{
-                    $(".revRemove").css({display:"none"});
-                }
+
             }, error: function() {
                 Swal.fire({
                     icon: "warning",
@@ -268,14 +263,14 @@ const createBuy = (buy)=>{
         let buyChk;
         if (buyCancelChk && buy[i].buyCode == 'buy'){
             buyChk = `<div class="my_buy_curr">주문완료</div>
-                        <a class="my_buy_review">구매후기</a>
+                        <div class="my_buy_review">구매후기</div>
                         <a class="my_buy_cancel">주문취소</a>`;
         }else if(!buyCancelChk && buy[i].buyCode == 'buy' && buy[i].buyRevChk == true){
             buyChk = `<div class="my_buy_curr">주문완료</div>
-                        <a class="my_buy_review">후기보기</a>`;
+                        <div class="my_buy_review">후기보기</div>`;
         }else if(!buyCancelChk && buy[i].buyCode == 'buy' && buy[i].buyRevChk == false){
             buyChk = `<div class="my_buy_curr">주문완료</div>
-                        <a class="my_buy_review">후기작성</a>`;
+                        <div class="my_buy_review">구매후기</div>`;
         }else{
             buyChk = `<div class="my_buy_curr">주문취소</div>`;
         }

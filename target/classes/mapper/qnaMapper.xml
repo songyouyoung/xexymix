@@ -21,7 +21,7 @@
     <!-- 문의 수정 -->
     <update id="updateQna" parameterType="String">
         update qna
-            set qnaTxt = #{qnaTxt}, qnaFile = #{qnaFile}, qnaFileOri = #{qnaFileOri}
+            set qnaTxt = #{qnaTxt}, qnaFile = #{qnaFile}, qnaFileOri = #{qnaFileOri}, qnaUpDate = now()
                 where qnaNo = ${qnaNo}
     </update>
 </mapper>

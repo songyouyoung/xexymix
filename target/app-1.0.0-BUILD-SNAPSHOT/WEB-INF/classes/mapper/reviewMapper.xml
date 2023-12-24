@@ -47,10 +47,10 @@
             from review
                 where itemNo = #{itemNo} and revScore = ${revScore}
     </select>
-    <!-- 문의 수정 -->
+    <!-- 리뷰 수정 -->
     <update id="updateRev" parameterType="String">
         update review
-        set revTxt = #{revTxt}, revFile = #{revFile}, revFileOri = #{revFileOri}
-        where revNo = ${revNo}
+            set revTxt = #{revTxt}, revFile = #{revFile}, revFileOri = #{revFileOri}, revScore = #{revScore}, revUpDate = now()
+                where revNo = ${revNo}
     </update>
 </mapper>

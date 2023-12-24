@@ -25,7 +25,7 @@ function getImageFiles(e) {
                 return;
             }
             for (let i = 0; i<class_cnt; i++){
-                if (file.name == $(".w_m_file_item").eq(1).children("img").data("file")){
+                if (file.name == $(".w_m_file_item").eq(i).children("img").data("file")){
                     Swal.fire({
                         icon: "warning",
                         title: "중복된 이미지 파일입니다. "
@@ -82,7 +82,8 @@ function createElement(e, file) {
 }
 const realUpload = document.querySelector('#w_m_file_input');
 const upload = document.querySelector('.w_m_file_upload');
-upload.addEventListener('click', () => realUpload.click());
+upload.addEventListener('click', () => {
+    realUpload.click() });
 realUpload.addEventListener('change', getImageFiles);
 
 let cancelTxt = "";
@@ -92,7 +93,8 @@ $(document).on('click', '.w_m_close', (e)=>{
     let cancel = document.getElementById("w_cancel");
     let cancelChk = true;
     [...uploadFiles].forEach(file => {
-        file.name != closeImg ? upload.push(file) : cancelTxt += closeImg + "|";
+        // file.name != closeImg ? upload.push(file) : cancelTxt += closeImg + "|";
+        file.name != closeImg ? upload.push(file) : "";
         cancelChk = false;
     });
     if(cancelChk){ cancelTxt += closeImg + "|"; }
@@ -106,16 +108,15 @@ $(document).on('click', '.w_m_close', (e)=>{
 function fileControll(){
     // 파일 누적 관리
     let w_input = document.querySelector('#w_input');
-    if (uploadFiles.length > 0) {
-        let dataTransfer = new DataTransfer();
+    let dataTransfer = new DataTransfer();
 
-        // 파일을 DataTransfer에 추가
-        for (let i = 0; i < uploadFiles.length; i++) { dataTransfer.items.add(uploadFiles[i]); }
+    // 파일을 DataTransfer에 추가
+    for (let i = 0; i < uploadFiles.length; i++) { dataTransfer.items.add(uploadFiles[i]); }
 
-        // DataTransfer에서 FileList-like 객체 생성
-        let uploader = dataTransfer.files;
+    // DataTransfer에서 FileList-like 객체 생성
+    let uploader = dataTransfer.files;
 
-        // 파일 입력 요소에 설정
-        w_input.files = uploader;
-    }
+    // 파일 입력 요소에 설정
+    w_input.value = null;
+    w_input.files = uploader;
 }

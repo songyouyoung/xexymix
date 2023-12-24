@@ -34,3 +34,7 @@ if(buy.length == 0){
     buyBox = createBuy(buy);
 }
 $("#m_buy").append(buyBox);
+
+$(document).on('click', '.my_buy_review', function(){
+
+});
