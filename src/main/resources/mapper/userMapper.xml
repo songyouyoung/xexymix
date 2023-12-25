@@ -58,9 +58,9 @@
             from user
                 where userNo = #{userNo}
     </select>
-<!--    회원 구매 내역 불러오기-->
+<!--    회원 구매 내역 불러오기(최근 1개)-->
     <select id="selectUserBuy" parameterType="int" resultType="buyDto">
-        SELECT b.buyAuto, b.buyNo, b.buyDate, b.buyOpt, b.buyCode, i.itemImg, i.itemName
+        SELECT b.buyAuto, b.buyNo, b.buyDate, b.buyOpt, b.buyCode, b.itemNo, i.itemImg, i.itemName, b.revNo
             FROM buy b
             JOIN item i ON b.itemNo = i.itemNo
                 WHERE b.buyNo = (
@@ -110,7 +110,7 @@
     </update>
     <!-- 회원 구매 내역 전체 -->
     <select id="selectUserBuyAll" parameterType="String" resultType="buyDto">
-        SELECT b.buyAuto, b.buyNo, b.itemNo, b.buyCnt, b.buyOpt, b.buyCode, b.buyDate, i.itemImg, i.itemName
+        SELECT b.buyAuto, b.buyNo, b.itemNo, b.buyCnt, b.buyOpt, b.buyCode, b.buyDate, i.itemImg, i.itemName, b.revNo
             FROM buy b
             JOIN item i ON b.itemNo = i.itemNo
             JOIN (SELECT DISTINCT buyNo

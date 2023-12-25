@@ -3,7 +3,9 @@ package com.xexymix.app.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.xexymix.app.domain.BuyDto;
+import com.xexymix.app.domain.ReviewDto;
 import com.xexymix.app.domain.UserDto;
+import com.xexymix.app.service.ReviewService;
 import com.xexymix.app.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,6 +26,8 @@ import java.util.Map;
 public class MyPageController {
     @Autowired
     UserService userService;
+    @Autowired
+    ReviewService reviewService;
 
     Integer userNo;
     @GetMapping("")
@@ -127,5 +131,33 @@ public class MyPageController {
         System.out.println("endDate : " + endDate);
 
         return userService.selectUserBuyAll(userDesc);
+    }
+
+    @PostMapping("/buyRev")
+    @ResponseBody
+    public ResponseEntity<ReviewDto> selectBuyRev(@RequestBody int buyAuto){
+        try {
+            ReviewDto review = reviewService.selectBuyRev(buyAuto);
+            System.out.println("review : " + review);
+            if (review == null){ throw new Exception("구매한 상품의 리뷰 찾기 오류. "); }
+            return new ResponseEntity<ReviewDto>(review, HttpStatus.OK); // 200
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<ReviewDto> (HttpStatus.BAD_REQUEST); // 400
+        }
+    }
+
+    @PostMapping("/rev/insert")
+    @ResponseBody
+    public ResponseEntity insertRev(@RequestBody ReviewDto review){
+        try {
+            Integer revResult = reviewService.insertRev(review);
+            System.out.println("revResult : " + revResult);
+            if (revResult == null || revResult < 1){ throw new Exception("리뷰 작성 오류. "); }
+            return new ResponseEntity(HttpStatus.OK); // 200
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity(HttpStatus.BAD_REQUEST); // 400
+        }
     }
 }

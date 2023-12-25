@@ -35,4 +35,8 @@ public class ReviewDao {
     public int updateRev(ReviewDto revDesc){
         return session.update(namespace + "updateRev", revDesc);
     }
+
+    public ReviewDto selectBuyRev(int buyAuto){
+        return session.selectOne(namespace + "selectBuyRev", buyAuto);
+    }
 }

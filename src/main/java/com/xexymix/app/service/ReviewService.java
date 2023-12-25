@@ -49,4 +49,8 @@ public class ReviewService {
     public int updateRev(ReviewDto revDesc) {
         return reviewDao.updateRev(revDesc);
     }
+
+    public ReviewDto selectBuyRev(int buyAuto) {
+        return reviewDao.selectBuyRev(buyAuto);
+    }
 }

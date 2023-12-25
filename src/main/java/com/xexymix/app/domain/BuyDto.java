@@ -13,7 +13,7 @@ public class BuyDto {
     private int buyCnt;
     private String buyOpt;
     private String buyCode;
-    private boolean buyRevChk;
+    private Integer revNo;
     private int userNo;
     private int itemPrice;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -83,12 +83,12 @@ public class BuyDto {
         this.buyCode = buyCode;
     }
 
-    public boolean isBuyRevChk() {
-        return buyRevChk;
+    public Integer getRevNo() {
+        return revNo;
     }
 
-    public void setBuyRevChk(boolean buyRevChk) {
-        this.buyRevChk = buyRevChk;
+    public void setRevNo(Integer revNo) {
+        this.revNo = revNo;
     }
 
     public int getUserNo() {
@@ -126,7 +126,7 @@ public class BuyDto {
                 ", buyCnt=" + buyCnt +
                 ", buyOpt='" + buyOpt + '\'' +
                 ", buyCode='" + buyCode + '\'' +
-                ", buyRevChk=" + buyRevChk +
+                ", revNo=" + revNo +
                 ", userNo=" + userNo +
                 ", itemPrice=" + itemPrice +
                 ", buyDate=" + buyDate +

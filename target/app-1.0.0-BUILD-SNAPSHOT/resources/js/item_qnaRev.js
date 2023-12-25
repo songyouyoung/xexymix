@@ -78,7 +78,7 @@ function updateRev(thisRev, revChk){
                 location.href = "/" + C_PATH + "/login?prevPage=" + location.pathname;
             }
         });
-    }else if (thisRev.userNo == userNo){
+    }else if (!revChk || thisRev.userNo == userNo){
         $.ajax({
             url: "/" + C_PATH + "/item/rev/detail",
             type: "GET",
@@ -88,6 +88,7 @@ function updateRev(thisRev, revChk){
                 if (revChk) { // thisLocation == "item" ||
                     $("#revForm").prop("action", `/${C_PATH}/item/rev/update?prevPage=${location.pathname}&itemNo=${thisRev.itemNo}&oriImg=${oriImg}`);
                     console.log("thisRev.revScore : ", thisRev.revScore)
+                    $("#revNo").prop("value", `${thisRev.revNo}`);
                     $("#revScore").val(thisRev.revScore).prop("selected", true);
                     $("#revTxt").prop("readonly", true);
                     $("#revTxt").prop("value", `${thisRev.revTxt}`);
@@ -113,7 +114,6 @@ function updateRev(thisRev, revChk){
                 }
                 $(".w_h>img").prop("src", `/${C_PATH}/img/item_list/${thisRev.itemImg}`);
                 $(".w_h_title").html(`${thisRev.itemName}`);
-                $("#revNo").prop("value", `${thisRev.revNo}`);
 
             }, error: function() {
                 Swal.fire({
@@ -261,18 +261,20 @@ const createBuy = (buy)=>{
                             <div class="my_buy_item_list">`;
         }
         let buyChk;
+        console.log("revNo : ", buy[i].revNo);
+        console.log("revNoChk : ", buy[i].revNo != null);
         if (buyCancelChk && buy[i].buyCode == 'buy'){
             buyChk = `<div class="my_buy_curr">주문완료</div>
-                        <div class="my_buy_review">구매후기</div>
+                        <div class="my_buy_review">${buy[i].revNo == null?"구매후기":"후기보기"}</div>
                         <a class="my_buy_cancel">주문취소</a>`;
-        }else if(!buyCancelChk && buy[i].buyCode == 'buy' && buy[i].buyRevChk == true){
+        }else if(!buyCancelChk && buy[i].buyCode == 'buy' && buy[i].revNo != null){
             buyChk = `<div class="my_buy_curr">주문완료</div>
-                        <div class="my_buy_review">후기보기</div>`;
-        }else if(!buyCancelChk && buy[i].buyCode == 'buy' && buy[i].buyRevChk == false){
-            buyChk = `<div class="my_buy_curr">주문완료</div>
-                        <div class="my_buy_review">구매후기</div>`;
+                        <div class="my_buy_review">${buy[i].revNo == null?"구매후기":"후기보기"}</div>`;
         }else{
             buyChk = `<div class="my_buy_curr">주문취소</div>`;
+            if (buy[i].revNo != null){
+                buyChk += `<div class="my_buy_review">후기보기</div>`;
+            }
         }
 
         buyBox += `<div class="my_buy_item">
@@ -292,3 +294,30 @@ const createBuy = (buy)=>{
     }
     return buyBox;
 }
+
+// 구매후기 클릭
+$(document).on('click', '.my_buy_review', function(){
+    let thisBuy = buy[$(this).parent().parent().index()];
+    if (thisBuy.revNo == null){
+        console.log("리뷰없음");
+        updateRev(thisBuy, false);
+    }else{
+        console.log("리뷰있음");
+        console.log("buyAuto : ", thisBuy.buyAuto);
+        $.ajax({
+            url: "/" + C_PATH + "/myPage/buyRev",
+            type: "POST",
+            headers: {"content-type": "application/json"},
+            data: thisBuy.buyAuto+"",
+            success: function(data) {
+                console.log("reviewDto : ", data);
+                updateRev(data, true);
+            }, error: function() {
+                Swal.fire({
+                    icon: "warning",
+                    title: "리뷰 조회 오류.<br> 관리자에게 문의해주세요."
+                });
+            }
+        });
+    }
+});
