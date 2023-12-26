@@ -2,6 +2,7 @@ package com.xexymix.app.service;
 
 import com.xexymix.app.dao.UserDao;
 import com.xexymix.app.domain.BuyDto;
+import com.xexymix.app.domain.ReviewDto;
 import com.xexymix.app.domain.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -59,6 +60,7 @@ public class UserService {
     public UserDto selectUser(Integer userNo){
         return userDao.selectUser(userNo);
     }
+
     // 회원정보 전체 불러오기
     public Map<String, Object> selectMyPage(Integer userNo){
         Map<String, Object> mypageDesc = new HashMap<>();
@@ -71,8 +73,15 @@ public class UserService {
         userBuy.put("buyCode", "cancel");
         mypageDesc.put("cancelCnt", userDao.selectUserBuyCnt(userBuy));
         mypageDesc.put("qna", userDao.selectUserQna(userNo));
-        mypageDesc.put("rev", userDao.selectUserRev(userNo));
+        Map<String, Integer> userDesc = new HashMap<>();
+        userDesc.put("userNo", userNo);
+        userDesc.put("limit", 0);
+        userDesc.put("limitMax", 3);
+        mypageDesc.put("rev", userDao.selectUserRev(userDesc));
         return mypageDesc;
+    }
+    public List<ReviewDto> selectUserRev(Map<String, Integer> userDesc){
+        return userDao.selectUserRev(userDesc);
     }
     public Integer selectUserBuyCnt(Map<String, String> userBuy){
         return userDao.selectUserBuyCnt(userBuy);

@@ -15,4 +15,9 @@
     <select id="selectBuyNo" resultType="String">
         SELECT CONCAT(DATE_FORMAT(NOW(), '%Y%m%d'), LPAD(RIGHT(IFNULL(MAX(buyNo) + 1, '0000001'), 7), 7, '0')) FROM buy
     </select>
+
+    <!-- 구매 취소 -->
+    <update id="deleteBuy" parameterType="long">
+        update buy set buyCode = "cancel" where buyNo = #{buyNo}
+    </update>
 </mapper>

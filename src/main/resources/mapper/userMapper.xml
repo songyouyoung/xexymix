@@ -94,7 +94,7 @@
             from review r, item i
                 where r.itemNo = i.itemNo and r.userNo = #{userNo}
         ORDER BY r.revRegDate DESC
-        limit 0, 3
+        limit #{limit}, #{limitMax}
     </select>
     <!-- 비밀번호 변경 -->
     <update id="updatePw" parameterType="userDto">

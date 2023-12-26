@@ -187,4 +187,21 @@ public class MyPageController {
             return new ResponseEntity<>(  "리뷰 삭제 실패.<br>관리자에게 문의해주세요.", HttpStatus.BAD_REQUEST); // 400
         }
     }
+
+    @GetMapping("/review")
+    public String showReview(Model model) throws JsonProcessingException {
+        Map<String, String> revDesc = new HashMap<>();
+        Map<String, Integer> userDesc = new HashMap<>();
+        userDesc.put("userNo", userNo);
+        userDesc.put("limit", 0);
+        userDesc.put("limitMax", 5);
+        List<ReviewDto> reviews = userService.selectUserRev(userDesc);
+        System.out.println(reviews);
+
+        ObjectMapper mapper = new ObjectMapper();
+        String rev = mapper.writeValueAsString(reviews);
+
+        model.addAttribute("rev", rev);
+        return "my_review";
+    }
 }

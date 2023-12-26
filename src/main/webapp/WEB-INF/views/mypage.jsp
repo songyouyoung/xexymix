@@ -48,7 +48,7 @@
             <div class="my_title">최근 주문 내역</div>
         </div>
         <section class="w_main" id="m_review">
-            <a class="my_more" href="my_review.jsp">더보기 &gt;</a>
+            <a class="my_more" href="<c:url value="/myPage/review"/>">더보기 &gt;</a>
             <div class="my_title">최근 리뷰 내역</div>
         </section>
         <div class="w_main" id="m_qna">

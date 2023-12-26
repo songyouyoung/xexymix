@@ -16,11 +16,11 @@ $("#m_qna").append(qnaBox);
 /////////////////////////////////////
 let revBox = "";
 if(rev.length == 0){
-    revBox = `<p class="m_none">아직 작성한 문의가 없습니다.</p>`;
+    revBox = `<p class="m_none">아직 작성한 리뷰가 없습니다.</p>`;
 }else{
-    revBox += `<table class="m_qna_area">`;
+    revBox += `<div class="m_rev_area">`;
     revBox += createRev(rev);
-    revBox += `</table>`;
+    revBox += `</div>`;
 }
 $("#m_review").append(revBox);
 
