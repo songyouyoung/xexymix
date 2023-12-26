@@ -22,4 +22,7 @@ public class PointDao {
     public int updatePoint(Map<String, Integer> poDesc){
         return session.update(namespace + "updatePoint", poDesc);
     }
+    public List<PointDto> selectPoint(Map<String, String> poDesc){
+        return session.selectList(namespace + "selectPoint", poDesc);
+    }
 }

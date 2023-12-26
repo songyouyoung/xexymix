@@ -154,16 +154,16 @@ $(document).ready(function(){
 /////////////////////////////////////
 ////////// 사이즈 옵션 추가 //////////
 /////////////////////////////////////    
-    function getSize(item){
-        let xxl = `<option value="XXL">XXL</option>`;
-        let xxxl = `<option value="XXXL">XXXL</option>`;
-        if(item == 1){
-            $('#size').append(xxl);
-        }else if(item == 2){
-            $('#size').append(xxl);
-            $('#size').append(xxxl);
-        }
-    }
+//     function getSize(item){
+//         let xxl = `<option value="XXL">XXL</option>`;
+//         let xxxl = `<option value="XXXL">XXXL</option>`;
+//         if(item == 1){
+//             $('#size').append(xxl);
+//         }else if(item == 2){
+//             $('#size').append(xxl);
+//             $('#size').append(xxxl);
+//         }
+//     }
 
 //////////////////////////////////////
 /////////// 상품 후기 출력 ////////////
@@ -434,7 +434,7 @@ const buyCartChk = (buyCart)=>{
             icon: "warning",
             title: "로그인이 필요한 서비스입니다. "
         }).then(()=>{
-            location.href = "/" + C_PATH + "/login?prevPage="+location.pathname+"&itemNo="+itemNo;
+            location.href = "/" + C_PATH + "/login/login?prevPage="+location.pathname+"&itemNo="+itemNo;
         });
     }else if(buyCnt == 0){
         Swal.fire({
@@ -482,4 +482,19 @@ const cartit = ()=>{ buyCartChk("cart"); }
 
 $(document).on('click', '.m_rev_update', function(){
     updateRev(review[($(this).parent().parent().parent()).index()], true);
+});
+$(document).on('click', '.m_rev_delete', function(){
+    Swal.fire({
+        title: '삭제하시겠습니까?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: "#AD8B73",
+        cancelButtonColor: "#BEBCBA",
+        confirmButtonText: '확인',
+        cancelButtonText: '취소',
+        reverseButtons: false,
+    }).then(result => {
+        if (!result.isConfirmed) return;
+        deleteRev(review[($(this).parent().parent().parent()).index()]);
+    })
 });

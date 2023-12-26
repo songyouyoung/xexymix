@@ -115,8 +115,8 @@ public class ItemController {
 
     @PostMapping("/qna/update")
     public String updateQna(@RequestParam(value="wFile", required = false) List<MultipartFile> imgFiles, QnaDto qnaDesc, String w_cancel, String oriImg, String prevPage, String itemNo){
-        String F_PATH = "C:/Users/user/Desktop/portfolio/github/xexymix/src/main/webapp/resources/img/qna/"; //집
-//     String F_PATH = "C:/Users/user1/Documents/GitHub/xexymix/src/main/webapp/resources/img/qna/"; //학원
+        //String F_PATH = "C:/Users/user/Desktop/portfolio/github/xexymix/src/main/webapp/resources/img/qna/"; //집
+     String F_PATH = "C:/Users/user1/Documents/GitHub/xexymix/src/main/webapp/resources/img/qna/"; //학원
 
 //        List<String> origImg = new ArrayList<>(Arrays.asList(oriImg.split("\\|")));
 //        List<String> deleteImg = List.of(w_cancel.split("\\|"));
@@ -176,8 +176,8 @@ public class ItemController {
 
     @PostMapping("/rev/update")
     public String updateRev(@RequestParam(value="wFile", required = false) List<MultipartFile> imgFiles, ReviewDto revDesc, String w_cancel, String oriImg, String prevPage, String itemNo, HttpServletRequest request){
-        String F_PATH = "C:/Users/user/Desktop/portfolio/github/xexymix/src/main/webapp/resources/img/review/"; //집
-//     String F_PATH = "C:/Users/user1/Documents/GitHub/xexymix/src/main/webapp/resources/img/review/"; //학원
+        //String F_PATH = "C:/Users/user/Desktop/portfolio/github/xexymix/src/main/webapp/resources/img/review/"; //집
+     String F_PATH = "C:/Users/user1/Documents/GitHub/xexymix/src/main/webapp/resources/img/review/"; //학원
         Map<String, String> files = updateFile(imgFiles, oriImg, w_cancel, F_PATH);
 
         revDesc.setRevFile(files.get("file"));

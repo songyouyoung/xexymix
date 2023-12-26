@@ -13,4 +13,17 @@
     <update id="updatePoint" parameterType="int">
         update user set point = point + #{point} where userNo = #{userNo}
     </update>
+<!--    적립금 조회-->
+    <select id="selectPoint" parameterType="String" resultType="pointDto">
+        select poNo, buyNo, itemNo, revNo, userNo, point, poTxt
+            from point
+            <choose>
+                <when test="search='rev'">
+                    where revNo = ${revNo}
+                </when>
+                <otherwise>
+                    ORDER BY poNo DESC
+                </otherwise>
+            </choose>
+    </select>
 </mapper>

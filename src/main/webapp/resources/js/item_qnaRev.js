@@ -15,7 +15,7 @@ $(document).on('click', '.m_qna_area td', function(){
             icon: "warning",
             title: "로그인이 필요한 서비스입니다. "
         }).then(()=>{
-            location.href = "/" + C_PATH + "/login?prevPage="+location.pathname+"&itemNo="+itemNo;
+            location.href = "/" + C_PATH + "/login/login?prevPage="+location.pathname+"&itemNo="+itemNo;
         });
     }else if (thisQna.userNo == userNo){ // && qnaWrapChk
         $.ajax({
@@ -62,10 +62,12 @@ $(document).on('click', '.m_qna_area td', function(){
 });
 
 /////////////////////////////////////
-///////// 리뷰 수정 / 삭제 ////////////
+///////////// 리뷰 수정 //////////////
 /////////////////////////////////////
 // revChk = true면 update, false면 insert.
+let thisRevBox;
 function updateRev(thisRev, revChk){
+    thisRevBox = thisRev;
     let thisLocation = location.pathname.split("/")[1];
     if(userNo == ""){
         Swal.fire({
@@ -73,9 +75,9 @@ function updateRev(thisRev, revChk){
             title: "로그인이 필요한 서비스입니다. "
         }).then(()=>{
             if (thisLocation == "item") {
-                location.href = "/" + C_PATH + "/login?prevPage=" + location.pathname + "&itemNo=" + itemNo;
+                location.href = "/" + C_PATH + "/login/login?prevPage=" + location.pathname + "&itemNo=" + itemNo;
             }else{
-                location.href = "/" + C_PATH + "/login?prevPage=" + location.pathname;
+                location.href = "/" + C_PATH + "/login/login?prevPage=" + location.pathname;
             }
         });
     }else if (!revChk || thisRev.userNo == userNo){
@@ -136,6 +138,35 @@ function updateRev(thisRev, revChk){
         });
     }
 }
+/////////////////////////////////////
+///////////// 리뷰 삭제 //////////////
+/////////////////////////////////////
+function deleteRev(thisRev){
+    console.log("thisRev : ", thisRev);
+    thisRev = thisRev == null? thisRevBox: thisRev;
+    console.log("thisRev : ", thisRev);
+    $.ajax({
+        url: "/" + C_PATH + "/myPage/rev/delete",
+        type: "POST",
+        headers: {"content-type": "application/json; charset=utf-8"},
+        data: JSON.stringify(thisRev),
+        success: function(data) {
+            Swal.fire({
+                icon: "success",
+                title: data
+            }).then(() => {
+                location.reload();
+            });
+        }, error: function(data) {
+            Swal.fire({
+                icon: "warning",
+                title: data
+            }).then(() => {
+                location.reload();
+            });
+        }
+    });
+}
 
 // 문의, 리뷰 닫기
 $(document).on('click', '.w_h_close', function(){
@@ -161,6 +192,7 @@ $(document).on('click', '.qnaSubmit', function(){
     }
     else{ $(".qnaSubmit").prop("type", "submit"); }
 });
+
 //리뷰 수정하기
 $(document).on('click', '.revSubmit', function(){
     if(!revUpdateChk) {
@@ -173,7 +205,10 @@ $(document).on('click', '.revSubmit', function(){
     }
     else{ $(".revSubmit").prop("type", "submit"); }
 });
-
+//리뷰 삭제하기
+$(document).on('click', '.revRemove', function(){
+    deleteRev(null);
+});
 
 const createQna = (qna, nowQnaPage, jsp)=>{
     let qnaBox = `<tr>
@@ -247,7 +282,7 @@ const createRev = (review, jsp)=>{
 }
 
 /////////////////////////////////////
-//////////////// 구매 ////////////////
+//////////////// 구매 ///////////////
 /////////////////////////////////////
 const createBuy = (buy)=>{
     let buyBox = "";
@@ -272,15 +307,15 @@ const createBuy = (buy)=>{
         console.log("revNoChk : ", buy[i].revNo != null);
         if (buyCancelChk && buy[i].buyCode == 'buy'){
             buyChk = `<div class="my_buy_curr">주문완료</div>
-                        <div class="my_buy_review">${buy[i].revNo == null?"구매후기":"후기보기"}</div>
+                        <div class="my_buy_review" data-index="${i}">${buy[i].revNo == null?"구매후기":"후기보기"}</div>
                         <a class="my_buy_cancel">주문취소</a>`;
         }else if(!buyCancelChk && buy[i].buyCode == 'buy' && buy[i].revNo != null){
             buyChk = `<div class="my_buy_curr">주문완료</div>
-                        <div class="my_buy_review">${buy[i].revNo == null?"구매후기":"후기보기"}</div>`;
+                        <div class="my_buy_review" data-index="${i}">${buy[i].revNo == null?"구매후기":"후기보기"}</div>`;
         }else{
             buyChk = `<div class="my_buy_curr">주문취소</div>`;
             if (buy[i].revNo != null){
-                buyChk += `<div class="my_buy_review">후기보기</div>`;
+                buyChk += `<div class="my_buy_review" data-index="${i}">후기보기</div>`;
             }
         }
 
@@ -304,7 +339,7 @@ const createBuy = (buy)=>{
 
 // 구매후기 클릭
 $(document).on('click', '.my_buy_review', function(){
-    let thisBuy = buy[$(this).parent().parent().index()];
+    let thisBuy = buy[$(this).data("index")];
     if (thisBuy.revNo == null){
         console.log("리뷰없음");
         updateRev(thisBuy, false);

@@ -55,4 +55,7 @@ public class ReviewDao {
     public int deleteRev(int revNo){
         return session.delete(namespace + "deleteRev", revNo);
     }
+    public int updateItemRev(Map<String, String> revDesc){
+        return session.update(namespace + "updateItemRev", revDesc);
+    }
 }

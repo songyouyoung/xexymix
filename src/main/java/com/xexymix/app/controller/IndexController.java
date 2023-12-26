@@ -46,10 +46,4 @@ public class IndexController {
 
         return "index";
     }
-
-    @GetMapping("/login")
-    public String showIndex(HttpSession session){
-        session.setAttribute("userNo", 1);
-        return "redirect:/";
-    }
 }

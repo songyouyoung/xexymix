@@ -172,15 +172,17 @@ public class MyPageController {
         return "redirect:/myPage";
     }
 
-    @PostMapping("/rev/delete")
+    @PostMapping(value = "/rev/delete", produces = "application/text; charset=utf8")
     @ResponseBody
-    public ResponseEntity<String> deleteRev(@RequestBody String revNo){
+    public ResponseEntity<String> deleteRev(@RequestBody ReviewDto revDesc){
         try {
-
-            return new ResponseEntity<String>(HttpStatus.OK); // 200
+            String revResult = reviewService.deleteRev(revDesc);
+            System.out.println("revResult : " + revResult);
+            if (!revResult.isEmpty()){ throw new Exception("리뷰 삭제 오류"); }
+            return new ResponseEntity<>("리뷰 삭제 완료!", HttpStatus.OK); // 200
         } catch (Exception e) {
             e.printStackTrace();
-            return new ResponseEntity<String> (HttpStatus.BAD_REQUEST); // 400
+            return new ResponseEntity<>(  "리뷰 삭제 실패.<br>관리자에게 문의해주세요.", HttpStatus.BAD_REQUEST); // 400
         }
     }
 }

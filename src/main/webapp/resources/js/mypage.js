@@ -27,6 +27,21 @@ $("#m_review").append(revBox);
 $(document).on('click', '.m_rev_update', function(){
     updateRev(rev[($(this).parent().parent().parent()).index() - 2], true);
 });
+$(document).on('click', '.m_rev_delete', function(){
+    Swal.fire({
+        title: '삭제하시겠습니까?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: "#AD8B73",
+        cancelButtonColor: "#BEBCBA",
+        confirmButtonText: '확인',
+        cancelButtonText: '취소',
+        reverseButtons: false,
+    }).then(result => {
+        if (!result.isConfirmed) return;
+        deleteRev(rev[($(this).parent().parent().parent()).index() - 2]);
+    })
+});
 
 /////////////////////////////////////
 ///////////// 구매 출력 //////////////

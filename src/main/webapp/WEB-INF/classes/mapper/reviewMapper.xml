@@ -13,7 +13,7 @@
     </select>
     <!-- 리뷰 리스트 조회 -->
     <select id="selectRev" parameterType="String" resultType="reviewDto">
-        select r.revNo, r.userNo, r.userName, r.revScore, r.revTxt, r.revRegDate, r.revLike, r.revFile, r.revFileOri, r.itemNo, i.itemName, i.itemImg
+        select r.revNo, r.buyAuto, r.userNo, r.userName, r.revScore, r.revTxt, r.revRegDate, r.revLike, r.revFile, r.revFileOri, r.itemNo, i.itemName, i.itemImg
             from review r, item i
                 where r.itemNo = i.itemNo
                     AND r.itemNo = #{itemNo}
@@ -59,7 +59,7 @@
 <!--/////////////////////////////////////////////////////-->
     <!-- 구매한 리뷰 조회 -->
     <select id="selectBuyRev" parameterType="int" resultType="reviewDto">
-        select r.revNo, r.userNo, r.userName, r.revScore, r.revTxt, r.revRegDate, r.revLike, r.revFile, r.revFileOri, r.itemNo, i.itemName, i.itemImg
+        select r.revNo, r.buyAuto, r.userNo, r.userName, r.revScore, r.revTxt, r.revRegDate, r.revLike, r.revFile, r.revFileOri, r.itemNo, i.itemName, i.itemImg
             from review r, item i
                 where r.itemNo = i.itemNo
                     AND r.buyAuto = #{buyAuto}
@@ -83,8 +83,17 @@
             set revNo = #{revNo}
                 where buyAuto = #{buyAuto}
     </update>
-<!--    &lt;!&ndash; 적립한 buy 번호 가져오기 &ndash;&gt;-->
-<!--    <select id="selectRevBuyNo" parameterType="int" resultType="long">-->
-<!--        select buyNo from buy where buyAuto = #{buyAuto}-->
-<!--    </select>-->
+    <!-- item테이블 리뷰 개수 update -->
+    <update id="updateItemRev" parameterType="String">
+        update item set revCnt = revCnt + ${revCnt}
+            where itemNo = #{itemNo}
+    </update>
+    <!--//////////////////////////////////////////////////////-->
+    <!--///////////////////// 리뷰 삭제 //////////////////////-->
+    <!--/////////////////////////////////////////////////////-->
+    <!-- 리뷰 삭제 -->
+    <delete id="deleteRev" parameterType="int">
+        delete from review where revNo = #{revNo}
+    </delete>
+    <!-- 적립금 조회 -->
 </mapper>
