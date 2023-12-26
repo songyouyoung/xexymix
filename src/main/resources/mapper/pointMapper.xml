@@ -18,8 +18,11 @@
         select poNo, buyNo, itemNo, revNo, userNo, point, poTxt
             from point
             <choose>
-                <when test="search='rev'">
+                <when test="search=='rev'">
                     where revNo = ${revNo}
+                </when>
+                <when test="search=='buy'">
+                    where buyNo = ${buyNo} AND revNo IS NULL
                 </when>
                 <otherwise>
                     ORDER BY poNo DESC

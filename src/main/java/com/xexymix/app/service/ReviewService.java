@@ -77,7 +77,6 @@ public class ReviewService {
         point.setUserNo(revDesc.getUserNo());
         point.setPoint(revDesc.getRevFile() == null? 50: 150);
         point.setPoTxt("리뷰 작성에 대한 적립");
-        System.out.println(point);
         poDesc.add(point);
         error += pointDao.insertPoint(poDesc) > 0? "": "point 적립 오류, ";
         // 유저 적립금 업데이트
@@ -89,7 +88,6 @@ public class ReviewService {
         Map<String, String> item = new HashMap<>();
         item.put("revCnt", 1 + "");
         item.put("itemNo", revDesc.getItemNo());
-        System.out.println("itemNo : " + revDesc.getItemNo());
         error += reviewDao.updateItemRev(item) > 0? "" : "item 리뷰개수 업데이트 오류";
         return error;
     }
@@ -105,7 +103,6 @@ public class ReviewService {
         List<PointDto> poDesc = pointDao.selectPoint(selPo);
         poDesc.get(0).setPoint(-poDesc.get(0).getPoint());
         poDesc.get(0).setPoTxt("리뷰 삭제에 의한 적립 취소");
-        System.out.println("poDesc : " + poDesc.get(0));
         error += pointDao.insertPoint(poDesc) > 0? "": "point 적립 오류, ";
         // buy테이블 revNo 업데이트
         revDesc.setRevNo(null);
@@ -119,7 +116,6 @@ public class ReviewService {
         Map<String, String> item = new HashMap<>();
         item.put("revCnt", -1 + "");
         item.put("itemNo", revDesc.getItemNo());
-        System.out.println("itemNo : " + revDesc.getItemNo());
         error += reviewDao.updateItemRev(item) > 0? "" : "item 리뷰개수 업데이트 오류";
         return error;
     }

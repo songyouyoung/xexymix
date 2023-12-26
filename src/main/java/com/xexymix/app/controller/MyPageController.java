@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.xexymix.app.domain.BuyDto;
 import com.xexymix.app.domain.ReviewDto;
 import com.xexymix.app.domain.UserDto;
+import com.xexymix.app.service.BuyService;
 import com.xexymix.app.service.ReviewService;
 import com.xexymix.app.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,8 @@ public class MyPageController {
     UserService userService;
     @Autowired
     ReviewService reviewService;
+    @Autowired
+    BuyService buyService;
 
     Integer userNo;
     @GetMapping("")
@@ -40,12 +43,10 @@ public class MyPageController {
         ObjectMapper mapper = new ObjectMapper();
         String user_js = mapper.writeValueAsString(mypageDesc);
 
-        System.out.println(mypageDesc.get("user"));
         model.addAttribute("user", mypageDesc.get("user"));
         model.addAttribute("buyCnt", mypageDesc.get("buyCnt"));
         model.addAttribute("cancelCnt", mypageDesc.get("cancelCnt"));
         model.addAttribute("user_js", user_js);
-        System.out.println(mypageDesc);
         return "mypage";
     }
 
@@ -79,8 +80,6 @@ public class MyPageController {
         SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         List<BuyDto> buyList = buyList("0", buyCode, sdf1.format(startDate), sdf1.format(endDate));
-        System.out.println("buyCode = " + buyCode);
-        System.out.println(buyList);
 
         ObjectMapper mapper = new ObjectMapper();
         String buy = mapper.writeValueAsString(buyList);
@@ -97,14 +96,9 @@ public class MyPageController {
     @PostMapping("/buy")
     @ResponseBody
     public ResponseEntity<Map<String, Object>> showUserBuyPut(@RequestBody Map<String, String> buyDesc){
-//        Date startDate = new Date(String.valueOf(buyDesc.get("startDate")));
-//        System.out.println("startDate : " + startDate);
-        System.out.print("buyDesc : ");
-        System.out.println(buyDesc);
         try {
             Map<String, Object> buyResult = new HashMap<>();
             List<BuyDto> buyDtos = buyList(buyDesc.get("limit"), buyDesc.get("buyCode"), buyDesc.get("startDate")+" 00:00:00", buyDesc.get("endDate")+" 23:59:59");
-            System.out.println(buyDtos);
             buyResult.put("buy", buyDtos);
 
             Map<String, String> userBuy = new HashMap<>();
@@ -128,10 +122,24 @@ public class MyPageController {
         userDesc.put("buyCode", buyCode);
         userDesc.put("startDate", startDate);
         userDesc.put("endDate", endDate);
-        System.out.println("startDate : " + startDate);
-        System.out.println("endDate : " + endDate);
 
         return userService.selectUserBuyAll(userDesc);
+    }
+
+    @PostMapping("/buy/cancel")
+    @ResponseBody
+    public ResponseEntity<String> deleteBuy(@RequestBody BuyDto buyDesc){
+        try{
+            buyDesc.setUserNo(userNo);
+            System.out.println("buyDesc : " + buyDesc);
+            String result = buyService.deleteBuy(buyDesc);
+            System.out.println("result : " + result);
+            if (!result.isEmpty()){ throw new Exception("구매 취소 오류");}
+            return new ResponseEntity<>(HttpStatus.OK);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PostMapping("/buyRev")
@@ -139,7 +147,6 @@ public class MyPageController {
     public ResponseEntity<ReviewDto> selectBuyRev(@RequestBody int buyAuto){
         try {
             ReviewDto review = reviewService.selectBuyRev(buyAuto);
-            System.out.println("review : " + review);
             if (review == null){ throw new Exception("구매한 상품의 리뷰 찾기 오류. "); }
             return new ResponseEntity<ReviewDto>(review, HttpStatus.OK); // 200
         } catch (Exception e) {
@@ -152,21 +159,16 @@ public class MyPageController {
     public String insertRev(@RequestParam(value="wFile", required = false) List<MultipartFile> imgFiles, ReviewDto revDesc, Model model){
 //        String F_PATH = "C:/Users/user/Desktop/portfolio/github/xexymix/src/main/webapp/resources/img/review/"; //집
         String F_PATH = "C:/Users/user1/Documents/GitHub/xexymix/src/main/webapp/resources/img/review/"; //학원
-        System.out.println("들어옴 ~ ");
 
         ItemController itemController = new ItemController();
         Map<String, String> files = itemController.updateFile(imgFiles, "", "", F_PATH);
         revDesc.setRevFile(files.get("file"));
         revDesc.setRevFileOri(files.get("fileOri"));
-        System.out.print("revDesc : ");
-        System.out.println(revDesc);
 
         revDesc.setUserNo(userNo);
 
         String revResult = reviewService.insertRev(revDesc);
-        System.out.println("revResult : " + revResult);
         revResult = revResult.isEmpty()? "리뷰 작성 완료!": "리뷰 작성 실패.<br>관리자에게 문의해주세요.";
-        System.out.println("revResult : " + revResult);
         model.addAttribute("welcome", revResult);
 
         return "redirect:/myPage";
@@ -176,8 +178,8 @@ public class MyPageController {
     @ResponseBody
     public ResponseEntity<String> deleteRev(@RequestBody ReviewDto revDesc){
         try {
+            revDesc.setUserNo(userNo);
             String revResult = reviewService.deleteRev(revDesc);
-            System.out.println("revResult : " + revResult);
             if (!revResult.isEmpty()){ throw new Exception("리뷰 삭제 오류"); }
             return new ResponseEntity<>("리뷰 삭제 완료!", HttpStatus.OK); // 200
         } catch (Exception e) {

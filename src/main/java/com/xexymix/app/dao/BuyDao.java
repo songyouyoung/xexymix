@@ -26,4 +26,6 @@ public class BuyDao {
     public String selectBuyNo(){
         return session.selectOne(namespace + "selectBuyNo");
     }
+
+    public Integer deleteBuy(Long buyNo){return session.update(namespace + "deleteBuy", buyNo);}
 }

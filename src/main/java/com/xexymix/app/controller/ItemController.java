@@ -182,14 +182,10 @@ public class ItemController {
 
         revDesc.setRevFile(files.get("file"));
         revDesc.setRevFileOri(files.get("fileOri"));
-        System.out.print("revDesc : ");
-        System.out.println(revDesc);
         reviewService.updateRev(revDesc);
         prevPage = prevPage.replace("/app","");
         //prevPageTmp.contains("login")
 //        if (prevPage.contains("myPage"))
-        System.out.print("이전페이지 : ");
-        System.out.println(request.getHeader("REFERER"));
         return "redirect:" + prevPage + (itemNo!=null?"?itemNo="+itemNo:"");
     }
     public Map<String, String> updateFile(List<MultipartFile> imgFiles, String oriImg, String w_cancel, String F_PATH){
@@ -222,11 +218,6 @@ public class ItemController {
             }
         }
         Map<String, String> imgResult = new HashMap<>();
-        System.out.print("file : ");
-        System.out.println(file);
-        System.out.println(String.valueOf(file).isEmpty());
-        System.out.print("fileOri : ");
-        System.out.println(fileOri);
         imgResult.put("file", String.valueOf(file).isEmpty() ?null:String.valueOf(file));
         imgResult.put("fileOri", String.valueOf(fileOri).isEmpty() ?null:String.valueOf(fileOri));
         return imgResult;

@@ -48,7 +48,6 @@ public class LoginController {
         if (login_rem != null && login_rem) {
             session.setAttribute("rememberId", userDto.getUserId());
         }
-        System.out.println("prevPage : " + prevPage);
         if (prevPage.isEmpty()){ prevPage = "http://localhost:8080/app/"; }
         return "redirect:"+prevPage;
     }
@@ -128,10 +127,7 @@ public class LoginController {
     @ResponseBody
     public ResponseEntity<String> getFindId(@RequestBody UserDto userDto){
         try {
-            System.out.println("userDto : " + userDto);
             String userId = userService.userFindId(userDto);
-            System.out.print("userId : ");
-            System.out.println(userId);
             if (userId.isEmpty()){ throw new Exception("아이디찾기 결과 없음. "); }
             return new ResponseEntity<String>(userId, HttpStatus.OK);
         }
