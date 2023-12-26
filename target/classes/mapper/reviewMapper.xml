@@ -64,4 +64,27 @@
                 where r.itemNo = i.itemNo
                     AND r.buyAuto = #{buyAuto}
     </select>
+
+<!--//////////////////////////////////////////////////////-->
+<!--///////////////////// 리뷰 작성 //////////////////////-->
+<!--/////////////////////////////////////////////////////-->
+    <!-- 리뷰 작성 -->
+    <insert id="insertRev" parameterType="reviewDto">
+        insert into review (userNo, itemNo, buyAuto, userName, revScore, revTxt, revFile, revFileOri)
+            values( #{userNo}, #{itemNo}, #{buyAuto}, #{userName}, #{revScore}, #{revTxt}, #{revFile}, #{revFileOri})
+    </insert>
+    <!-- 작성한 리뷰 번호 가져오기 -->
+    <select id="selectBuyRevNo" parameterType="int" resultType="int">
+        select revNo from review where buyAuto = #{buyAuto}
+    </select>
+    <!-- buy테이블 revNo update -->
+    <update id="updateBuyRev" parameterType="int">
+        update buy
+            set revNo = #{revNo}
+                where buyAuto = #{buyAuto}
+    </update>
+<!--    &lt;!&ndash; 적립한 buy 번호 가져오기 &ndash;&gt;-->
+<!--    <select id="selectRevBuyNo" parameterType="int" resultType="long">-->
+<!--        select buyNo from buy where buyAuto = #{buyAuto}-->
+<!--    </select>-->
 </mapper>

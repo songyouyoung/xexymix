@@ -39,4 +39,20 @@ public class ReviewDao {
     public ReviewDto selectBuyRev(int buyAuto){
         return session.selectOne(namespace + "selectBuyRev", buyAuto);
     }
+
+    public int insertRev(ReviewDto revDesc){
+        return session.insert(namespace + "insertRev", revDesc);
+    }
+
+    public int selectBuyRevNo(int buyAuto){
+        return session.selectOne(namespace + "selectBuyRevNo", buyAuto);
+    }
+
+    public int updateBuyRev(ReviewDto revDesc){
+        return session.insert(namespace + "updateBuyRev", revDesc);
+    }
+
+    public int deleteRev(int revNo){
+        return session.delete(namespace + "deleteRev", revNo);
+    }
 }

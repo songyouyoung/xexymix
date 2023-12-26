@@ -5,11 +5,13 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.util.Date;
 
 public class ReviewDto {
-    private int revNo;
-    private int userNo;
+    private Integer revNo;
+    private Integer userNo;
     private String itemNo;
     private String itemName;
     private String itemImg;
+    private Long buyNo;
+    private Integer buyAuto;
     private String userName;
     private int revScore;
     private String revTxt;
@@ -21,19 +23,19 @@ public class ReviewDto {
     private String revFile;
     private String revFileOri;
 
-    public int getRevNo() {
+    public Integer getRevNo() {
         return revNo;
     }
 
-    public void setRevNo(int revNo) {
+    public void setRevNo(Integer revNo) {
         this.revNo = revNo;
     }
 
-    public int getUserNo() {
+    public Integer getUserNo() {
         return userNo;
     }
 
-    public void setUserNo(int userNo) {
+    public void setUserNo(Integer userNo) {
         this.userNo = userNo;
     }
 
@@ -59,6 +61,22 @@ public class ReviewDto {
 
     public void setItemImg(String itemImg) {
         this.itemImg = itemImg;
+    }
+
+    public Long getBuyNo() {
+        return buyNo;
+    }
+
+    public void setBuyNo(Long buyNo) {
+        this.buyNo = buyNo;
+    }
+
+    public Integer getBuyAuto() {
+        return buyAuto;
+    }
+
+    public void setBuyAuto(Integer buyAuto) {
+        this.buyAuto = buyAuto;
     }
 
     public String getUserName() {
@@ -133,6 +151,8 @@ public class ReviewDto {
                 ", itemNo='" + itemNo + '\'' +
                 ", itemName='" + itemName + '\'' +
                 ", itemImg='" + itemImg + '\'' +
+                ", buyNo=" + buyNo +
+                ", buyAuto=" + buyAuto +
                 ", userName='" + userName + '\'' +
                 ", revScore=" + revScore +
                 ", revTxt='" + revTxt + '\'' +
@@ -140,7 +160,7 @@ public class ReviewDto {
                 ", revUpDate=" + revUpDate +
                 ", revLike=" + revLike +
                 ", revFile='" + revFile + '\'' +
-                ", revFileOri='" + revFileOri +
+                ", revFileOri='" + revFileOri + '\'' +
                 '}';
     }
 }

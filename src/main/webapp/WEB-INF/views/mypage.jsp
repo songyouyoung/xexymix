@@ -20,7 +20,8 @@
     <main>
         <div class="w_main">
             <a class="my_more" href="<c:url value="/myPage/update"/>">회원정보수정</a>
-            <div class="my_user"><b>${user.userName}</b>님<br>오늘도 젝시믹스와 함께 좋은 하루 되세요🖤</div>
+            <c:set var="userName" value="${user.userName}"/>
+            <div class="my_user"><b>${userName}</b>님<br>오늘도 젝시믹스와 함께 좋은 하루 되세요🖤</div>
             <div class="my_info">
                 <div class="my_info_item">
                     <div class="my_info_title">적립금</div>
@@ -60,16 +61,17 @@
         const C_PATH = (location.pathname).split("/")[1];
 
         let userNo = ${sessionId};
+        let userName = "${userName}";
         let userJs = ${user_js};
         let qna = userJs.qna;
         let rev = userJs.rev;
         let buy = userJs.buy;
 
         let welcome = "${param.welcome}";
-        if (welcome == "성공"){
+        if (welcome != ""){
             Swal.fire({
-                icon: "success",
-                title: "회원정보 수정 완료!",
+                icon: welcome == "리뷰 작성 실패.<br>관리자에게 문의해주세요."? "warning": "success",
+                title: welcome,
             }).then(()=>{ location.replace('/'+C_PATH+'/myPage'); });
         }
     </script>

@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
@@ -62,7 +63,7 @@ public class MyPageController {
             model.addAttribute("error", "회원 정보 수정 오류.<br>관리자에게 문의해주세요.");
             return "redirect:/myPage/update";
         }else{
-            model.addAttribute("welcome", "성공");
+            model.addAttribute("welcome", "회원정보 수정 완료!");
             return "redirect:/myPage?";
         }
     }
@@ -148,16 +149,38 @@ public class MyPageController {
     }
 
     @PostMapping("/rev/insert")
+    public String insertRev(@RequestParam(value="wFile", required = false) List<MultipartFile> imgFiles, ReviewDto revDesc, Model model){
+//        String F_PATH = "C:/Users/user/Desktop/portfolio/github/xexymix/src/main/webapp/resources/img/review/"; //집
+        String F_PATH = "C:/Users/user1/Documents/GitHub/xexymix/src/main/webapp/resources/img/review/"; //학원
+        System.out.println("들어옴 ~ ");
+
+        ItemController itemController = new ItemController();
+        Map<String, String> files = itemController.updateFile(imgFiles, "", "", F_PATH);
+        revDesc.setRevFile(files.get("file"));
+        revDesc.setRevFileOri(files.get("fileOri"));
+        System.out.print("revDesc : ");
+        System.out.println(revDesc);
+
+        revDesc.setUserNo(userNo);
+
+        String revResult = reviewService.insertRev(revDesc);
+        System.out.println("revResult : " + revResult);
+        revResult = revResult.isEmpty()? "리뷰 작성 완료!": "리뷰 작성 실패.<br>관리자에게 문의해주세요.";
+        System.out.println("revResult : " + revResult);
+        model.addAttribute("welcome", revResult);
+
+        return "redirect:/myPage";
+    }
+
+    @PostMapping("/rev/delete")
     @ResponseBody
-    public ResponseEntity insertRev(@RequestBody ReviewDto review){
+    public ResponseEntity<String> deleteRev(@RequestBody String revNo){
         try {
-            Integer revResult = reviewService.insertRev(review);
-            System.out.println("revResult : " + revResult);
-            if (revResult == null || revResult < 1){ throw new Exception("리뷰 작성 오류. "); }
-            return new ResponseEntity(HttpStatus.OK); // 200
+
+            return new ResponseEntity<String>(HttpStatus.OK); // 200
         } catch (Exception e) {
             e.printStackTrace();
-            return new ResponseEntity(HttpStatus.BAD_REQUEST); // 400
+            return new ResponseEntity<String> (HttpStatus.BAD_REQUEST); // 400
         }
     }
 }

@@ -41,7 +41,7 @@ public class LoginController {
     public String login(UserDto userDto, Boolean login_rem, String prevPage, Model model, HttpSession session) {
         Integer userNo = userService.userLogin(userDto);
         if (userNo == null || userNo < 1) {
-            model.addAttribute("welcom", "아이디 / 비밀번호를 다시 한 번 확인해주세요.");
+            model.addAttribute("welcome", "아이디 / 비밀번호를 다시 한 번 확인해주세요.");
             return "login";
         }
         session.setAttribute("userNo", userNo);
@@ -54,7 +54,7 @@ public class LoginController {
     }
     public String login(UserDto userDto, Boolean login_rem, String prevPage, Model model, HttpSession session, HttpServletResponse response){
         if (userService.userLogin(userDto) < 1){
-            model.addAttribute("welcom", "아이디 / 비밀번호를 다시 한 번 확인해주세요.");
+            model.addAttribute("welcome", "아이디 / 비밀번호를 다시 한 번 확인해주세요.");
             return "login";
         }
         session.setAttribute("userId", userDto.getUserId());
@@ -106,7 +106,7 @@ public class LoginController {
             int joinChk = userService.joinUser(userDto);
             if (joinChk == 0) { throw new Exception("회원가입 오류."); }
             
-            model.addAttribute("welcom", "회원가입 완료!<br>로그인 후 다양한 서비스를 이용해 보세요.");
+            model.addAttribute("welcome", "회원가입 완료!<br>로그인 후 다양한 서비스를 이용해 보세요.");
             return "login";
         }catch (Exception e){
             e.printStackTrace();
@@ -172,7 +172,7 @@ public class LoginController {
             findUserDto.setUserPw(userPw);
             Integer changePw = userService.updatePw(findUserDto);
             if (changePw < 1){ throw new Exception("비밀번호 변경 오류. "); }
-            model.addAttribute("welcom", "비밀번호 변경 완료!<br>로그인 후 다양한 서비스를 이용해 보세요.");
+            model.addAttribute("welcome", "비밀번호 변경 완료!<br>로그인 후 다양한 서비스를 이용해 보세요.");
             return "login";
         }catch (Exception e){
             e.printStackTrace();

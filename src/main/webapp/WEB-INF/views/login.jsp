@@ -16,7 +16,7 @@
 <body>
 <div id="wrap" class="logjoin">
     <div class="logo"><a href="<c:url value='/'/>">xexymix</a></div>
-    <div style="text-align: center">${welcom}</div>
+    <div style="text-align: center">${welcome}</div>
     <form action="<c:url value="/login/login"/>" method="POST" class="login_box">
         <input type="hidden" name="prevPage" value="${prevPage}">
         <input type="text" name="userId" id="id" class="idpw" placeholder="아이디" value="${empty param.idTmp?cookie.rememberId.value : param.idTmp}" autofocus required>

@@ -24,6 +24,10 @@ if(rev.length == 0){
 }
 $("#m_review").append(revBox);
 
+$(document).on('click', '.m_rev_update', function(){
+    updateRev(rev[($(this).parent().parent().parent()).index() - 2], true);
+});
+
 /////////////////////////////////////
 ///////////// 구매 출력 //////////////
 /////////////////////////////////////
@@ -34,3 +38,4 @@ if(buy.length == 0){
     buyBox = createBuy(buy);
 }
 $("#m_buy").append(buyBox);
+

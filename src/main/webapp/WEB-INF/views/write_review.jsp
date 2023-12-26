@@ -9,12 +9,16 @@
 <div id="revWrap" class="qnarevWrap">
     <form action="" method="POST" enctype="multipart/form-data" id="revForm" class="write">
         <header class="w_h">
+            <input type="hidden" name="itemNo" id="itemNo" value="">
+            <input type="hidden" name="userName" id="userName" value="">
             <img src="<c:url value='/img/main_banner/main_banner_230911_2.jpg'/>" alt="포터 라운드넥 골지니트 맨투맨">
             <div class="w_h_title">포터 라운드넥 골지니트 맨투맨</div>
             <div class="w_h_close">X</div>
         </header>
         <main class="w_m">
             <input type="hidden" name="revNo" id="revNo" value="">
+            <input type="hidden" name="buyNo" id="buyNo" value="">
+            <input type="hidden" name="buyAuto" id="buyAuto" value="">
             <div class="w_m_title">만족도</div>
             <select name="revScore" id="revScore">
                 <option value="5">★★★★★</option>

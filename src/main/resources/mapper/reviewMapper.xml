@@ -83,7 +83,12 @@
             set revNo = #{revNo}
                 where buyAuto = #{buyAuto}
     </update>
-    <!-- point적립 -->
-    <insert id=""></insert>
-    <!-- user point update -->
+    <!--//////////////////////////////////////////////////////-->
+    <!--///////////////////// 리뷰 삭제 //////////////////////-->
+    <!--/////////////////////////////////////////////////////-->
+    <!-- 리뷰 삭제 -->
+    <delete id="deleteRev" parameterType="int">
+        delete from review where revNo = #{revNo}
+    </delete>
+
 </mapper>

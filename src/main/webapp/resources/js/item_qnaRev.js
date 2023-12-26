@@ -109,11 +109,18 @@ function updateRev(thisRev, revChk){
                     $(".revSubmit").html("수정하기");
                     $(".revSubmit").prop("type", "button");
                 }else{
-                    $("#revForm").prop("action", `/${C_PATH}/item/rev/insert?prevPage=${location.pathname}`);
+                    $("#revTxt").focus();
+                    $("#revForm").prop("action", `/${C_PATH}/myPage/rev/insert`);
                     $(".revRemove").css({display:"none"});
+                    $("#buyNo").val(thisRev.buyNo);
+                    $("#buyAuto").val(thisRev.buyAuto);
                 }
                 $(".w_h>img").prop("src", `/${C_PATH}/img/item_list/${thisRev.itemImg}`);
                 $(".w_h_title").html(`${thisRev.itemName}`);
+                $("#itemNo").val(thisRev.itemNo);
+                $("#userName").val(userName);
+                console.log("itemNo", thisRev.itemNo);
+                console.log("userName", userName);
 
             }, error: function() {
                 Swal.fire({
