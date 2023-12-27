@@ -26,4 +26,8 @@ public class QnaDao {
     public int updateQna(QnaDto qnaDesc){
         return session.update(namespace + "updateQna", qnaDesc);
     }
+
+    public Integer deleteQna(Map<String, Integer> qnaDesc){
+        return session.delete(namespace + "deleteQna", qnaDesc);
+    }
 }

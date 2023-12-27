@@ -195,7 +195,38 @@ $(document).on('click', '.qnaSubmit', function(){
 });
 //문의 삭제하기
 $(document).on('click', '.qnaRemove', function(){
-    
+    Swal.fire({
+        title: '삭제하시겠습니까?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: "#AD8B73",
+        cancelButtonColor: "#BEBCBA",
+        confirmButtonText: '확인',
+        cancelButtonText: '취소',
+        reverseButtons: false,
+    }).then(result => {
+        if (!result.isConfirmed) return;
+        console.log("qnaNo : ", $("#qnaNo").val());
+        $.ajax({
+            url: "/" + C_PATH + "/myPage/qna/delete",
+            type: "POST",
+            headers: {"content-type": "application/json; charset=utf-8"},
+            data: JSON.stringify($("#qnaNo").val()),
+            success: function(data) {
+                Swal.fire({
+                    icon: "success",
+                    title: "문의 삭제 완료!"
+                }).then(() => {
+                    location.reload();
+                });
+            }, error: function() {
+                Swal.fire({
+                    icon: "warning",
+                    title: "문의 삭제 실패.<br>관리자에게 문의해주세요."
+                });
+            }
+        });
+    })
 });
 
 //리뷰 수정하기

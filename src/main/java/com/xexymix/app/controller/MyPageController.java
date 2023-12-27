@@ -7,6 +7,7 @@ import com.xexymix.app.domain.QnaDto;
 import com.xexymix.app.domain.ReviewDto;
 import com.xexymix.app.domain.UserDto;
 import com.xexymix.app.service.BuyService;
+import com.xexymix.app.service.QnaService;
 import com.xexymix.app.service.ReviewService;
 import com.xexymix.app.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,11 +34,12 @@ public class MyPageController {
     ReviewService reviewService;
     @Autowired
     BuyService buyService;
+    @Autowired
+    QnaService qnaService;
 
-    Integer userNo;
     @GetMapping("")
     public String showMyPage(HttpSession session, Model model) throws JsonProcessingException {
-        userNo = (Integer) session.getAttribute("userNo");
+        Integer userNo = (Integer) session.getAttribute("userNo");
         if (userNo == null || userNo < 1){ return "redirect:/"; }
 
         Map<String, Object> mypageDesc = userService.selectMyPage(userNo);
@@ -52,7 +54,8 @@ public class MyPageController {
     }
 
     @GetMapping("/update")
-    public String showMyPageUpdate(Model model) throws JsonProcessingException {
+    public String showMyPageUpdate(HttpSession session, Model model) throws JsonProcessingException {
+        Integer userNo = (Integer) session.getAttribute("userNo");
         ObjectMapper mapper = new ObjectMapper();
         String user = mapper.writeValueAsString(userService.selectUser(userNo));
         model.addAttribute("user", user);
@@ -71,7 +74,9 @@ public class MyPageController {
     }
 
     @GetMapping("/buy")
-    public String showUserBuy(Model model, String buyCode) throws JsonProcessingException {
+    public String showUserBuy(HttpSession session, Model model, String buyCode) throws JsonProcessingException {
+        Integer userNo = (Integer) session.getAttribute("userNo");
+
         Date endDate = new Date();
         Date startDate = new Date();
         startDate.setMonth(startDate.getMonth()-3);
@@ -80,7 +85,7 @@ public class MyPageController {
         startDate.setSeconds(0);
         SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-        List<BuyDto> buyList = buyList("0", buyCode, sdf1.format(startDate), sdf1.format(endDate));
+        List<BuyDto> buyList = buyList("0", buyCode, sdf1.format(startDate), sdf1.format(endDate), userNo);
 
         ObjectMapper mapper = new ObjectMapper();
         String buy = mapper.writeValueAsString(buyList);
@@ -96,10 +101,11 @@ public class MyPageController {
     }
     @PostMapping("/buy")
     @ResponseBody
-    public ResponseEntity<Map<String, Object>> showUserBuyPut(@RequestBody Map<String, String> buyDesc){
+    public ResponseEntity<Map<String, Object>> showUserBuyPut(@RequestBody Map<String, String> buyDesc, HttpSession session){
+        Integer userNo = (Integer) session.getAttribute("userNo");
         try {
             Map<String, Object> buyResult = new HashMap<>();
-            List<BuyDto> buyDtos = buyList(buyDesc.get("limit"), buyDesc.get("buyCode"), buyDesc.get("startDate")+" 00:00:00", buyDesc.get("endDate")+" 23:59:59");
+            List<BuyDto> buyDtos = buyList(buyDesc.get("limit"), buyDesc.get("buyCode"), buyDesc.get("startDate")+" 00:00:00", buyDesc.get("endDate")+" 23:59:59", userNo);
             buyResult.put("buy", buyDtos);
 
             Map<String, String> userBuy = new HashMap<>();
@@ -116,7 +122,7 @@ public class MyPageController {
         }
     }
 
-    public List<BuyDto> buyList(String limit, String buyCode, String startDate, String endDate) {
+    public List<BuyDto> buyList(String limit, String buyCode, String startDate, String endDate, Integer userNo) {
         Map<String, String> userDesc = new HashMap<>();
         userDesc.put("userNo", userNo+"");
         userDesc.put("limit", limit);
@@ -129,7 +135,8 @@ public class MyPageController {
 
     @PostMapping("/buy/cancel")
     @ResponseBody
-    public ResponseEntity<String> deleteBuy(@RequestBody BuyDto buyDesc){
+    public ResponseEntity<String> deleteBuy(@RequestBody BuyDto buyDesc, HttpSession session){
+        Integer userNo = (Integer) session.getAttribute("userNo");
         try{
             buyDesc.setUserNo(userNo);
             System.out.println("buyDesc : " + buyDesc);
@@ -157,9 +164,10 @@ public class MyPageController {
     }
 
     @PostMapping("/rev/insert")
-    public String insertRev(@RequestParam(value="wFile", required = false) List<MultipartFile> imgFiles, ReviewDto revDesc, Model model){
+    public String insertRev(@RequestParam(value="wFile", required = false) List<MultipartFile> imgFiles, ReviewDto revDesc, Model model, HttpSession session){
 //        String F_PATH = "C:/Users/user/Desktop/portfolio/github/xexymix/src/main/webapp/resources/img/review/"; //집
         String F_PATH = "C:/Users/user1/Documents/GitHub/xexymix/src/main/webapp/resources/img/review/"; //학원
+        Integer userNo = (Integer) session.getAttribute("userNo");
 
         ItemController itemController = new ItemController();
         Map<String, String> files = itemController.updateFile(imgFiles, "", "", F_PATH);
@@ -177,7 +185,8 @@ public class MyPageController {
 
     @PostMapping(value = "/rev/delete", produces = "application/text; charset=utf8")
     @ResponseBody
-    public ResponseEntity<String> deleteRev(@RequestBody ReviewDto revDesc){
+    public ResponseEntity<String> deleteRev(@RequestBody ReviewDto revDesc, HttpSession session){
+        Integer userNo = (Integer) session.getAttribute("userNo");
         try {
             revDesc.setUserNo(userNo);
             String revResult = reviewService.deleteRev(revDesc);
@@ -190,7 +199,9 @@ public class MyPageController {
     }
 
     @GetMapping("/review")
-    public String showReview(Model model) throws JsonProcessingException {
+    public String showReview(Model model, HttpSession session) throws JsonProcessingException {
+        Integer userNo = (Integer) session.getAttribute("userNo");
+
         Map<String, Integer> userDesc = new HashMap<>();
         userDesc.put("userNo", userNo);
         userDesc.put("limit", 0);
@@ -209,7 +220,8 @@ public class MyPageController {
 
     @PostMapping("/review")
     @ResponseBody
-    public ResponseEntity<List<ReviewDto>> showReviews(@RequestBody int limit){
+    public ResponseEntity<List<ReviewDto>> showReviews(@RequestBody int limit, HttpSession session){
+        Integer userNo = (Integer) session.getAttribute("userNo");
         try{
             Map<String, Integer> userDesc = new HashMap<>();
             userDesc.put("userNo", userNo);
@@ -228,7 +240,9 @@ public class MyPageController {
     }
 
     @GetMapping("/qna")
-    public String showQna(Model model) throws JsonProcessingException {
+    public String showQna(Model model, HttpSession session) throws JsonProcessingException {
+        Integer userNo = (Integer) session.getAttribute("userNo");
+
         Map<String, Integer> userDesc = new HashMap<>();
         userDesc.put("userNo", userNo);
         userDesc.put("limit", 0);
@@ -248,7 +262,8 @@ public class MyPageController {
 
     @PostMapping("/qna")
     @ResponseBody
-    public ResponseEntity<List<QnaDto>> showQnas(@RequestBody int limit){
+    public ResponseEntity<List<QnaDto>> showQnas(@RequestBody int limit, HttpSession session){
+        Integer userNo = (Integer) session.getAttribute("userNo");
         try{
             Map<String, Integer> userDesc = new HashMap<>();
             userDesc.put("userNo", userNo);
@@ -260,6 +275,25 @@ public class MyPageController {
 
             if (qnaResult.isEmpty()){ throw new Exception("문의 조회 오류"); }
             return new ResponseEntity<>(qnaResult, HttpStatus.OK);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PostMapping("/qna/delete")
+    @ResponseBody
+    public ResponseEntity<String> deleteQna(@RequestBody int qnaNo, HttpSession session){
+        Integer userNo = (Integer) session.getAttribute("userNo");
+        try{
+            System.out.println("qnaNo : " + qnaNo);
+            Map<String, Integer> qnaDesc = new HashMap<>();
+            qnaDesc.put("userNo", userNo);
+            qnaDesc.put("qnaNo", qnaNo);
+            Integer qnaResult = qnaService.deleteQna(qnaDesc);
+
+            if (qnaResult == null || qnaResult < 1){ throw new Exception("문의 삭제 오류"); }
+            return new ResponseEntity<>(HttpStatus.OK);
         }catch (Exception e){
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

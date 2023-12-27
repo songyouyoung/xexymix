@@ -13,25 +13,23 @@ public class QnaService {
     @Autowired
     QnaDao qnaDao;
 
-///////////////////
 //    문의 개수 조회
-///////////////////
     public int cntQna(String itemNo){
         return qnaDao.selectQnaCnt(itemNo);
     }
 
-///////////////////
 //    전체 문의 조회
-///////////////////
     public List<QnaDto> showQna(Map<String, String> qnaDesc){
         return qnaDao.selectQna(qnaDesc);
     }
 
-///////////////////
 //    문의 수정
-///////////////////
     public int updateQna(QnaDto qnaDesc){
+        return qnaDao.updateQna(qnaDesc);
+    }
 
-    return qnaDao.updateQna(qnaDesc);
-}
+//    문의 삭제
+    public Integer deleteQna(Map<String, Integer> qnaDesc){
+        return qnaDao.deleteQna(qnaDesc);
+    }
 }

@@ -11,12 +11,12 @@ if(buy.length == 0){
 }else{
     buyBox = createBuy(buy);
     // 페이지네이션
-    buyBox += `<div class="pagination">`;
+    let pageBox = "";
     for(let i = 1; i <= (buyPage>10?10:buyPage); i++){
-        buyBox += `<span class="page" style=${i==1?"font-weight:bold":""}>${i}</span>`;
+        pageBox += `<span class="page" style=${i==1?"font-weight:bold":""}>${i}</span>`;
     }
-    buyBox += buyPage > 10 ? `<span class="nextBtn">&gt;</span>` : "";
-    buyBox += `</div>`;
+    pageBox += buyPage > 10 ? `<span class="nextBtn">&gt;</span>` : "";
+    $(".pagination").html(pageBox);
 }
 $("#m_buy").append(buyBox);
 
@@ -117,6 +117,9 @@ function aJax(limit, pagChk){
         headers: {"content-type": "application/json"},
         data: JSON.stringify({limit: limit, buyCode: buyLink, startDate: startDate, endDate: endDate}),
         success: function(data) {
+            buy = data.buy;
+            buyMaxCnt = data.buyMaxCnt;
+
             console.log(data.buy);
             if(data.buy.length == 0){
                 buyBox = `<p class="m_none">주문한 상품이 없습니다.</p>`;
