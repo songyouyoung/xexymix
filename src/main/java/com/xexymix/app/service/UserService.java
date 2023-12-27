@@ -2,6 +2,7 @@ package com.xexymix.app.service;
 
 import com.xexymix.app.dao.UserDao;
 import com.xexymix.app.domain.BuyDto;
+import com.xexymix.app.domain.QnaDto;
 import com.xexymix.app.domain.ReviewDto;
 import com.xexymix.app.domain.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,16 +73,20 @@ public class UserService {
         mypageDesc.put("buyCnt", selectUserBuyCnt(userBuy));
         userBuy.put("buyCode", "cancel");
         mypageDesc.put("cancelCnt", userDao.selectUserBuyCnt(userBuy));
-        mypageDesc.put("qna", userDao.selectUserQna(userNo));
         Map<String, Integer> userDesc = new HashMap<>();
         userDesc.put("userNo", userNo);
         userDesc.put("limit", 0);
+        userDesc.put("limitMax", 5);
+        mypageDesc.put("qna", userDao.selectUserQna(userDesc));
         userDesc.put("limitMax", 3);
         mypageDesc.put("rev", userDao.selectUserRev(userDesc));
         return mypageDesc;
     }
     public List<ReviewDto> selectUserRev(Map<String, Integer> userDesc){
         return userDao.selectUserRev(userDesc);
+    }
+    public List<QnaDto> selectUserQna(Map<String, Integer> userDesc){
+        return userDao.selectUserQna(userDesc);
     }
     public Integer selectUserBuyCnt(Map<String, String> userBuy){
         return userDao.selectUserBuyCnt(userBuy);
@@ -96,5 +101,13 @@ public class UserService {
 
     public List<BuyDto> selectUserBuyAll(Map<String, String> userDesc){
         return userDao.selectUserBuyAll(userDesc);
+    }
+
+    public Integer selectUserRevCnt(Integer userNo){
+        return userDao.selectUserRevCnt(userNo);
+    }
+
+    public Integer selectUserQnaCnt(Integer userNo){
+        return userDao.selectUserQnaCnt(userNo);
     }
 }

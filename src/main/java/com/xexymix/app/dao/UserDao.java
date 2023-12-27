@@ -65,8 +65,8 @@ public class UserDao {
     public Integer selectUserBuyCnt(Map<String, String> userBuy){
         return session.selectOne(namespace + "selectUserBuyCnt", userBuy);
     }
-    public List<QnaDto> selectUserQna(Integer userNo){
-        return session.selectList(namespace + "selectUserQna", userNo);
+    public List<QnaDto> selectUserQna(Map<String, Integer> userDesc){
+        return session.selectList(namespace + "selectUserQna", userDesc);
     }
     public List<ReviewDto> selectUserRev(Map<String, Integer> userDesc) {
         return session.selectList(namespace + "selectUserRev", userDesc);
@@ -80,5 +80,12 @@ public class UserDao {
 
     public List<BuyDto> selectUserBuyAll(Map<String, String> userDesc){
         return session.selectList(namespace + "selectUserBuyAll", userDesc);
+    }
+
+    public Integer selectUserRevCnt(Integer userNo){
+        return session.selectOne(namespace + "selectUserRevCnt", userNo);
+    }
+    public Integer selectUserQnaCnt(Integer userNo){
+        return session.selectOne(namespace + "selectUserQnaCnt", userNo);
     }
 }

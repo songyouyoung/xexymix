@@ -3,6 +3,7 @@ package com.xexymix.app.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.xexymix.app.domain.BuyDto;
+import com.xexymix.app.domain.QnaDto;
 import com.xexymix.app.domain.ReviewDto;
 import com.xexymix.app.domain.UserDto;
 import com.xexymix.app.service.BuyService;
@@ -190,18 +191,78 @@ public class MyPageController {
 
     @GetMapping("/review")
     public String showReview(Model model) throws JsonProcessingException {
-        Map<String, String> revDesc = new HashMap<>();
         Map<String, Integer> userDesc = new HashMap<>();
         userDesc.put("userNo", userNo);
         userDesc.put("limit", 0);
         userDesc.put("limitMax", 5);
         List<ReviewDto> reviews = userService.selectUserRev(userDesc);
+        Integer revMaxCnt = userService.selectUserRevCnt(userNo);
         System.out.println(reviews);
 
         ObjectMapper mapper = new ObjectMapper();
         String rev = mapper.writeValueAsString(reviews);
 
         model.addAttribute("rev", rev);
+        model.addAttribute("revMaxCnt", revMaxCnt);
         return "my_review";
+    }
+
+    @PostMapping("/review")
+    @ResponseBody
+    public ResponseEntity<List<ReviewDto>> showReviews(@RequestBody int limit){
+        try{
+            Map<String, Integer> userDesc = new HashMap<>();
+            userDesc.put("userNo", userNo);
+            userDesc.put("limit", limit);
+            userDesc.put("limitMax", 5);
+            List<ReviewDto> revResult = userService.selectUserRev(userDesc);
+
+            System.out.println("revResult : " + revResult);
+
+            if (revResult.isEmpty()){ throw new Exception("리뷰 조회 오류"); }
+            return new ResponseEntity<>(revResult, HttpStatus.OK);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/qna")
+    public String showQna(Model model) throws JsonProcessingException {
+        Map<String, Integer> userDesc = new HashMap<>();
+        userDesc.put("userNo", userNo);
+        userDesc.put("limit", 0);
+        userDesc.put("limitMax", 20);
+        List<QnaDto> qnas = userService.selectUserQna(userDesc);
+        Integer qnaMaxCnt = userService.selectUserQnaCnt(userNo);
+        System.out.println(qnas);
+        System.out.println("qnaMaxCnt : " + qnaMaxCnt);
+
+        ObjectMapper mapper = new ObjectMapper();
+        String qna = mapper.writeValueAsString(qnas);
+
+        model.addAttribute("qna", qna);
+        model.addAttribute("qnaMaxCnt", qnaMaxCnt);
+        return "my_qna";
+    }
+
+    @PostMapping("/qna")
+    @ResponseBody
+    public ResponseEntity<List<QnaDto>> showQnas(@RequestBody int limit){
+        try{
+            Map<String, Integer> userDesc = new HashMap<>();
+            userDesc.put("userNo", userNo);
+            userDesc.put("limit", limit);
+            userDesc.put("limitMax", 20);
+            List<QnaDto> qnaResult = userService.selectUserQna(userDesc);
+
+            System.out.println("qnaResult : " + qnaResult);
+
+            if (qnaResult.isEmpty()){ throw new Exception("문의 조회 오류"); }
+            return new ResponseEntity<>(qnaResult, HttpStatus.OK);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 }

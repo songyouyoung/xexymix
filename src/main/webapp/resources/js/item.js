@@ -26,7 +26,7 @@ $(document).on('click', '.sort_list li', function(){
                 nowRevPage = 1;
                 startRevPage = 1;
                 review = data;
-                $(".m_rev_area").html(createRev(data));
+                $(".m_rev_area").html(createRev(data, "item"));
                 let revBox = "";
                 for(let i = 1; i <= (revPage>10?10:revPage); i++){
                     revBox += `<span class="page" style=${i==1?"font-weight:bold":""}>${i}</span>`;
@@ -130,7 +130,7 @@ $(document).on('click', '.pagination>span', function() {
                 $(".m_qna_area").html(createQna(data, nowQnaPage, "item"));
             } else if (par.parent().prop("id") == "m_review") {
                 review = data;
-                $(".m_rev_area").html(createRev(data));
+                $(".m_rev_area").html(createRev(data, "item"));
             }
         }, error: function (e) {
             Swal.fire({
@@ -221,7 +221,7 @@ $(document).ready(function(){
                     </div>
                     <div class="m_rev_area">`;
         // 전체 리뷰
-        revBox += createRev(review);
+        revBox += createRev(review, "item");
         revBox += `</div>`;
         // 페이지네이션
         revBox += `<div class="pagination">`;

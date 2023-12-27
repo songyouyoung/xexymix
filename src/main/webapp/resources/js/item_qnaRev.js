@@ -69,6 +69,7 @@ let thisRevBox;
 function updateRev(thisRev, revChk){
     thisRevBox = thisRev;
     let thisLocation = location.pathname.split("/")[1];
+    console.log(thisRev);
     if(userNo == ""){
         Swal.fire({
             icon: "warning",
@@ -157,10 +158,10 @@ function deleteRev(thisRev){
             }).then(() => {
                 location.reload();
             });
-        }, error: function(data) {
+        }, error: function() {
             Swal.fire({
                 icon: "warning",
-                title: data
+                title: "리뷰 삭제 실패.<br>관리자에게 문의해주세요."
             }).then(() => {
                 location.reload();
             });
@@ -191,6 +192,10 @@ $(document).on('click', '.qnaSubmit', function(){
         qnaUpdateChk = true;
     }
     else{ $(".qnaSubmit").prop("type", "submit"); }
+});
+//문의 삭제하기
+$(document).on('click', '.qnaRemove', function(){
+    
 });
 
 //리뷰 수정하기
@@ -248,7 +253,7 @@ const createRev = (review, jsp)=>{
         let revImgBox = "";
         revImg == ""? "" : revImg.forEach((img)=>{
             revImgBox += `<div class="m_rev_img_box">
-                                <img src="img/review/${img}" alt="리뷰이미지">
+                                <img src="/${C_PATH}/img/review/${img}" alt="리뷰이미지">
                             </div>`;
         });
         let revUD = "";

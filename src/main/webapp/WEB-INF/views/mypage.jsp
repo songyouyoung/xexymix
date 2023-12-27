@@ -52,7 +52,7 @@
             <div class="my_title">최근 리뷰 내역</div>
         </section>
         <div class="w_main" id="m_qna">
-            <a class="my_more" href="my_qna.jsp">더보기 &gt;</a>
+            <a class="my_more" href="<c:url value="/myPage/qna"/>">더보기 &gt;</a>
             <div class="my_title">최근 문의 내역</div>
         </div>
     </main>

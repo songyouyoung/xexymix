@@ -86,7 +86,7 @@
             from qna q, item i
                 where q.itemNo = i.itemNo and q.userNo = #{userNo}
         ORDER BY q.qnaRegDate DESC
-        limit 0, 5
+        limit #{limit}, #{limitMax}
     </select>
 <!--    회원 리뷰 내역 불러오기-->
     <select id="selectUserRev" parameterType="int" resultType="reviewDto">
@@ -95,6 +95,18 @@
                 where r.itemNo = i.itemNo and r.userNo = #{userNo}
         ORDER BY r.revRegDate DESC
         limit #{limit}, #{limitMax}
+    </select>
+    <!-- 전체 리뷰 개수-->
+    <select id="selectUserRevCnt" parameterType="int" resultType="int">
+        select count(revNo)
+            from review
+                where userNo = #{userNo}
+    </select>
+    <!-- 전체 문의 개수-->
+    <select id="selectUserQnaCnt" parameterType="int" resultType="int">
+        select count(qnaNo)
+            from qna
+                where userNo = #{userNo}
     </select>
     <!-- 비밀번호 변경 -->
     <update id="updatePw" parameterType="userDto">
