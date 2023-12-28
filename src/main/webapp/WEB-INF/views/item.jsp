@@ -148,6 +148,7 @@
         </section>
         <section class="m_detail_box" id="m_qna">
             <div class="m_item_title">상품문의</div>
+            <div class="m_qna_add">문의하기</div>
         </section>
     </main>
     <jsp:include page="footer.jsp"/>
