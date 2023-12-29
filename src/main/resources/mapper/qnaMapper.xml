@@ -16,6 +16,7 @@
         select q.qnaNo, q.userNo, q.userName, q.qnaTxt, q.qnaRegDate, q.qnaFile, q.qnaFileOri, q.itemNo, i.itemImg, i.itemName
             from qna q, item i
                 where q.itemNo = #{itemNo} and q.itemNo = i.itemNo
+        ORDER BY q.qnaRegDate DESC
         limit ${limit}, 10
     </select>
     <!-- 문의 수정 -->

@@ -165,8 +165,6 @@ public class ItemController {
         revDesc.setRevFileOri(files.get("fileOri"));
         reviewService.updateRev(revDesc);
         prevPage = prevPage.replace("/app","");
-        //prevPageTmp.contains("login")
-//        if (prevPage.contains("myPage"))
         return "redirect:" + prevPage + (itemNo!=null?"?itemNo="+itemNo:"");
     }
     public Map<String, String> updateFile(List<MultipartFile> imgFiles, String oriImg, String w_cancel, String F_PATH){

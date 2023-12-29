@@ -163,17 +163,17 @@
     let revChart = ${reviewChart_js};
     let qnaMaxCnt = ${qnaMaxCnt};
     let qna = ${qna_js};
-    let qnaResult = "${qnaResult}";
+    let qnaResult = "${param.qnaResult}";
     if (qnaResult == "성공"){
         Swal.fire({
             icon: "success",
             title: "문의 등록 완료!"
-        }).then(()=>{ location.reload(); });
+        }).then(()=>{ location.replace(location.pathname+'?itemNo='+item.itemNo); });
     }else if(qnaResult == "실패"){
         Swal.fire({
             icon: "warning",
             title: "문의 등록 오류<br>관리자에게 문의해주세요."
-        }).then(()=>{ location.reload(); });
+        }).then(()=>{ location.replace(location.pathname+'?itemNo='+item.itemNo); });
     }
 </script>
 <script src="<c:url value='/js/common.js'/>"></script>
