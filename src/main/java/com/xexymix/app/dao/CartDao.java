@@ -24,4 +24,8 @@ public class CartDao {
     public int selectCartCnt(int userNo){
         return session.selectOne(namespace + "selectCartCnt", userNo);
     }
+
+    public List<CartDto> selectCart(int userNo){
+        return session.selectList(namespace + "selectCart", userNo);
+    }
 }

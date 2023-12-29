@@ -16,4 +16,15 @@
     <select id="selectCartCnt" parameterType="int" resultType="int">
         select count(cartNo) from cart where userNo = #{userNo}
     </select>
+
+    <!--/////////////////////////////////////////////////////-->
+    <!--////////////////// 장바구니 페이지 /////////////////////-->
+    <!--/////////////////////////////////////////////////////-->
+    <select id="selectCart" parameterType="int" resultType="cartDto">
+        select c.cartNo, c.itemNo, c.cartCnt, c.cartOpt, i.itemName, i.itemPrice, e.evPer, i.itemImg
+            from cart c
+                join item i on c.itemNo = i.itemNo
+                left outer join event e on i.evNo = e.evNo
+            where c.userNo = #{userNo}
+    </select>
 </mapper>

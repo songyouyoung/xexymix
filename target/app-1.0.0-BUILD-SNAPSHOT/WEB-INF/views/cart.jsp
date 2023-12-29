@@ -25,57 +25,18 @@
                 <div class="my_cart_price">판매가</div>
                 <div class="my_cart_btn">선택</div>
             </div>
-            <div class="my_cart_list">
-                <div class="my_cart_item">
-                    <div class="my_cart_chk">
-                        <input type="checkbox" name="my_cart_chk" class="my_cart_chkBox">
-                    </div>
-                    <div class="my_cart_desc_box">
-                        <img src="<c:url value='/img/main_banner/main_banner_230911_2.jpg'/>" alt="스트레치 밴딩 부츠컷 슬랙스 1">
-                        <div class="my_cart_desc">
-                            <div class="my_cart_item_title">블랙라벨 시그니처 380N 레깅스 1+1</div>
-                            <div class="my_cart_option">[ 옵션 : L ]</div>
-                        </div>
-                    </div>
-                    <div class="my_cart_cnt" data-price="45000">
-                        <button class="my_cart_prevCnt">-</button>
-                        <input type="number" min="1" value="1" class="my_cart_cntNum">
-                        <button class="my_cart_nextCnt">+</button>
-                    </div>
-                    <div class="my_cart_point">450</div>
-                    <div class="my_cart_price">45,000</div>
-                    <div class="my_cart_btn">
-                        <div class="my_cart_btn_buy">바로주문하기</div>
-                        <div class="my_cart_btn_cancle">X 삭제</div>
-                    </div>
-                </div>
-                <div class="my_cart_item">
-                    <div class="my_cart_chk">
-                        <input type="checkbox" name="my_cart_chk" class="my_cart_chkBox">
-                    </div>
-                    <div class="my_cart_desc_box">
-                        <img src="<c:url value='/img/main_banner/main_banner_230911_2.jpg'/>" alt="스트레치 밴딩 부츠컷 슬랙스 1">
-                        <div class="my_cart_desc">
-                            <div class="my_cart_item_title">블랙라벨 시그니처 380N 레깅스 1+1</div>
-                            <div class="my_cart_option">[ 옵션 : L ]</div>
-                        </div>
-                    </div>
-                    <div class="my_cart_cnt" data-price="45000">
-                        <button class="my_cart_prevCnt">-</button>
-                        <input type="number" min="1" value="1" class="my_cart_cntNum">
-                        <button class="my_cart_nextCnt">+</button>
-                    </div>
-                    <div class="my_cart_point">450</div>
-                    <div class="my_cart_price">45,000</div>
-                    <div class="my_cart_btn">
-                        <div class="my_cart_btn_buy">바로주문하기</div>
-                        <div class="my_cart_btn_cancle">X 삭제</div>
-                    </div>
-                </div>
+            <div class="my_cart_list"></div>
+            <div class="my_cart_btn_box">
+                <div class="my_cart_btn_buy" id="buy_choice">선택 주문하기</div>
+                <div class="my_cart_btn_buy" id="buy_all">전체 주문하기</div>
             </div>
         </div>
     </main>
     <jsp:include page="footer.jsp"/>
+    <script>
+        const C_PATH = (location.pathname).split("/")[1];
+        let cart = ${cart};
+    </script>
     <script src="<c:url value='/js/cart.js'/>"></script>
 </body>
 </html>

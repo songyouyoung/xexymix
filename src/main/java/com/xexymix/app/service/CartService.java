@@ -20,4 +20,8 @@ public class CartService {
     public int selectCartCnt(int userNo){
         return cartDao.selectCartCnt(userNo);
     }
+
+    public List<CartDto> selectCart(int userNo){
+        return cartDao.selectCart(userNo);
+    }
 }

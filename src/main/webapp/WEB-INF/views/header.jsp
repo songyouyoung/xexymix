@@ -4,6 +4,7 @@
 
 <c:set var="logIO_link" value="${ sessionId==null?'/login/login':'/login/logout'}" />
 <c:set var="signIO_link" value="${ sessionId==null?'/login/join':'/myPage'}" />
+<c:set var="cartIO_link" value="${ sessionId==null?'/login/login':'/cart'}" />
 <html>
 <head>
     <link rel="stylesheet" href="<c:url value='/css/h_f.css'/>">
@@ -79,7 +80,7 @@
                     </div>
                 </li><!--history-->
                 <li class="cart">
-                    <a href="cart.jsp">
+                    <a href="<c:url value='${cartIO_link}'/>">
                         <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28">
                             <g id="_ic_header_cart" data-name="*ic_header_cart" transform="translate(-330 -15)">
                                 <rect id="Rectangle_91" data-name="Rectangle 91" width="28" height="28" transform="translate(330 15)" fill="#fff" opacity="0"/>
@@ -222,7 +223,7 @@
                     </div>
                 </li><!--history-->
                 <li class="cart h_b icon_box">
-                    <a href="cart.jsp">
+                    <a href="<c:url value='${cartIO_link}'/>">
                         <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28">
                             <g id="_ic_header_cart" data-name="*ic_header_cart" transform="translate(-330 -15)">
                                 <rect id="Rectangle_91" data-name="Rectangle 91" width="28" height="28" transform="translate(330 15)" fill="#fff" opacity="0"/>

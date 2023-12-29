@@ -4,6 +4,10 @@ public class CartDto {
     private Integer cartNo;
     private int userNo;
     private String itemNo;
+    private String itemName;
+    private String itemImg;
+    private Integer itemPrice;
+    private Integer evPer;
     private int cartCnt;
     private String cartOpt;
 
@@ -31,6 +35,38 @@ public class CartDto {
         this.itemNo = itemNo;
     }
 
+    public String getItemName() {
+        return itemName;
+    }
+
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
+    }
+
+    public String getItemImg() {
+        return itemImg;
+    }
+
+    public void setItemImg(String itemImg) {
+        this.itemImg = itemImg;
+    }
+
+    public Integer getItemPrice() {
+        return itemPrice;
+    }
+
+    public void setItemPrice(Integer itemPrice) {
+        this.itemPrice = itemPrice;
+    }
+
+    public Integer getEvPer() {
+        return evPer;
+    }
+
+    public void setEvPer(Integer evPer) {
+        this.evPer = evPer;
+    }
+
     public int getCartCnt() {
         return cartCnt;
     }
@@ -53,6 +89,10 @@ public class CartDto {
                 "cartNo=" + cartNo +
                 ", userNo=" + userNo +
                 ", itemNo='" + itemNo + '\'' +
+                ", itemName='" + itemName + '\'' +
+                ", itemImg='" + itemImg + '\'' +
+                ", itemPrice=" + itemPrice +
+                ", evPer=" + evPer +
                 ", cartCnt=" + cartCnt +
                 ", cartOpt='" + cartOpt + '\'' +
                 '}';
