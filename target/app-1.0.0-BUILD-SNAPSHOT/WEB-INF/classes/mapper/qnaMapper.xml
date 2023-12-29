@@ -28,4 +28,9 @@
     <delete id="deleteQna" parameterType="int">
         delete from qna where qnaNo = #{qnaNo} and userNo = #{userNo}
     </delete>
+<!--    문의 등록-->
+    <insert id="insertQna" parameterType="qnaDto">
+        insert into qna (userNo, itemNo, userName, qnaTxt, qnaFile, qnaFileOri)
+            values ( #{userNo}, #{itemNo}, #{userName}, #{qnaTxt}, #{qnaFile}, #{qnaFileOri})
+    </insert>
 </mapper>

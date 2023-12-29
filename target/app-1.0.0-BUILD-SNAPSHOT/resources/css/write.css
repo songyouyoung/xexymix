@@ -35,6 +35,8 @@
 .w_h_title,
 .w_h_close{
     padding: 0 20px;
+    border: 0;
+    outline: none;
     font-size: 18px;
     font-weight: bold;
 }

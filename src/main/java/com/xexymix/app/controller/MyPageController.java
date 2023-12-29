@@ -165,8 +165,7 @@ public class MyPageController {
 
     @PostMapping("/rev/insert")
     public String insertRev(@RequestParam(value="wFile", required = false) List<MultipartFile> imgFiles, ReviewDto revDesc, Model model, HttpSession session){
-//        String F_PATH = "C:/Users/user/Desktop/portfolio/github/xexymix/src/main/webapp/resources/img/review/"; //집
-        String F_PATH = "C:/Users/user1/Documents/GitHub/xexymix/src/main/webapp/resources/img/review/"; //학원
+        String F_PATH = "C:/Users/user/Desktop/portfolio/github/xexymix/src/main/webapp/resources/img/review/";
         Integer userNo = (Integer) session.getAttribute("userNo");
 
         ItemController itemController = new ItemController();

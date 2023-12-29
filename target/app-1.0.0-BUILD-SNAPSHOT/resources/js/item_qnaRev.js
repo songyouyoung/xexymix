@@ -26,7 +26,7 @@ $(document).on('click', '.m_qna_area td', function(){
                 let oriImg = thisQna.qnaFile==null?"":(thisQna.qnaFile).replaceAll("|", "%7C");
                 $("#qnaForm").prop("action", `/${C_PATH}/item/qna/update?prevPage=${location.pathname}&itemNo=${thisQna.itemNo}&oriImg=${oriImg}`);
                 $(".w_h>img").prop("src", `/${C_PATH}/img/item_list/${thisQna.itemImg}`);
-                $(".w_h_title").html(`${thisQna.itemName}`);
+                $(".w_h_title").prop("value", `${thisQna.itemName}`);
                 $("#qnaNo").prop("value", `${thisQna.qnaNo}`);
                 $("#qnaTxt").prop("readonly", true);
                 $("#qnaTxt").prop("value", `${thisQna.qnaTxt}`);
@@ -119,7 +119,7 @@ function updateRev(thisRev, revChk){
                     $("#buyAuto").val(thisRev.buyAuto);
                 }
                 $(".w_h>img").prop("src", `/${C_PATH}/img/item_list/${thisRev.itemImg}`);
-                $(".w_h_title").html(`${thisRev.itemName}`);
+                $(".w_h_title").prop("value", `${thisRev.itemName}`);
                 $("#itemNo").val(thisRev.itemNo);
                 $("#userName").val(userName);
                 console.log("itemNo", thisRev.itemNo);
@@ -183,7 +183,7 @@ $(document).on('click', '.btnCancel', function(){
 
 //문의 수정하기
 $(document).on('click', '.qnaSubmit', function(){
-    if(!qnaUpdateChk) {
+    if(!qnaUpdateChk && !$("#qnaForm").prop("action").match("insert")) {
         $("#qnaTxt").prop("readonly", false);
         $("#qnaTxt").focus();
         qnaImg.length < 5?$(".w_m_file_upload").css({display:"flex"}):"";

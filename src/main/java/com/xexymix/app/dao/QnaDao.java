@@ -30,4 +30,7 @@ public class QnaDao {
     public Integer deleteQna(Map<String, Integer> qnaDesc){
         return session.delete(namespace + "deleteQna", qnaDesc);
     }
+    public Integer insertQna(QnaDto qnaDesc){
+        return session.delete(namespace + "insertQna", qnaDesc);
+    }
 }

@@ -148,13 +148,13 @@
         </section>
         <section class="m_detail_box" id="m_qna">
             <div class="m_item_title">상품문의</div>
+            <div class="m_qna_add">문의하기</div>
         </section>
     </main>
     <jsp:include page="footer.jsp"/>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 <script>
-    var itemNo = "${param.itemNo}";
     let userNo = "${userNo}";
     let item = ${item_js};
     let revMaxCnt = ${revMaxCnt};
@@ -163,6 +163,18 @@
     let revChart = ${reviewChart_js};
     let qnaMaxCnt = ${qnaMaxCnt};
     let qna = ${qna_js};
+    let qnaResult = "${qnaResult}";
+    if (qnaResult == "성공"){
+        Swal.fire({
+            icon: "success",
+            title: "문의 등록 완료!"
+        }).then(()=>{ location.reload(); });
+    }else if(qnaResult == "실패"){
+        Swal.fire({
+            icon: "warning",
+            title: "문의 등록 오류<br>관리자에게 문의해주세요."
+        }).then(()=>{ location.reload(); });
+    }
 </script>
 <script src="<c:url value='/js/common.js'/>"></script>
 <script src="<c:url value='/js/item.js'/>"></script>

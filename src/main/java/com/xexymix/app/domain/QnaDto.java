@@ -5,8 +5,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.util.Date;
 
 public class QnaDto {
-    private int qnaNo;
-    private int userNo;
+    private Integer qnaNo;
+    private Integer userNo;
     private String itemNo;
     private String itemName;
     private String itemImg;
@@ -23,30 +23,30 @@ public class QnaDto {
     public QnaDto() {
     }
 
-    public QnaDto(int qnaNo, String qnaTxt) {
+    public QnaDto(Integer qnaNo, String qnaTxt) {
         this.qnaNo = qnaNo;
         this.qnaTxt = qnaTxt;
     }
 
-    public QnaDto(int qnaNo, String qnaTxt, String qnaFile) {
+    public QnaDto(Integer qnaNo, String qnaTxt, String qnaFile) {
         this.qnaNo = qnaNo;
         this.qnaTxt = qnaTxt;
         this.qnaFile = qnaFile;
     }
 
-    public int getQnaNo() {
+    public Integer getQnaNo() {
         return qnaNo;
     }
 
-    public void setQnaNo(int qnaNo) {
+    public void setQnaNo(Integer qnaNo) {
         this.qnaNo = qnaNo;
     }
 
-    public int getUserNo() {
+    public Integer getUserNo() {
         return userNo;
     }
 
-    public void setUserNo(int userNo) {
+    public void setUserNo(Integer userNo) {
         this.userNo = userNo;
     }
 

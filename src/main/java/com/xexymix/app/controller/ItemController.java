@@ -113,40 +113,10 @@ public class ItemController {
         return "write_qna";
     }
 
+    String PATH_QNA = "C:/Users/user/Desktop/portfolio/github/xexymix/src/main/webapp/resources/img/qna/";
     @PostMapping("/qna/update")
     public String updateQna(@RequestParam(value="wFile", required = false) List<MultipartFile> imgFiles, QnaDto qnaDesc, String w_cancel, String oriImg, String prevPage, String itemNo){
-        //String F_PATH = "C:/Users/user/Desktop/portfolio/github/xexymix/src/main/webapp/resources/img/qna/"; //집
-     String F_PATH = "C:/Users/user1/Documents/GitHub/xexymix/src/main/webapp/resources/img/qna/"; //학원
-
-//        List<String> origImg = new ArrayList<>(Arrays.asList(oriImg.split("\\|")));
-//        List<String> deleteImg = List.of(w_cancel.split("\\|"));
-//        StringBuilder qnaFile = new StringBuilder();
-//        boolean delFileChk = true;
-//        for(String ori:origImg){
-//            for(String del:deleteImg){
-//                if(ori.equals(del)){
-//                    delFileChk = false;
-//                    break;
-//                }
-//            }
-//            if (delFileChk) { qnaFile.append(ori).append("|"); }
-//        }
-//        StringBuilder qnaFileOri = new StringBuilder(qnaFile.substring(0));
-//
-//        for(MultipartFile mf : imgFiles) {
-//            if (mf.getOriginalFilename().equals("")){ break; }
-//            String originalFileName = mf.getOriginalFilename();
-//            String safeFileName = System.currentTimeMillis() + originalFileName;
-//            String safeFile = F_PATH + safeFileName;
-//            qnaFile.append(safeFileName).append("|");
-//            qnaFileOri.append(originalFileName).append("|");
-//            try {
-//                mf.transferTo(new File(safeFile));
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//        }
-        Map<String, String> files = updateFile(imgFiles, oriImg, w_cancel, F_PATH);
+        Map<String, String> files = updateFile(imgFiles, oriImg, w_cancel, PATH_QNA);
 
         qnaDesc.setQnaFile(files.get("file"));
         qnaDesc.setQnaFileOri(files.get("fileOri"));
@@ -162,6 +132,18 @@ public class ItemController {
         return qnaList;
     }
 
+    @PostMapping("/qna/insert")
+    public String insertQna(@RequestParam(value="wFile", required = false) List<MultipartFile> imgFiles, QnaDto qnaDesc, String itemNo, Model model, HttpSession session){
+        qnaDesc.setUserNo((Integer) session.getAttribute("userNo"));
+        Map<String, String> files = updateFile(imgFiles, "", "", PATH_QNA);
+        qnaDesc.setQnaFile(files.get("file"));
+        System.out.print("qnaDesc : ");
+        System.out.println(qnaDesc);
+        String result = qnaService.insertQna(qnaDesc);
+        model.addAttribute("qnaResult", result.isEmpty()?"성공": "실패");
+        return "redirect:/item?itemNo="+itemNo;
+    }
+
     @PostMapping("/review/select")
     @ResponseBody
     public List<ReviewDto> showRev(@RequestBody Map<String, String> revDesc){
@@ -174,11 +156,10 @@ public class ItemController {
         return "write_review";
     }
 
+    String PATH_REV = "C:/Users/user/Desktop/portfolio/github/xexymix/src/main/webapp/resources/img/review/";
     @PostMapping("/rev/update")
     public String updateRev(@RequestParam(value="wFile", required = false) List<MultipartFile> imgFiles, ReviewDto revDesc, String w_cancel, String oriImg, String prevPage, String itemNo, HttpServletRequest request){
-        //String F_PATH = "C:/Users/user/Desktop/portfolio/github/xexymix/src/main/webapp/resources/img/review/"; //집
-     String F_PATH = "C:/Users/user1/Documents/GitHub/xexymix/src/main/webapp/resources/img/review/"; //학원
-        Map<String, String> files = updateFile(imgFiles, oriImg, w_cancel, F_PATH);
+        Map<String, String> files = updateFile(imgFiles, oriImg, w_cancel, PATH_REV);
 
         revDesc.setRevFile(files.get("file"));
         revDesc.setRevFileOri(files.get("fileOri"));

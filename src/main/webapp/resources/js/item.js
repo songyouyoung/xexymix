@@ -295,6 +295,35 @@ $(document).ready(function(){
     $("#m_qna").append(qnaBox);
     $("#m_qna").children(".pagination .page").eq(0).css({fontWeight: "bold"});
 
+    //문의하기 선택
+    $(document).on('click', '.m_qna_add', function(){
+        if (userNo == ""){
+            Swal.fire({
+                icon: "warning",
+                title: "로그인이 필요한 서비스입니다. "
+            }).then(()=>{
+                location.href = "/" + C_PATH + "/login/login?prevPage="+location.pathname+"&itemNo="+item.itemNo;
+            });
+        }else {
+            $.ajax({
+                url: "/" + C_PATH + "/item/qna/detail",
+                type: "GET",
+                success: function (data) {
+                    $("#wrap").append(data);
+                    $("#qnaForm").prop("action", `/${C_PATH}/item/qna/insert?itemNo=${item.itemNo}`);
+                    $(".w_h>img").prop("src", `/${C_PATH}/img/item_list/${item.itemImg}`);
+                    $(".w_h_title").prop("value", `${item.itemName}`);
+                    $(".qnaRemove").css({display: "none"});
+                }, error: function () {
+                    Swal.fire({
+                        icon: "warning",
+                        title: "문의 작성 오류.<br> 관리자에게 문의해주세요."
+                    });
+                }
+            });
+        }
+    });
+
 /////////////////////////////////////
 ///////////// 상품 선택 //////////////
 /////////////////////////////////////
@@ -434,7 +463,7 @@ const buyCartChk = (buyCart)=>{
             icon: "warning",
             title: "로그인이 필요한 서비스입니다. "
         }).then(()=>{
-            location.href = "/" + C_PATH + "/login/login?prevPage="+location.pathname+"&itemNo="+itemNo;
+            location.href = "/" + C_PATH + "/login/login?prevPage="+location.pathname+"&itemNo="+item.itemNo;
         });
     }else if(buyCnt == 0){
         Swal.fire({
