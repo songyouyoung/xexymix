@@ -370,7 +370,10 @@ $(document).ready(function(){
             $('.order_price').eq(item_no).text((orderPrice * item_order[item_no][1]).toLocaleString('ko'));
             getPriceTotal();
         }else{
-            alert("해당 상품은 최소구매 수량이 1개 입니다.");
+            Swal.fire({
+                icon: "warning",
+                title: "최소구매 수량은 1개 입니다."
+            });
         }
     });
     $(document).on('click', '.order_plus', function(){
@@ -477,7 +480,6 @@ const buyCartChk = (buyCart)=>{
         let buyItem = [];
         for (let i = 0; i < buyCnt; i++){
             if(buyCart == "cart"){
-                alert("cart")
                 buyItem.push({itemNo: item.itemNo, cartCnt: buyPar.find(".order_cnt").eq(i).text(), cartOpt: buyPar.find(".order_size").eq(i).text()});
             }else{
                 buyItem.push({itemNo: item.itemNo, buyCnt: buyPar.find(".order_cnt").eq(i).text(), buyOpt: buyPar.find(".order_size").eq(i).text(), buyCode: "buy", itemPrice:buyPar.find(".order_price").eq(i).text().replaceAll(",", "")});            }

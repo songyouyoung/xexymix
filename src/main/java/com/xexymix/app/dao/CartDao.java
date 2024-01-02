@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class CartDao {
@@ -27,5 +28,9 @@ public class CartDao {
 
     public List<CartDto> selectCart(int userNo){
         return session.selectList(namespace + "selectCart", userNo);
+    }
+
+    public Integer deleteCart(Map<String, Integer> userDesc){
+        return session.delete(namespace + "deleteCart", userDesc);
     }
 }

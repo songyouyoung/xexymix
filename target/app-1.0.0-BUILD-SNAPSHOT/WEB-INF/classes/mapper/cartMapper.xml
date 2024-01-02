@@ -5,7 +5,7 @@
     <!--/////////////////////////////////////////////////////-->
     <!--//////////////////// 상세 페이지 /////////////////////-->
     <!--/////////////////////////////////////////////////////-->
-    <!-- 장바구니 / 취소 -->
+    <!-- 장바구니 추가 -->
     <insert id="insertCart" parameterType="java.util.List">
         <foreach collection = "list" item = "carts" separator=";">
             insert into cart (itemNo, cartCnt, cartOpt, userNo)
@@ -20,6 +20,7 @@
     <!--/////////////////////////////////////////////////////-->
     <!--////////////////// 장바구니 페이지 /////////////////////-->
     <!--/////////////////////////////////////////////////////-->
+<!--    장바구니 조회 -->
     <select id="selectCart" parameterType="int" resultType="cartDto">
         select c.cartNo, c.itemNo, c.cartCnt, c.cartOpt, i.itemName, i.itemPrice, e.evPer, i.itemImg
             from cart c
@@ -27,4 +28,8 @@
                 left outer join event e on i.evNo = e.evNo
             where c.userNo = #{userNo}
     </select>
+<!--    장바구니 삭제-->
+    <delete id="deleteCart" parameterType="int">
+        delete from cart where cartNo = #{cartNo} and userNo = #{userNo};
+    </delete>
 </mapper>

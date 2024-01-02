@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class CartController {
@@ -54,13 +56,16 @@ public class CartController {
 
     @PostMapping("/cart/delete")
     @ResponseBody
-    public ResponseEntity<String> cartItem(@RequestBody CartDto cartDesc, HttpSession session) {
+    public ResponseEntity<String> cartItem(@RequestBody Integer cartNo, HttpSession session) {
         Integer userNo = (Integer) session.getAttribute("userNo");
-        cartDesc.setUserNo(userNo);
         try {
-            String userId = userService.userFindId(userDto);
-            if (userId.isEmpty()){ throw new Exception("장바구니 삭제 실패. "); }
-            return new ResponseEntity<String>(userId, HttpStatus.OK);
+            Map<String, Integer> userDesc = new HashMap<>();
+            userDesc.put("userNo", userNo);
+            userDesc.put("cartNo", cartNo);
+            System.out.println("userDesc : " + userDesc);
+            Integer result = cartService.deleteCart(userDesc);
+            if (result == null || result < 1){ throw new Exception("장바구니 삭제 실패. "); }
+            return new ResponseEntity<String>(HttpStatus.OK);
         }
         catch (Exception e) {
             return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
