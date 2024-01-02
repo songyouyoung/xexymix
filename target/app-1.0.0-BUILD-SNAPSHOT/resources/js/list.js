@@ -8,26 +8,26 @@ $(document).mouseup(function (e){
         document.getElementsByClassName('sort_list')[0].classList.toggle('sort_list_none');
     });
 });
-
+console.log("CATE_NO.get(cate) : ", CATE_NO[cate])
 $(document).ready(function(){
 /////////////////////////////////////
 //////////// cate 값 인식 ///////////
 /////////////////////////////////////
-    let cate_no = +get_url_info("cate_no");
-    let cate_name = CATE[cate_no];
+//     let cate_no = +get_url_info("cate_no");
+//     let cate_name = CATE[cate_no];
 
 /////////////////////////////////////
 ///// 해당 cate 아이템 가져오기 //////
 /////////////////////////////////////
-    let cate_item = new Array();
-    let cate_item_img = new Array();
-    let cate_ctn = -1;
-    for(let i=0; i<ITEM_INFO.length; i++){
-        if(ITEM_INFO[i].cate == cate_name){
-            cate_item[cate_ctn+=1] = ITEM_INFO[i];
-            cate_item_img[cate_ctn] = find_item(ITEM_IMG, ITEM_INFO[i].item_code);
-        }
-    }
+//     let cate_item = new Array();
+//     let cate_item_img = new Array();
+//     let cate_ctn = -1;
+//     for(let i=0; i<ITEM_INFO.length; i++){
+//         if(ITEM_INFO[i].cate == cate_name){
+//             cate_item[cate_ctn+=1] = ITEM_INFO[i];
+//             cate_item_img[cate_ctn] = find_item(ITEM_IMG, ITEM_INFO[i].item_code);
+//         }
+//     }
 
     // $('.sec_head').text(title_array[cate_no])
     // // sec에 아이디 넣기
@@ -59,14 +59,14 @@ $(document).ready(function(){
 /////////////////////////////////////
 ///////////// m_nav 구성 ////////////
 /////////////////////////////////////
-    let m_nav_title = `<div class="m_nav_title">${cate_name.toUpperCase()}</div>`
+    let m_nav_title = `<div class="m_nav_title">${cate.toUpperCase()}</div>`
     $(m_nav_title).appendTo('.m_nav');
     let m_nav_item = `<ul class = "m_nav_item"></ul>`
     $(m_nav_item).appendTo('.m_nav');
     let m_nav_all = `<li>전체</li>`
     $(m_nav_all).appendTo('.m_nav_item');
-    for(let i=0; i<CATE_NAV[cate_no].length; i++){
-        let m_nav_li = `<li>${CATE_NAV[cate_no][i]}</li>`;
+    for(let i=0; i<CATE_NAV[CATE_NO.get(cate)].length; i++){
+        let m_nav_li = `<li>${CATE_NAV[CATE_NO.get(cate)][i]}</li>`;
         $(m_nav_li).appendTo('.m_nav_item');
     }
 
@@ -92,8 +92,8 @@ $(document).ready(function(){
 /////////////////////////////////////
 ///////////// m_item 구성 ///////////
 /////////////////////////////////////
-    for(let i=0; i<cate_item.length; i++){
-        add_img_box($('.m_i_area'), cate_item[i].item_code, 0, i);
-    }
+//     for(let i=0; i<cate_item.length; i++){
+//         add_img_box($('.m_i_area'), cate_item[i].item_code, 0, i);
+//     }
 
 });

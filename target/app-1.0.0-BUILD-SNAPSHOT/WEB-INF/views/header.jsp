@@ -104,60 +104,60 @@
                 <li><a href="#">신상할인</a></li>
                 <li><a href="#">베스트</a></li>
                 <li class="nav_pan_hover">
-                    <a href="list.jsp?cate_no=0">우먼즈</a>
+                    <a href="<c:url value='/list?cate=woman'/>">우먼즈</a>
                     <ul class="nav_pan_item">
-                        <li><a href="#">레깅스</a></li>
-                        <li><a href="#">조거팬츠</a></li>
-                        <li><a href="#">상의</a></li>
-                        <li><a href="#">패드탑</a></li>
-                        <li><a href="#">아우터</a></li>
-                        <li><a href="#">하의</a></li>
-                        <li><a href="#">이너웨어</a></li>
-                        <li><a href="#">블랙라벨</a></li>
-                        <li><a href="#">스윔웨어</a></li>
-                        <li><a href="#">바람막이</a></li>
-                        <li><a href="#">테니스룩</a></li>
+<%--                        <li><a href="#">레깅스</a></li>--%>
+<%--                        <li><a href="#">조거팬츠</a></li>--%>
+<%--                        <li><a href="#">상의</a></li>--%>
+<%--                        <li><a href="#">패드탑</a></li>--%>
+<%--                        <li><a href="#">아우터</a></li>--%>
+<%--                        <li><a href="#">하의</a></li>--%>
+<%--                        <li><a href="#">이너웨어</a></li>--%>
+<%--                        <li><a href="#">블랙라벨</a></li>--%>
+<%--                        <li><a href="#">스윔웨어</a></li>--%>
+<%--                        <li><a href="#">바람막이</a></li>--%>
+<%--                        <li><a href="#">테니스룩</a></li>--%>
                     </ul>
                 </li>
                 <li class="nav_pan_hover">
                     <a href="list.jsp?cate_no=1">맨즈</a>
                     <ul class="nav_pan_item">
-                        <li><a href="#">신상</a></li>
-                        <li><a href="#">상의</a></li>
-                        <li><a href="#">아우터</a></li>
-                        <li><a href="#">하의</a></li>
-                        <li><a href="#">슬랙스</a></li>
-                        <li><a href="#">조거팬츠</a></li>
-                        <li><a href="#">탄성팬츠</a></li>
-                        <li><a href="#">이너웨어</a></li>
-                        <li><a href="#">블랙라벨</a></li>
-                        <li><a href="#">스윔웨어</a></li>
+<%--                        <li><a href="#">신상</a></li>--%>
+<%--                        <li><a href="#">상의</a></li>--%>
+<%--                        <li><a href="#">아우터</a></li>--%>
+<%--                        <li><a href="#">하의</a></li>--%>
+<%--                        <li><a href="#">슬랙스</a></li>--%>
+<%--                        <li><a href="#">조거팬츠</a></li>--%>
+<%--                        <li><a href="#">탄성팬츠</a></li>--%>
+<%--                        <li><a href="#">이너웨어</a></li>--%>
+<%--                        <li><a href="#">블랙라벨</a></li>--%>
+<%--                        <li><a href="#">스윔웨어</a></li>--%>
                     </ul>
                 </li>
                 <li class="nav_pan_hover">
                     <a href="list.jsp?cate_no=2">골프</a>
                     <ul class="nav_pan_item">
-                        <li><a href="#">우먼즈</a></li>
-                        <li><a href="#">맨즈</a></li>
-                        <li><a href="#">용품</a></li>
+<%--                        <li><a href="#">우먼즈</a></li>--%>
+<%--                        <li><a href="#">맨즈</a></li>--%>
+<%--                        <li><a href="#">용품</a></li>--%>
                     </ul>
                 </li>
                 <li class="nav_pan_hover">
                     <a href="list.jsp?cate_no=3">키즈</a>
                     <ul class="nav_pan_item">
-                        <li><a href="#">상의</a></li>
-                        <li><a href="#">아우터</a></li>
-                        <li><a href="#">하의</a></li>
-                        <li><a href="#">슈즈&용품</a></li>
-                        <li><a href="#">스윔웨어</a></li>
+<%--                        <li><a href="#">상의</a></li>--%>
+<%--                        <li><a href="#">아우터</a></li>--%>
+<%--                        <li><a href="#">하의</a></li>--%>
+<%--                        <li><a href="#">슈즈&용품</a></li>--%>
+<%--                        <li><a href="#">스윔웨어</a></li>--%>
                     </ul>
                 </li>
                 <li class="nav_pan_hover">
                     <a href="list.jsp?cate_no=4">슈즈&용품</a>
                     <ul class="nav_pan_item">
-                        <li><a href="#">슈즈</a></li>
-                        <li><a href="#">용품</a></li>
-                        <li><a href="#">코스메틱</a></li>
+<%--                        <li><a href="#">슈즈</a></li>--%>
+<%--                        <li><a href="#">용품</a></li>--%>
+<%--                        <li><a href="#">코스메틱</a></li>--%>
                     </ul>
                 </li>
             </ul>
@@ -240,6 +240,7 @@
         </div>
         <div class="nav_pan"></div>
     </div>
+    <script src="<c:url value='/js/item_db.js'/>"></script>
     <script src="<c:url value='/js/h_f.js'/>"></script>
 </header>
 </body>

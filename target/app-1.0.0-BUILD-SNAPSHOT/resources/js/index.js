@@ -32,8 +32,8 @@ $(document).ready(function(){
                         else if(i == 5) j = 3;
                         $('.fixed_img_box').attr('href', `./cate.html?cate_no=${j}`)
                         $('.fixed_title').text(CATE_FIXED[1][i]);
-                        $('.fixed_video').attr('src', './img/m_item_fixed/'+CATE_FIXED[4][i]);
-                        $('.fixed_img').attr('src', './img/m_item_fixed/'+CATE_FIXED[3][i]);
+                        $('.fixed_video').attr('src', './img/m_item_fixed/'+CATE_FIXED[3][i]);
+                        $('.fixed_img').attr('src', './img/m_item_fixed/'+CATE_FIXED[2][i]);
                         $('.fixed_img').attr('alt', CATE_FIXED[1][i]);
                         
                         break;
@@ -104,7 +104,7 @@ $(document).ready(function(){
 
             },
             slidePrevTransitionEnd: function(){
-                for(let i=0; i<MDPICK.length; i++){
+                for(let i=0; i<6; i++){
                     $('.md_pick .item_desc_none').eq(i).css({display: 'block'});
                     $('.md_pick_img_item').eq(i).css({transform: 'scale(0.6)'});
                     $('.md_pick_item').eq(i).css({display: 'none'});

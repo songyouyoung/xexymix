@@ -16,7 +16,7 @@ public class ListController {
     ItemService itemService;
 
     @GetMapping("/list")
-    public String showIndex(Model model) throws JsonProcessingException {
+    public String showList(Model model, String cate) throws JsonProcessingException {
         return "list";
     }
 }

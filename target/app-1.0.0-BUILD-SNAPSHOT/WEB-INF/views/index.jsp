@@ -124,7 +124,6 @@
     <jsp:include page="footer.jsp"/>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
-<script src="<c:url value='/js/item_db.js'/>"></script>
 <script src="<c:url value='/js/common.js'/>"></script>
 <script src="<c:url value='/js/index.js'/>"></script>
 <script >
@@ -136,7 +135,9 @@
     // MD PICK item_info_box 내용 추가
     let mdPick = ${mdPick_js};
     let i = 1;
+    console.log("mdPick : ", mdPick)
     mdPick.forEach((md)=>{
+        console.log("md.itemSub : ", md.itemSub);
         itemBox(md.itemSub, ".md_pick .swiper-slide:nth-child(" + i + ") .md_pick_item", "", "");
         i+=1;
     });
