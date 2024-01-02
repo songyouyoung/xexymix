@@ -24,12 +24,15 @@ if (cart.length > 0) {
                         <div class="my_cart_point">${(itemPrice / 100).toLocaleString("ko")}</div>
                         <div class="my_cart_price">${itemPrice.toLocaleString("ko")}</div>
                         <div class="my_cart_btn">
-                            <div class="my_cart_btn_buy" id="buy_one">바로 주문하기</div>
+                            <div class="my_cart_btn_buy buy_one">바로 주문하기</div>
                             <div class="my_cart_btn_cancel">X 삭제</div>
                         </div>
                     </div>`;
     });
-}else{ cartBox = `<p class="m_none">장바구니에 추가한 상품이 없습니다.</p>`; }
+}else{
+    cartBox = `<p class="m_none">장바구니에 추가한 상품이 없습니다.</p>`;
+    $(".my_cart_btn_box").css({display:"none"});
+}
 $(".my_cart_list").append(cartBox);
 
 ///////////////////////////////////////////////
@@ -90,11 +93,13 @@ $(document).on('click', '.my_cart_btn_cancel', function(){
             data: JSON.stringify(cart[index].cartNo),
             success: function () {
                 Swal.fire({
+                    icon: "success",
                     title: "장바구니 삭제 완료!",
                 }).then(() => { location.reload(); });
 
             }, error: function () {
                 Swal.fire({
+                    icon: "warning",
                     title: "장바구니 삭제 ERROR. \n 관리자에게 문의해주세요.",
                 });
             }
@@ -102,18 +107,58 @@ $(document).on('click', '.my_cart_btn_cancel', function(){
     });
 });
 
+// 하나만 주문하기
+$(document).on('click', '.buy_one', function(){
+    let index = $(this).parent().parent().index();
+    cartToBuy(cart[index]);
+});
+
 // 전체 주문하기
 $(document).on('click', '#buy_all', function(){
-
+    if (cart.length > 0){ cartToBuy(cart); }
+    else{
+        Swal.fire({
+            icon: "warning",
+            title: "구매 가능한 상품이 없습니다. ",
+        });
+    }
 });
 
 // 선택 주문하기
 $(document).on('click', '#buy_choice', function(){
     // 선택 상품 없을 시
-    const checkBox = document.querySelectorAll('input[name="my_cart_chk"]');
-
-    // 체크된 체크박스의 개수를 셈
-    const checkedCnt = Array.from(checkBox).filter(checkbox => checkbox.checked).length;
-    console.log(checkedCnt);
-    // if ()
+    let checkBox = document.querySelectorAll('input[name="my_cart_chk"]');
+    let checkCnt = Array.from(checkBox).filter(checkbox => checkbox.checked).length;
+    if (checkCnt == 0){
+        Swal.fire({
+            icon: "warning",
+            title: "주문하실 상품을 선택해주세요.",
+        });
+    }else{
+        let carts = [];
+        for(let i = 0; i< checkCnt; i++){
+            if(checkBox[i].checked){ carts.push(cart[i]) }
+        }
+        cartToBuy(carts);
+    }
 });
+
+function cartToBuy(carts){
+    $.ajax({
+        type: 'POST',
+        url: '/' + C_PATH + "/cart/buy",
+        headers: {"content-type": "application/json"},
+        data: JSON.stringify(carts),
+        success: function (data) {
+            Swal.fire({
+                icon: "success",
+                title: "구매 완료!",
+            }).then(() => { location.reload(); });
+        }, error: function () {
+            Swal.fire({
+                icon: "warning",
+                title: "구매 ERROR. \n 관리자에게 문의해주세요.",
+            });
+        }
+    });
+}

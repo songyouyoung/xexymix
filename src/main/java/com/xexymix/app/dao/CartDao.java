@@ -30,7 +30,7 @@ public class CartDao {
         return session.selectList(namespace + "selectCart", userNo);
     }
 
-    public Integer deleteCart(Map<String, Integer> userDesc){
+    public Integer deleteCart(List<Map<String, Integer>> userDesc){
         return session.delete(namespace + "deleteCart", userDesc);
     }
 }

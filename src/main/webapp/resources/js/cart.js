@@ -29,7 +29,10 @@ if (cart.length > 0) {
                         </div>
                     </div>`;
     });
-}else{ cartBox = `<p class="m_none">장바구니에 추가한 상품이 없습니다.</p>`; }
+}else{
+    cartBox = `<p class="m_none">장바구니에 추가한 상품이 없습니다.</p>`;
+    $(".my_cart_btn_box").css({display:"none"});
+}
 $(".my_cart_list").append(cartBox);
 
 ///////////////////////////////////////////////
@@ -107,25 +110,36 @@ $(document).on('click', '.my_cart_btn_cancel', function(){
 // 하나만 주문하기
 $(document).on('click', '.buy_one', function(){
     let index = $(this).parent().parent().index();
+    cartToBuy(cart[index]);
 });
 
 // 전체 주문하기
 $(document).on('click', '#buy_all', function(){
-
+    if (cart.length > 0){ cartToBuy(cart); }
+    else{
+        Swal.fire({
+            icon: "warning",
+            title: "구매 가능한 상품이 없습니다. ",
+        });
+    }
 });
 
 // 선택 주문하기
 $(document).on('click', '#buy_choice', function(){
     // 선택 상품 없을 시
     let checkBox = document.querySelectorAll('input[name="my_cart_chk"]');
-    let checkedCnt = Array.from(checkBox).filter(checkbox => checkbox.checked).length;
-    if (checkedCnt == 0){
+    let checkCnt = Array.from(checkBox).filter(checkbox => checkbox.checked).length;
+    if (checkCnt == 0){
         Swal.fire({
             icon: "warning",
             title: "주문하실 상품을 선택해주세요.",
         });
     }else{
-
+        let carts = [];
+        for(let i = 0; i< checkCnt; i++){
+            if(checkBox[i].checked){ carts.push(cart[i]) }
+        }
+        cartToBuy(carts);
     }
 });
 
@@ -138,7 +152,7 @@ function cartToBuy(carts){
         success: function (data) {
             Swal.fire({
                 icon: "success",
-                title: "장바구니 삭제 완료!",
+                title: "구매 완료!",
             }).then(() => { location.reload(); });
         }, error: function () {
             Swal.fire({

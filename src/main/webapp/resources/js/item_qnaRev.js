@@ -119,7 +119,8 @@ function updateRev(thisRev, revChk){
                     $("#buyAuto").val(thisRev.buyAuto);
                 }
                 $(".w_h>img").prop("src", `/${C_PATH}/img/item_list/${thisRev.itemImg}`);
-                $(".w_h_title").prop("value", `${thisRev.itemName}`);
+                $(".w_h>img").prop("alt", thisRev.itemName);
+                $(".w_h_title").html(thisRev.itemName);
                 $("#itemNo").val(thisRev.itemNo);
                 $("#userName").val(userName);
                 console.log("itemNo", thisRev.itemNo);

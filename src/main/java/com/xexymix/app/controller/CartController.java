@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,6 +46,7 @@ public class CartController {
     @GetMapping("cart")
     public String showCart(HttpSession session, Model model) throws JsonProcessingException {
         Integer userNo = (Integer) session.getAttribute("userNo");
+        if (userNo == null){return "redirect:/login/login?prevPage=/cart";}
         List<CartDto> cartDtos = cartService.selectCart(userNo);
         ObjectMapper mapper = new ObjectMapper();
         String cart = mapper.writeValueAsString(cartDtos);
@@ -59,12 +61,30 @@ public class CartController {
     public ResponseEntity<String> cartItem(@RequestBody Integer cartNo, HttpSession session) {
         Integer userNo = (Integer) session.getAttribute("userNo");
         try {
-            Map<String, Integer> userDesc = new HashMap<>();
-            userDesc.put("userNo", userNo);
-            userDesc.put("cartNo", cartNo);
-            System.out.println("userDesc : " + userDesc);
+            List<Map<String, Integer>> userDesc = new ArrayList<>();
+            Map<String, Integer> userMap = new HashMap<>();
+            userMap.put("userNo", userNo);
+            userMap.put("cartNo", cartNo);
+            userDesc.add(userMap);
             Integer result = cartService.deleteCart(userDesc);
             if (result == null || result < 1){ throw new Exception("장바구니 삭제 실패. "); }
+            return new ResponseEntity<String>(HttpStatus.OK);
+        }
+        catch (Exception e) {
+            return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PostMapping("/cart/buy")
+    @ResponseBody
+    public ResponseEntity<String> cartToBuy(@RequestBody List<CartDto> cartDesc, HttpSession session) {
+        Integer userNo = (Integer) session.getAttribute("userNo");
+        try {
+            if (cartDesc == null){ throw new Exception("구매 실패. 구매할 상품 없음. "); }
+            System.out.println("cartDesc : " + cartDesc);
+            String result = cartService.cartToBuy(cartDesc, userNo);
+            System.out.println("result : " + result);
+            if (!result.isEmpty()){ throw new Exception("구매 실패. "); }
             return new ResponseEntity<String>(HttpStatus.OK);
         }
         catch (Exception e) {

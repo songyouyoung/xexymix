@@ -25,7 +25,7 @@ if(rev.length == 0){
 $("#m_review").append(revBox);
 
 $(document).on('click', '.m_rev_update', function(){
-    updateRev(rev[($(this).parent().parent().parent()).index() - 2], true);
+    updateRev(rev[($(this).parent().parent().parent()).index()], true);
 });
 $(document).on('click', '.m_rev_delete', function(){
     Swal.fire({
@@ -39,7 +39,7 @@ $(document).on('click', '.m_rev_delete', function(){
         reverseButtons: false,
     }).then(result => {
         if (!result.isConfirmed) return;
-        deleteRev(rev[($(this).parent().parent().parent()).index() - 2]);
+        deleteRev(rev[($(this).parent().parent().parent()).index()]);
     })
 });
 
