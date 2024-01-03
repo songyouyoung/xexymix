@@ -134,8 +134,7 @@
 
     // MD PICK item_info_box 내용 추가
     let mdPick = ${mdPick_js};
-    let i = 1;
-    console.log("mdPick : ", mdPick)
+    let i = 1;)
     mdPick.forEach((md)=>{
         console.log("md.itemSub : ", md.itemSub);
         itemBox(md.itemSub, ".md_pick .swiper-slide:nth-child(" + i + ") .md_pick_item", "", "");

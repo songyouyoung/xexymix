@@ -113,9 +113,9 @@ const infoBox = (item)=>{
     let today = new Date();
     let newDay = new Date(today.getTime() - 60*60*24*1000*14);
     if(regDate <= today && regDate > newDay){ itemInfoBox += `<img src="img/icon/3322.gif" alt="신상">`; }
-    if(((today.getMonth() == 7 || today.getMonth() == 8) && (regDate.getMonth() == 11 || regDate.getMonth() == 12))
-        || ((today.getMonth() == 12 || today.getMonth() == 1) && (regDate.getMonth() == 6 || regDate.getMonth() == 7))){
-        itemInfoBox += `<img src="img/icon/3561.gif" alt="시즌오프">`; }
+    // if(((today.getMonth() == 7 || today.getMonth() == 8) && (regDate.getMonth() == 11 || regDate.getMonth() == 12))
+    //     || ((today.getMonth() == 12 || today.getMonth() == 1) && (regDate.getMonth() == 6 || regDate.getMonth() == 7))){
+    //     itemInfoBox += `<img src="img/icon/3561.gif" alt="시즌오프">`; }
     if (item.evPer != null && item.evPer > 0){
         itemInfoBox += `<img src="img/icon/3525.gif" alt="이벤트특가">`; }
     if (item.itemEco != null && item.itemEco != ""){

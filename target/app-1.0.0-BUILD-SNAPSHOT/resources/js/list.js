@@ -8,7 +8,7 @@ $(document).mouseup(function (e){
         document.getElementsByClassName('sort_list')[0].classList.toggle('sort_list_none');
     });
 });
-console.log("CATE_NO.get(cate) : ", CATE_NO[cate])
+
 $(document).ready(function(){
 /////////////////////////////////////
 //////////// cate 값 인식 ///////////
@@ -65,8 +65,8 @@ $(document).ready(function(){
     $(m_nav_item).appendTo('.m_nav');
     let m_nav_all = `<li>전체</li>`
     $(m_nav_all).appendTo('.m_nav_item');
-    for(let i=0; i<CATE_NAV[CATE_NO.get(cate)].length; i++){
-        let m_nav_li = `<li>${CATE_NAV[CATE_NO.get(cate)][i]}</li>`;
+    for(let i=0; i<CATE_NAV[CATE_NO[cate]].length; i++){
+        let m_nav_li = `<li>${CATE_NAV[CATE_NO[cate]][i]}</li>`;
         $(m_nav_li).appendTo('.m_nav_item');
     }
 

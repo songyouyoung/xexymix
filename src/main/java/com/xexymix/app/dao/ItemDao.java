@@ -40,4 +40,11 @@ public class ItemDao {
     public ItemDto selectItemDetail(String itemNo){
     return session.selectOne(namespace + "selectItem", itemNo);
 }
+
+///////////////////
+//    리스트 페이지
+///////////////////
+    public List<ItemDto> selectListItem(Map<String, String> itemDesc){
+        return session.selectList(namespace + "selectListItem", itemDesc);
+    }
 }

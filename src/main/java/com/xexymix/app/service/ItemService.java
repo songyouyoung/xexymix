@@ -37,14 +37,11 @@ public class ItemService {
             Map<String, Object> mpItem = new HashMap<>();
             mpItem.put("search", "md");
             List<String> val = List.of(item.get("itemSub").split(","));
-            System.out.println("itemSub : " + item.get("itemSub"));
-            System.out.println("itemSub.split : " + val);
             mpItem.put("val", val);
             mdPick.add(new ItemDto(item.get("itemNo"), item.get("itemName"), item.get("itemDesc"), item.get("itemImg")));
             mdPick.get(i).setItemSub(itemDao.selectItem(mpItem));
             i += 1;
         }
-            System.out.println("mdPick : " + mdPick);
         indexList.put("mdPick", mdPick);
     // 카테고리별
         List<List<ItemDto>> cate = new ArrayList<>();
@@ -84,5 +81,12 @@ public class ItemService {
 ///////////////////
     public ItemDto showItemDetail(String itemNo){
         return itemDao.selectItemDetail(itemNo);
+    }
+
+///////////////////
+//    리스트페이지
+///////////////////
+    public List<ItemDto> showListItem(Map<String, String> itemDesc){
+        return itemDao.selectListItem(itemDesc);
     }
 }

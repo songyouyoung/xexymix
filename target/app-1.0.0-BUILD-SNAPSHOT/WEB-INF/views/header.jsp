@@ -100,70 +100,33 @@
         <div class="w_h_f">
             <ul class="h_b_nav_L">
                 <li class="h_b logo"><a href="<c:url value='/'/>">xexymix</a></li>
-                <li><a href="#">겨울특가대전</a></li>
-                <li><a href="#">신상할인</a></li>
-                <li><a href="#">베스트</a></li>
+                <li><a href="<c:url value='/list?cate=event'/>">겨울특가대전</a></li>
+                <li><a href="<c:url value='/list?cate=new'/>">신상품</a></li>
+                <li><a href="<c:url value='/list?cate=best'/>">베스트</a></li>
                 <li class="nav_pan_hover">
-                    <a href="<c:url value='/list?cate=woman'/>">우먼즈</a>
-                    <ul class="nav_pan_item">
-<%--                        <li><a href="#">레깅스</a></li>--%>
-<%--                        <li><a href="#">조거팬츠</a></li>--%>
-<%--                        <li><a href="#">상의</a></li>--%>
-<%--                        <li><a href="#">패드탑</a></li>--%>
-<%--                        <li><a href="#">아우터</a></li>--%>
-<%--                        <li><a href="#">하의</a></li>--%>
-<%--                        <li><a href="#">이너웨어</a></li>--%>
-<%--                        <li><a href="#">블랙라벨</a></li>--%>
-<%--                        <li><a href="#">스윔웨어</a></li>--%>
-<%--                        <li><a href="#">바람막이</a></li>--%>
-<%--                        <li><a href="#">테니스룩</a></li>--%>
-                    </ul>
+                    <a href="<c:url value='/list?cate=women'/>">우먼즈</a>
+                    <ul class="nav_pan_item"></ul>
                 </li>
                 <li class="nav_pan_hover">
-                    <a href="list.jsp?cate_no=1">맨즈</a>
-                    <ul class="nav_pan_item">
-<%--                        <li><a href="#">신상</a></li>--%>
-<%--                        <li><a href="#">상의</a></li>--%>
-<%--                        <li><a href="#">아우터</a></li>--%>
-<%--                        <li><a href="#">하의</a></li>--%>
-<%--                        <li><a href="#">슬랙스</a></li>--%>
-<%--                        <li><a href="#">조거팬츠</a></li>--%>
-<%--                        <li><a href="#">탄성팬츠</a></li>--%>
-<%--                        <li><a href="#">이너웨어</a></li>--%>
-<%--                        <li><a href="#">블랙라벨</a></li>--%>
-<%--                        <li><a href="#">스윔웨어</a></li>--%>
-                    </ul>
+                    <a href="<c:url value='/list?cate=mens'/>">맨즈</a>
+                    <ul class="nav_pan_item"></ul>
                 </li>
                 <li class="nav_pan_hover">
-                    <a href="list.jsp?cate_no=2">골프</a>
-                    <ul class="nav_pan_item">
-<%--                        <li><a href="#">우먼즈</a></li>--%>
-<%--                        <li><a href="#">맨즈</a></li>--%>
-<%--                        <li><a href="#">용품</a></li>--%>
-                    </ul>
+                    <a href="<c:url value='/list?cate=golf'/>">골프</a>
+                    <ul class="nav_pan_item"></ul>
                 </li>
                 <li class="nav_pan_hover">
-                    <a href="list.jsp?cate_no=3">키즈</a>
-                    <ul class="nav_pan_item">
-<%--                        <li><a href="#">상의</a></li>--%>
-<%--                        <li><a href="#">아우터</a></li>--%>
-<%--                        <li><a href="#">하의</a></li>--%>
-<%--                        <li><a href="#">슈즈&용품</a></li>--%>
-<%--                        <li><a href="#">스윔웨어</a></li>--%>
-                    </ul>
+                    <a href="<c:url value='/list?cate=kids'/>">키즈</a>
+                    <ul class="nav_pan_item"></ul>
                 </li>
                 <li class="nav_pan_hover">
-                    <a href="list.jsp?cate_no=4">슈즈&용품</a>
-                    <ul class="nav_pan_item">
-<%--                        <li><a href="#">슈즈</a></li>--%>
-<%--                        <li><a href="#">용품</a></li>--%>
-<%--                        <li><a href="#">코스메틱</a></li>--%>
-                    </ul>
+                    <a href="<c:url value='/list?cate=shoes'/>">슈즈&용품</a>
+                    <ul class="nav_pan_item"></ul>
                 </li>
             </ul>
             <ul class="h_b_nav_R">
-                <li><a href="#">시즌오프</a></li>
-                <li><a href="#">친환경</a></li>
+<%--                <li><a href="<c:url value='/list?cate=seasonOff'/>">시즌오프</a></li>--%>
+                <li><a href="<c:url value='/list?cate=eco'/>">친환경</a></li>
                 <li>
                     <a href="#" class="h_b icon_box">
                         <svg data-name="*ic_header_search" xmlns="http://www.w3.org/2000/svg" width="19.748" height="18.849" viewBox="0 0 19.748 18.849">

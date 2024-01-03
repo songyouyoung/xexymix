@@ -62,4 +62,32 @@
             </otherwise>
         </choose>
     </select>
+
+    <select id="selectListItem" parameterType="String" resultType="itemDto">
+        select i.itemNo, i.itemName, i.itemPrice, i.itemDesc, i.itemCate, i.itemImg, i.itemImgSub, i.itemImgDetail, i.revCnt, i.itemSize, i.itemColor, i.itemUni, i.itemEco, i.itemCnt, i.itemSale, i.itemRegDate, e.evPer, e.evTxt
+            from item i left join event e on i.evNo = e.evNo
+            <choose>
+                <when test="cate == 'best'">
+                    order by itemSale DESC, ${order} ${sort}
+                </when>
+                <otherwise>
+                    <choose>
+                        <when test="cate == 'event'">
+                            where evNo = ${evNo}
+                        </when>
+                        <when test="cate == 'new'">
+                            where itemRegDate BETWEEN #{startDate} AND #{endDate}
+                        </when>
+                        <when test="cate == 'eco'">
+                            where itemEco IS NOT NULL
+                        </when>
+                        <otherwise>
+                            where itemCate = #{cate}
+                        </otherwise>
+                    </choose>
+                    order by ${order} ${sort}
+                </otherwise>
+            </choose>
+            limit ${limit}, 40
+    </select>
 </mapper>

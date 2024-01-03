@@ -125,7 +125,7 @@
                 </li>
             </ul>
             <ul class="h_b_nav_R">
-                <li><a href="<c:url value='/list?cate=seasonOff'/>">시즌오프</a></li>
+<%--                <li><a href="<c:url value='/list?cate=seasonOff'/>">시즌오프</a></li>--%>
                 <li><a href="<c:url value='/list?cate=eco'/>">친환경</a></li>
                 <li>
                     <a href="#" class="h_b icon_box">
