@@ -53,7 +53,7 @@
 </div>
 <script>
     let cate = "${param.cate}";
-
+    let cateDetail = "${param.cateDetail}";
 </script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 <script src="<c:url value='/js/common.js'/>"></script>

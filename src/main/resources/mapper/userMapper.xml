@@ -7,7 +7,7 @@
     <!--/////////////////////////////////////////////////////-->
     <select id="selectLogin" parameterType="userDto" resultType="int">
         select userNo from user
-            where userId = #{userId} and userPw = #{userPw}
+            where BINARY userId = #{userId} and BINARY userPw = #{userPw}
     </select>
 
     <!--/////////////////////////////////////////////////////-->

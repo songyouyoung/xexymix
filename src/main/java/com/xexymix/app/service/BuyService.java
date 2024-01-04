@@ -1,6 +1,7 @@
 package com.xexymix.app.service;
 
 import com.xexymix.app.dao.BuyDao;
+import com.xexymix.app.dao.ItemDao;
 import com.xexymix.app.dao.PointDao;
 import com.xexymix.app.domain.BuyDto;
 import com.xexymix.app.domain.PointDto;
@@ -18,11 +19,17 @@ public class BuyService {
     BuyDao buyDao;
     @Autowired
     PointDao pointDao;
+    @Autowired
+    ItemDao itemDao;
 
-    public int insertBuy(List<BuyDto> buyDesc){
+    public Integer insertBuy(List<BuyDto> buyDesc){
         long buyNo = Long.parseLong(buyDao.selectBuyNo());
         for (BuyDto buys:buyDesc){ buys.setBuyNo(buyNo); }
-        return buyDao.insertBuy(buyDesc);
+        Integer result = itemDao.updateItemBuy(buyDesc);
+        if (result == null || result < 1){ return result; }
+
+        Integer result2 = buyDao.insertBuy(buyDesc);
+        return result2;
     }
 
     public String deleteBuy(BuyDto buyDesc){

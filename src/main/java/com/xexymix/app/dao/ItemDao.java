@@ -1,5 +1,6 @@
 package com.xexymix.app.dao;
 
+import com.xexymix.app.domain.BuyDto;
 import com.xexymix.app.domain.ItemDto;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,10 +42,14 @@ public class ItemDao {
     return session.selectOne(namespace + "selectItem", itemNo);
 }
 
+    public Integer updateItemBuy(List<BuyDto> buyDesc) {
+        return session.update(namespace + "updateItemBuy", buyDesc);
+    }
 ///////////////////
 //    리스트 페이지
 ///////////////////
     public List<ItemDto> selectListItem(Map<String, String> itemDesc){
         return session.selectList(namespace + "selectListItem", itemDesc);
     }
+
 }

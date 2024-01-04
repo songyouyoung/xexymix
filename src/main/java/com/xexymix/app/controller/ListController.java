@@ -29,9 +29,11 @@ public class ListController {
     ItemService itemService;
 
     @GetMapping("/list")
-    public String showList(Model model, String cate) throws JsonProcessingException {
+    public String showList(Model model, String cate, String cateDetail) throws JsonProcessingException {
         Map<String, String> itemDesc = new HashMap<>();
         itemDesc.put("cate", cate);
+        itemDesc.put("cateDetail", cateDetail);
+        System.out.println("cateDetail : " + cateDetail);
         itemDesc.put("order", "itemRegDate");
         itemDesc.put("sort", "DESC");
         if (cate.equals("event")){
@@ -51,7 +53,11 @@ public class ListController {
         List<ItemDto> itemList =  itemService.showListItem(itemDesc);
         System.out.println("itemList : " + itemList);
 
+        //배너
         itemDesc.put("search", "banner");
+        itemDesc.put("cateDetail", "");
+        itemDesc.put("order", "itemSale");
+        itemDesc.put("sort", "DESC");
         List<ItemDto> itemBanner =  itemService.showListItem(itemDesc);
 
         ObjectMapper mapper = new ObjectMapper();
