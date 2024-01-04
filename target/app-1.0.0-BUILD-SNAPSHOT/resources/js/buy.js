@@ -155,3 +155,38 @@ function createDate(dt, mark){
 
     return year + mark + month + mark + date;
 }
+
+$(document).on('click', '.my_buy_cancel', function(){
+    console.log("buy : ", buy[$(this).data("index")]);
+    Swal.fire({
+        title: '주문 취소 하시겠습니까?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: "#AD8B73",
+        cancelButtonColor: "#BEBCBA",
+        confirmButtonText: '확인',
+        cancelButtonText: '취소',
+        reverseButtons: false,
+    }).then(result => {
+        if (!result.isConfirmed) return;
+        $.ajax({
+            type: 'POST',
+            url: '/' + C_PATH + "/myPage/buy/cancel",
+            headers: {"content-type": "application/json"},
+            data: JSON.stringify(buy[$(this).data("index")]),
+            success: function (data) {
+                Swal.fire({
+                    icon: "success",
+                    title: "구매 취소 완료!",
+                }).then(() => {
+                    location.reload();
+                });
+            }, error: function (e) {
+                Swal.fire({
+                    icon: "warning",
+                    title: "구매 취소 ERROR. \n 관리자에게 문의해주세요.",
+                });
+            }
+        });
+    })
+});

@@ -36,6 +36,12 @@ public class BuyService {
         String error = "";
         // 구매 상태 변경
         error += buyDao.deleteBuy(buyDesc.getBuyNo()) > 0? "": "구매 취소 변경 실패, ";
+        // 구매 item 정보 변경
+        List<BuyDto> buys = new ArrayList<>();
+        buys.add(buyDesc);
+        buys.get(0).setBuyCnt(-buys.get(0).getBuyCnt());
+        System.out.println("buys : " + buys);
+        error += itemDao.updateItemBuy(buys) > 0? "": "구매 취소 item 정보 변경 실패, ";
         // 적립 취소
         Map<String, String> selPo = new HashMap<>();
         selPo.put("search", "buy");

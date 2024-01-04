@@ -51,5 +51,4 @@ public class ItemDao {
     public List<ItemDto> selectListItem(Map<String, String> itemDesc){
         return session.selectList(namespace + "selectListItem", itemDesc);
     }
-
 }

@@ -99,7 +99,7 @@
 <!--  구매 후 item 정보 변경  -->
     <update id="updateItemBuy" parameterType="java.util.List">
         <foreach collection = "list" item = "buys" separator=";">
-            update item set itemSale = itemSale+1, itemCnt = itemCnt-#{buys.buyCnt} where itemNo = #{buys.itemNo}
+            update item set itemSale = itemSale+#{buys.buyCnt}, itemCnt = itemCnt-#{buys.buyCnt} where itemNo = #{buys.itemNo}
         </foreach>
     </update>
 </mapper>
