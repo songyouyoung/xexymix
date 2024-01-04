@@ -64,11 +64,11 @@
     </select>
 
     <select id="selectListItem" parameterType="String" resultType="itemDto">
-        select i.itemNo, i.itemName, i.itemPrice, i.itemDesc, i.itemCate, i.itemImg, i.itemImgSub, i.itemImgDetail, i.revCnt, i.itemSize, i.itemColor, i.itemUni, i.itemEco, i.itemCnt, i.itemSale, i.itemRegDate, e.evPer, e.evTxt
-            from item i left join event e on i.evNo = e.evNo
+        select i.itemNo, i.itemName, i.itemPrice, i.itemDesc, i.itemCate, i.itemImg, i.itemImgSub, i.itemImgDetail, i.revCnt, i.itemSize, i.itemColor, i.itemUni, i.itemEco, i.itemCnt, i.itemSale, i.itemRegDate, e.evPer, e.evTxt, (i.itemPrice / 100 * (100 - IFNULL(e.evPer, 0)))as itemPrices
+        from item i left join event e on i.evNo = e.evNo
             <choose>
                 <when test="cate == 'best'">
-                    order by i.itemSale DESC, i.${order} ${sort}
+                    order by i.itemSale DESC, ${order} ${sort}
                 </when>
                 <otherwise>
                     <choose>
@@ -83,9 +83,12 @@
                         </when>
                         <otherwise>
                             where i.itemCate = #{cate}
+                            <if test="cateDetail != null and cateDetail != ''">
+                                AND i.itemCateDetail = #{cateDetail}
+                            </if>
                         </otherwise>
                     </choose>
-                    order by i.${order} ${sort}
+                    order by ${order} ${sort}
                 </otherwise>
             </choose>
             <if test="search == 'banner'">

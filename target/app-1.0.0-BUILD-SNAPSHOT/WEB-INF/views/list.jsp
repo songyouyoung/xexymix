@@ -39,10 +39,10 @@
                 <div>총 <span class="m_i_cnt"></span>개의 상품이 있습니다.</div>
                 <div class="sort">상품정렬
                     <ul class="sort_list sort_list_none">
-                        <li>신상품순</li>
-                        <li>인기순</li>
-                        <li>낮은가격순</li>
-                        <li>높은가격순</li>
+                        <li data-order="itemRegDate" data-sort="DESC">신상품순</li>
+                        <li data-order="itemSale" data-sort="DESC">인기순</li>
+                        <li data-order="itemPrices" data-sort="ASC">낮은가격순</li>
+                        <li data-order="itemPrices" data-sort="DESC">높은가격순</li>
                     </ul>
                 </div>
             </div>
@@ -56,8 +56,8 @@
 
 </script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
-<script src="<c:url value='/js/list.js'/>"></script>
 <script src="<c:url value='/js/common.js'/>"></script>
+<script src="<c:url value='/js/list.js'/>"></script>
 <script>
     // 카테고리별 item_info_box 내용 추가
     let itemList = ${itemList};

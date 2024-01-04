@@ -6,9 +6,14 @@ import com.xexymix.app.domain.BuyDto;
 import com.xexymix.app.domain.ItemDto;
 import com.xexymix.app.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -51,10 +56,24 @@ public class ListController {
 
         ObjectMapper mapper = new ObjectMapper();
         String itemList_js = mapper.writeValueAsString(itemList);
-//        String itemBanner_js = mapper.writeValueAsString(itemBanner);
+
         model.addAttribute("itemList", itemList_js);
         model.addAttribute("itemBanner", itemBanner);
 
         return "list";
+    }
+
+    @PostMapping("/list")
+    @ResponseBody
+    public ResponseEntity<List<ItemDto>> showCateDetail(@RequestBody Map<String, String> itemDesc) {
+        try {
+            List<ItemDto> itemList =  itemService.showListItem(itemDesc);
+            System.out.println("itemList : " + itemList);
+            if (itemList == null){ throw new Exception("리스트 조회 오류"); }
+            return new ResponseEntity<List<ItemDto>>(itemList, HttpStatus.OK);
+        }
+        catch (Exception e) {
+            return new ResponseEntity<List<ItemDto>>(HttpStatus.BAD_REQUEST);
+        }
     }
 }
