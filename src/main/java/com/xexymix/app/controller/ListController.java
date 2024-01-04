@@ -43,13 +43,17 @@ public class ListController {
             itemDesc.put("startDate", sdf1.format(startDate));
             itemDesc.put("endDate", sdf1.format(endDate));
         }
-        itemDesc.put("limit", "0");
         List<ItemDto> itemList =  itemService.showListItem(itemDesc);
         System.out.println("itemList : " + itemList);
 
+        itemDesc.put("search", "banner");
+        List<ItemDto> itemBanner =  itemService.showListItem(itemDesc);
+
         ObjectMapper mapper = new ObjectMapper();
         String itemList_js = mapper.writeValueAsString(itemList);
+//        String itemBanner_js = mapper.writeValueAsString(itemBanner);
         model.addAttribute("itemList", itemList_js);
+        model.addAttribute("itemBanner", itemBanner);
 
         return "list";
     }

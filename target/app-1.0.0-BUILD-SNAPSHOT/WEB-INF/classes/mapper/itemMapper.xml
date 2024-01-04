@@ -68,26 +68,28 @@
             from item i left join event e on i.evNo = e.evNo
             <choose>
                 <when test="cate == 'best'">
-                    order by itemSale DESC, ${order} ${sort}
+                    order by i.itemSale DESC, i.${order} ${sort}
                 </when>
                 <otherwise>
                     <choose>
                         <when test="cate == 'event'">
-                            where evNo = ${evNo}
+                            where i.evNo = ${evNo}
                         </when>
                         <when test="cate == 'new'">
-                            where itemRegDate BETWEEN #{startDate} AND #{endDate}
+                            where i.itemRegDate BETWEEN #{startDate} AND #{endDate}
                         </when>
                         <when test="cate == 'eco'">
-                            where itemEco IS NOT NULL
+                            where i.itemEco IS NOT NULL
                         </when>
                         <otherwise>
-                            where itemCate = #{cate}
+                            where i.itemCate = #{cate}
                         </otherwise>
                     </choose>
-                    order by ${order} ${sort}
+                    order by i.${order} ${sort}
                 </otherwise>
             </choose>
-            limit ${limit}, 40
+            <if test="search == 'banner'">
+                limit 0, 10
+            </if>
     </select>
 </mapper>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" session = "false"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,7 +17,19 @@
     <jsp:include page="header.jsp"/>
     <main>
         <section class="swiper main_banner">
-            <div class="swiper-wrapper"></div>
+            <div class="swiper-wrapper">
+                <c:forEach var="banner" items="${itemBanner}">
+                    <a href="<c:url value='/item?itemNo=${banner.itemNo}'/>" class="swiper-slide">
+                        <img src="<c:url value='/img/item_list/${banner.itemImg}'/>" alt="${banner.itemName}">
+                        <div class="item_desc_none"></div>
+                        <div class="m_b_item_desc">
+                            <h4 class="desc_txt">${fn:toUpperCase(banner.itemCate)}</h4>
+                            <h1 class="desc_txt">${banner.itemDesc}</h1>
+                            <h4 class="desc_txt">${banner.itemName}</h4>
+                        </div>
+                    </a>
+                </c:forEach>
+            </div>
             <div class="swiper-button-next"></div>
             <div class="swiper-button-prev"></div>
         </section>
@@ -40,10 +53,16 @@
 </div>
 <script>
     let cate = "${param.cate}";
-    console.log(cate)
+
 </script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 <script src="<c:url value='/js/list.js'/>"></script>
 <script src="<c:url value='/js/common.js'/>"></script>
+<script>
+    // 카테고리별 item_info_box 내용 추가
+    let itemList = ${itemList};
+    itemBox(itemList, ".m_i_area", "", "");
+    $(".m_i_cnt").html(itemList.length);
+</script>
 </body>
 </html>

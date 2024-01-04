@@ -134,19 +134,20 @@
 
     // MD PICK item_info_box 내용 추가
     let mdPick = ${mdPick_js};
-    let i = 1;)
+    let i = 1;
     mdPick.forEach((md)=>{
         console.log("md.itemSub : ", md.itemSub);
         itemBox(md.itemSub, ".md_pick .swiper-slide:nth-child(" + i + ") .md_pick_item", "", "");
         i+=1;
     });
 
+    // 카테고리별 item_info_box 내용 추가
     let cate = ${cate_js};
     let itemList = `<section class="m_item_list_box"></section>`;
     i = 1;
     cate.forEach((cateItem)=>{
         $(".m_item_box").append(itemList);
-        itemBox(cateItem, ".m_item_list_box:nth-of-type(" + i++ + ")", "", "", );
+        itemBox(cateItem, ".m_item_list_box:nth-of-type(" + i++ + ")", "", "");
     })
 </script>
 </body>
