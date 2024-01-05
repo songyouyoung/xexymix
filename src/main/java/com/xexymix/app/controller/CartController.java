@@ -29,10 +29,23 @@ public class CartController {
 
     @PostMapping("/item/cart")
     @ResponseBody
-    public int cartItem(@RequestBody List<CartDto> cartDesc, HttpSession session, HttpServletResponse response) {
+    public int cartItem(@RequestBody List<CartDto> cartDesc, HttpSession session) {
         Integer userNo = (Integer) session.getAttribute("userNo");
         for(CartDto carts:cartDesc){ carts.setUserNo(userNo); }
         int item = cartService.insertCart(cartDesc);
+
+        return item;
+    }
+
+    @GetMapping("cart")
+    public String showCart(HttpSession session, Model model, HttpServletResponse response) throws JsonProcessingException {
+        Integer userNo = (Integer) session.getAttribute("userNo");
+        if (userNo == null){return "redirect:/login/login?prevPage=/cart";}
+        List<CartDto> cartDtos = cartService.selectCart(userNo);
+        ObjectMapper mapper = new ObjectMapper();
+        String cart = mapper.writeValueAsString(cartDtos);
+
+        model.addAttribute("cart", cart);
 
         // 장바구니 개수 (쿠키)
         int cartCnt = cartService.selectCartCnt(userNo);
@@ -40,19 +53,6 @@ public class CartController {
         cookie.setPath("/");
         response.addCookie(cookie);
 
-        return item;
-    }
-
-    @GetMapping("cart")
-    public String showCart(HttpSession session, Model model) throws JsonProcessingException {
-        Integer userNo = (Integer) session.getAttribute("userNo");
-        if (userNo == null){return "redirect:/login/login?prevPage=/cart";}
-        List<CartDto> cartDtos = cartService.selectCart(userNo);
-        ObjectMapper mapper = new ObjectMapper();
-        String cart = mapper.writeValueAsString(cartDtos);
-        System.out.println("cart : " + cart);
-
-        model.addAttribute("cart", cart);
         return "cart";
     }
 

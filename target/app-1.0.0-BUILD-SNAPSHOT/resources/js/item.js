@@ -475,7 +475,9 @@ const buyCartChk = (buyCart)=>{
         });
     }else {
         let buyLink = buyCart =="cart"?"/item/cart":"/item/buy";
-        let buyTxt = buyCart =="cart"?"장바구니에 추가됐습니다.":"구매해주셔서 감사합니다.";
+        let buyTxt = buyCart =="cart"?"장바구니에 추가됐습니다.<br>장바구니 페이지로 가시겠습니까?"
+                                            :"구매해주셔서 감사합니다.<br>마이페이지로 가시겠습니까?";
+        let buyPage = buyCart == "cart"?"/cart" : "/myPage";
         let buyErrorTxt = buyCart =="cart"?"장바구니":"구매";
         let buyItem = [];
         for (let i = 0; i < buyCnt; i++){
@@ -492,9 +494,17 @@ const buyCartChk = (buyCart)=>{
             success: function (data) {
                 Swal.fire({
                     icon: "success",
-                    title: buyTxt
-                }).then(() => {
-                    location.reload();
+                    title: buyTxt,
+                    showCancelButton: true,
+                    confirmButtonColor: "#2778c4",
+                    cancelButtonColor: "#BEBCBA",
+                    confirmButtonText: '확인',
+                    cancelButtonText: '취소',
+                    reverseButtons: false,
+                }).then(result => {
+                    if (!result.isConfirmed) { location.reload(); }
+                    else { location.replace('/'+C_PATH+buyPage);
+                    }
                 });
             }, error: function (e) {
                 Swal.fire({
