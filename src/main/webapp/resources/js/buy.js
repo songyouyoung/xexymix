@@ -19,7 +19,16 @@ if(buy.length == 0){
     $(".pagination").html(pageBox);
 }
 $("#m_buy").append(buyBox);
+buyCnt();
 
+function buyCnt(){
+    for(let i = 0; i < buy.length; i++) {
+        buyBox = `<div class="my_buy_cnt">${buy[i].buyCnt}</div>
+            <div class="my_buy_price">${buy[i].itemPrice}</div>`;
+        let prevDiv = document.querySelectorAll('.my_buy_desc')[i+1];
+        prevDiv.insertAdjacentHTML('afterend', buyBox);
+    }
+}
 ///////////////////////////////////////////////
 /////////////// 구매내역 타이틀 설정 ////////////
 ///////////////////////////////////////////////
@@ -137,6 +146,7 @@ function aJax(limit, pagChk){
                 }
             }
             $("#m_buy").html(buyBox);
+            buyCnt();
         }, error: function() {
             buyBox = `<p class="m_none">주문한 상품이 없습니다.</p>`;
             Swal.fire({

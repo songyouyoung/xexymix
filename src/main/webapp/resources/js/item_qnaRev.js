@@ -340,8 +340,6 @@ const createBuy = (buy)=>{
                             <div class="my_buy_item_list">`;
         }
         let buyChk;
-        console.log("revNo : ", buy[i].revNo);
-        console.log("revNoChk : ", buy[i].revNo != null);
         if (buyCancelChk && buy[i].buyCode == 'buy'){
             buyChk = `<div class="my_buy_curr">주문완료</div>
                         <div class="my_buy_review" data-index="${i}">${buy[i].revNo == null?"구매후기":"후기보기"}</div>

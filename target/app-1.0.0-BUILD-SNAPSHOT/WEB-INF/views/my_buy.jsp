@@ -36,17 +36,16 @@
             - 주문번호를 클릭하시면 해당 주문에 대한 상세내역을 확인하실 수 있습니다.<br>
             - 개별상품에 대한 배송조회는 상세내역에서 확인하시기 바랍니다.
         </div>
-        <div class="my_buy" id="m_buy">
-            <div class="my_buy_list_title">
-                <div class="my_buy_title">주문일자/주문번호</div>
-                <div class="my_buy_list_title_desc">
-                    <div class="my_buy_desc">주문상품</div>
-                    <div class="my_buy_cnt">수량</div>
-                    <div class="my_buy_price">주문금액</div>
-                    <div class="my_buy_btn">주문상태</div>
-                </div>
+        <div class="my_buy_list_title">
+            <div class="my_buy_title">주문일자/주문번호</div>
+            <div class="my_buy_list_title_desc">
+                <div class="my_buy_desc">주문상품</div>
+                <div class="my_buy_cnt">수량</div>
+                <div class="my_buy_price">주문금액</div>
+                <div class="my_buy_btn">주문상태</div>
             </div>
         </div>
+        <div class="my_buy" id="m_buy"></div>
         <div class="pagination"></div>
     </main>
     <jsp:include page="footer.jsp"/>
