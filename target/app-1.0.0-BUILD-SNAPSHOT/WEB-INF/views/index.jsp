@@ -129,14 +129,12 @@
 <script >
     // 베스트 아이템 item_info_box 내용 추가
     let best = ${best_js};
-    // infoBox(best, ".best_item_box .item_info_box");
     itemBox(best, ".best_item_box", '<li class="swiper-slide">', '</li>');
 
     // MD PICK item_info_box 내용 추가
     let mdPick = ${mdPick_js};
     let i = 1;
     mdPick.forEach((md)=>{
-        console.log("md.itemSub : ", md.itemSub);
         itemBox(md.itemSub, ".md_pick .swiper-slide:nth-child(" + i + ") .md_pick_item", "", "");
         i+=1;
     });

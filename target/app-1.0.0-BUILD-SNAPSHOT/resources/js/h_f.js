@@ -6,8 +6,6 @@ for (let i = 0; i<5; i++) {
     for (let j = 0; j < CATE_NAV[ii].length; j++) {
         let PATH = (location.pathname).split("/")[1];
         let cate = $(".nav_pan_item").eq(i).parent().children("a").prop("href").split("=")[1];
-        console.log("cate : ", cate);
-        console.log("ii : ", ii);
         let nav_li = `<li><a href="/${PATH}/list?cate=${cate}&cateDetail=${CATE_NAV[ii+1][j]}">${CATE_NAV[ii][j]}</a></li>`;
         $(".nav_pan_item").eq(i).append(nav_li);
     }

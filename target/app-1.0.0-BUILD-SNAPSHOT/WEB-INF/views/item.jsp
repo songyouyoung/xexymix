@@ -94,7 +94,14 @@
                 </table>
                 <div class="desc_buy">
                     <div class="d_b_cart" onclick="cartit()">장바구니</div>
-                    <div class="d_b_buy" onclick="buyit()">구매하기</div>
+                    <c:choose>
+                        <c:when test="${item.itemCnt < 1}">
+                            <div class="d_b_soldOut" onclick="soldOutit()">품절</div>
+                        </c:when>
+                        <c:otherwise>
+                            <div class="d_b_buy" onclick="buyit()">구매하기</div>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
             </form>
         </section>

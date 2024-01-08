@@ -518,6 +518,13 @@ const buyCartChk = (buyCart)=>{
 }
 // 구매하기
 const buyit = ()=>{ buyCartChk("buy"); }
+// 품절
+const soldOutit = () => {
+    Swal.fire({
+        icon: "warning",
+        title: "품절인 상품은 구매하실 수 없습니다. "
+    });
+}
 // 장바구니
 const cartit = ()=>{ buyCartChk("cart"); }
 

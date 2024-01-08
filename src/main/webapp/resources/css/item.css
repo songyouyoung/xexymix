@@ -167,7 +167,7 @@
     display: flex;
     justify-content: space-between
 }
-.d_b_cart, .d_b_buy{
+.d_b_cart, .d_b_buy, .d_b_soldOut{
     width: calc(50% - 5px);
     border: 1px solid #111;
     box-sizing: border-box;
@@ -178,6 +178,7 @@
     background-color: #111;
     color: #fff;
 }
+.d_b_soldOut{ background-color: #6d6f6d; }
 
 /* //////////////////////////// */
 /* ///////// 회원 혜택 ///////// */

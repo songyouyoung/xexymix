@@ -77,9 +77,9 @@ const itemBox = (items, itemsBox, addFir, addLa) => {
         }
         itemTxt += '</div>';
         if(!itemTxtChk){ itemTxt=""; }
-
-        itemAppend += `<a href="item?itemNo=${item.itemNo}">
-                        <div class="imgbox">
+        if (item.itemCnt < 1){ console.log(item.itemName + " : 품절");}
+        itemAppend += item.itemCnt < 1?`<a href="item?itemNo=${item.itemNo}" class="soldOut">`:`<a href="item?itemNo=${item.itemNo}">`;
+        itemAppend += `<div class="imgbox">
                             <img src="img/item_list/hover/${item.itemImgSub}" alt="${item.itemName}" class="img_hover">
                                 <img src="img/item_list/${item.itemImg}" alt="${item.itemName}" class="img_orig">
                         </div>

@@ -42,6 +42,7 @@
         from item i left join event e on i.evNo = e.evNo
         <choose>
             <when test="search == 'best'">
+                where i.itemCnt > 10
                 order by itemSale DESC
                 limit 0, 10;
             </when>
@@ -55,6 +56,7 @@
             </when>
             <when test="search == 'cate'">
                 where itemCateDetail = #{val}
+                order by i.itemCnt > 0 DESC
                 limit 0, ${limit}
             </when>
             <otherwise>
@@ -68,6 +70,7 @@
         from item i left join event e on i.evNo = e.evNo
             <choose>
                 <when test="cate == 'best'">
+                    where i.itemCnt > 10
                     order by i.itemSale DESC, ${order} ${sort}
                 </when>
                 <otherwise>
@@ -86,9 +89,12 @@
                             <if test="cateDetail != null and cateDetail != ''">
                                 AND i.itemCateDetail = #{cateDetail}
                             </if>
+                            <if test="search == 'banner'">
+                                AND i.itemCnt > 10
+                            </if>
                         </otherwise>
                     </choose>
-                    order by ${order} ${sort}
+                    order by i.itemCnt > 0 DESC, ${order} ${sort}
                 </otherwise>
             </choose>
             <if test="search == 'banner'">
