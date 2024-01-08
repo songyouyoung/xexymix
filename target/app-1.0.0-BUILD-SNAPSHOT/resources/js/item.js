@@ -522,7 +522,7 @@ const buyit = ()=>{ buyCartChk("buy"); }
 const soldOutit = () => {
     Swal.fire({
         icon: "warning",
-        title: "품절인 상품은 구매하실 수 없습니다. "
+        title: "품절인 상품은<br>구매하실 수 없습니다. "
     });
 }
 // 장바구니

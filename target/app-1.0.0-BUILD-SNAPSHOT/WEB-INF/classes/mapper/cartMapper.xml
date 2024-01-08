@@ -22,11 +22,12 @@
     <!--/////////////////////////////////////////////////////-->
 <!--    장바구니 조회 -->
     <select id="selectCart" parameterType="int" resultType="cartDto">
-        select c.cartNo, c.itemNo, c.cartCnt, c.cartOpt, i.itemName, i.itemPrice, e.evPer, i.itemImg
+        select c.cartNo, c.itemNo, c.cartCnt, c.cartOpt, i.itemName, i.itemPrice, i.itemCnt, e.evPer, i.itemImg
             from cart c
                 join item i on c.itemNo = i.itemNo
                 left outer join event e on i.evNo = e.evNo
             where c.userNo = #{userNo}
+        order by c.cartNo DESC
     </select>
 <!--    장바구니 삭제-->
     <delete id="deleteCart" parameterType="java.util.List">

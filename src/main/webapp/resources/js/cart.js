@@ -5,9 +5,10 @@ let cartBox = "";
 if (cart.length > 0) {
     cart.forEach((cart) => {
         let itemPrice = cart.evPer == null ? cart.itemPrice : cart.itemPrice / 100 * (100 - cart.evPer);
-        cartBox += `<div class="my_cart_item">
+        console.log("itemCnt : ", cart.itemCnt)
+        cartBox += `<div class="my_cart_item ${cart.itemCnt < 1?"soldOut":""}">
                         <div class="my_cart_chk">
-                            <input type="checkbox" name="my_cart_chk" class="my_cart_chkBox">
+                            ${cart.itemCnt < 1?'<input type="checkbox" readOnly>':'<input type="checkbox" name="my_cart_chk" class="my_cart_chkBox">'}
                         </div>
                         <div class="my_cart_desc_box">
                             <img src="/${C_PATH}/img/item_list/${cart.itemImg}" alt="${cart.itemName}">

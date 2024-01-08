@@ -7,6 +7,7 @@ public class CartDto {
     private String itemName;
     private String itemImg;
     private Integer itemPrice;
+    private Integer itemCnt;
     private Integer evPer;
     private int cartCnt;
     private String cartOpt;
@@ -59,6 +60,14 @@ public class CartDto {
         this.itemPrice = itemPrice;
     }
 
+    public Integer getItemCnt() {
+        return itemCnt;
+    }
+
+    public void setItemCnt(Integer itemCnt) {
+        this.itemCnt = itemCnt;
+    }
+
     public Integer getEvPer() {
         return evPer;
     }
@@ -92,6 +101,7 @@ public class CartDto {
                 ", itemName='" + itemName + '\'' +
                 ", itemImg='" + itemImg + '\'' +
                 ", itemPrice=" + itemPrice +
+                ", itemCnt=" + itemCnt +
                 ", evPer=" + evPer +
                 ", cartCnt=" + cartCnt +
                 ", cartOpt='" + cartOpt + '\'' +
