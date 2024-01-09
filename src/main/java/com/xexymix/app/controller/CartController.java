@@ -84,7 +84,6 @@ public class CartController {
     public ResponseEntity<String> cartToBuy(@RequestBody List<CartDto> cartDesc, HttpSession session) {
         Integer userNo = (Integer) session.getAttribute("userNo");
         String error = "";
-        String errorSub = "";
         System.out.println("cartDesc : " + cartDesc);
         try {
             if (cartDesc == null){
@@ -96,20 +95,23 @@ public class CartController {
             for(Map<String, Integer> buys:buyItemCnt){
                 for (int i = 0; i < cartDesc.size(); i++){
                     if (buys.get("itemCnt") < 1){
-                        error = "품절된 상품이 있습니다. \n";
+                        error += cartDesc.get(i).getItemName()+"은(는) 품절입습니다. \n";
                     }else if(buys.get("itemCnt") < cartDesc.get(i).getCartCnt()){
-                        errorSub += cartDesc.get(i).getItemName()+"은(는) " + buys.get("itemCnt") + "개 있습니다. \n 수량을 조정해주세요. \n";
+                        error += cartDesc.get(i).getItemName()+"은(는) " + buys.get("itemCnt") + "개 있습니다. \n";
                     }
                 }
             }
-            if (!error.isEmpty()){ throw new Exception("구매 실패. 품절된 상품 있음. "); }
+            if (!error.isEmpty()){
+                error += "수량을 조정해주세요.";
+                throw new Exception("구매 실패. 품절된 상품 있음. ");
+            }
             
             String result = cartService.cartToBuy(cartDesc, userNo);
             if (!result.isEmpty()){ throw new Exception("구매 실패. "); }
             return new ResponseEntity<String>(HttpStatus.OK);
         }
         catch (Exception e) {
-            return new ResponseEntity<String>(error+errorSub, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<String>(error, HttpStatus.BAD_REQUEST);
         }
     }
 }

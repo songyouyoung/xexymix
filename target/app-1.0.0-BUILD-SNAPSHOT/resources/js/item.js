@@ -507,10 +507,13 @@ const buyCartChk = (buyCart)=>{
                     }
                 });
             }, error: function (e) {
+                console.log(e);
+                e = e.responseText;
                 Swal.fire({
                     icon: "warning",
-                    title: buyErrorTxt+" ERROR. \n 관리자에게 문의해주세요."
-                });
+                    title: buyErrorTxt+" ERROR." + (e!=""?"":" \n 관리자에게 문의해주세요."),
+                    text: e
+                }).then(() => { location.reload(); });
             }
         });
     }
