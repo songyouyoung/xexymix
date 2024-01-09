@@ -168,11 +168,14 @@ function cartToBuy(carts){
                 icon: "success",
                 title: "구매 완료!",
             }).then(() => { location.reload(); });
-        }, error: function () {
+        }, error: function (e) {
+            console.log(e)
+            e = e.responseText;
             Swal.fire({
                 icon: "warning",
-                title: "구매 ERROR. \n 관리자에게 문의해주세요.",
-            });
+                title: "구매 ERROR." + (e!=""?"":"\n 관리자에게 문의해주세요."),
+                text: e
+            }).then(() => { location.reload(); });
         }
     });
 }

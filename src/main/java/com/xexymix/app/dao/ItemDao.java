@@ -1,6 +1,7 @@
 package com.xexymix.app.dao;
 
 import com.xexymix.app.domain.BuyDto;
+import com.xexymix.app.domain.CartDto;
 import com.xexymix.app.domain.ItemDto;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,5 +51,9 @@ public class ItemDao {
 ///////////////////
     public List<ItemDto> selectListItem(Map<String, String> itemDesc){
         return session.selectList(namespace + "selectListItem", itemDesc);
+    }
+
+    public List<Map<String, Integer>> selectItemCnt(List<CartDto> buyDesc){
+        return session.selectList(namespace + "selectItemCnt", buyDesc);
     }
 }

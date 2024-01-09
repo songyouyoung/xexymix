@@ -32,7 +32,7 @@
 <!--    장바구니 삭제-->
     <delete id="deleteCart" parameterType="java.util.List">
         <foreach collection = "list" item = "carts" separator=";">
-            delete from cart where cartNo = #{carts.cartNo} and userNo = #{carts.userNo};
+            delete from cart where cartNo = #{carts.cartNo} and userNo = #{carts.userNo}
         </foreach>
     </delete>
 </mapper>

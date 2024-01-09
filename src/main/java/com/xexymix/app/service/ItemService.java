@@ -1,6 +1,7 @@
 package com.xexymix.app.service;
 
 import com.xexymix.app.dao.ItemDao;
+import com.xexymix.app.domain.CartDto;
 import com.xexymix.app.domain.ItemDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -88,5 +89,9 @@ public class ItemService {
 ///////////////////
     public List<ItemDto> showListItem(Map<String, String> itemDesc){
         return itemDao.selectListItem(itemDesc);
+    }
+
+    public List<Map<String, Integer>> selectItemCnt(List<CartDto> buyDesc){
+        return itemDao.selectItemCnt(buyDesc);
     }
 }

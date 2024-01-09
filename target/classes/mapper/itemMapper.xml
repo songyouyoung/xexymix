@@ -108,4 +108,14 @@
             update item set itemSale = itemSale+#{buys.buyCnt}, itemCnt = itemCnt-#{buys.buyCnt} where itemNo = #{buys.itemNo}
         </foreach>
     </update>
+
+    <!--    재고 조회-->
+    <select id="selectItemCnt" parameterType="java.util.List" resultType="map">
+        select itemNo, itemCnt from item where itemNo
+            IN (
+            <foreach collection="list" item="buys" separator=",">
+                #{buys.itemNo}
+            </foreach>
+            )
+    </select>
 </mapper>
