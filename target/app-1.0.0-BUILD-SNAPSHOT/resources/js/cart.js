@@ -116,7 +116,20 @@ $(document).on('click', '.buy_one', function(){
 
 // 전체 주문하기
 $(document).on('click', '#buy_all', function(){
-    if (cart.length > 0){ cartToBuy(cart); }
+    if (cart.length > 0){
+        //품절 체크
+        let carts = [];
+        for(let i = 0; i< cart.length; i++){
+            console.log("itemCnt : ", cart[i].itemCnt);
+            if(cart[i].itemCnt > 0){ carts.push(cart[i]) }
+        }
+        if (carts.length < 1){
+            Swal.fire({
+                icon: "warning",
+                title: "구매 가능한 상품이 없습니다. ",
+            });
+        }else{ cartToBuy(carts); }
+    }
     else{
         Swal.fire({
             icon: "warning",
