@@ -150,20 +150,6 @@ $(document).ready(function(){
 ///// item info box정보 불러오기 /////
 /////////////////////////////////////
     $(".item_info_box").append(infoBox(item));
-    
-/////////////////////////////////////
-////////// 사이즈 옵션 추가 //////////
-/////////////////////////////////////    
-//     function getSize(item){
-//         let xxl = `<option value="XXL">XXL</option>`;
-//         let xxxl = `<option value="XXXL">XXXL</option>`;
-//         if(item == 1){
-//             $('#size').append(xxl);
-//         }else if(item == 2){
-//             $('#size').append(xxl);
-//             $('#size').append(xxxl);
-//         }
-//     }
 
 //////////////////////////////////////
 /////////// 상품 후기 출력 ////////////
@@ -325,7 +311,7 @@ $(document).ready(function(){
     });
 
 /////////////////////////////////////
-///////////// 상품 선택 //////////////
+/////////// 상품 사이즈 선택 ///////////
 /////////////////////////////////////
     let item_order = Array.from(Array($('#size').children().length-1), () => new Array(2).fill(""));
     $(document).on('click', '#size', function(){
@@ -362,6 +348,10 @@ $(document).ready(function(){
         }
         getPriceTotal();
     });
+/////////////////////////////////////
+/////////// 상품 수량 선택 ////////////
+/////////////////////////////////////
+// 마이너스
     $(document).on('click', '.order_minus', function(){
         let item_no = $(this).parent().parent().index();
         if(item_order[item_no][1] > 1){
@@ -376,6 +366,7 @@ $(document).ready(function(){
             });
         }
     });
+// 플러스
     $(document).on('click', '.order_plus', function(){
         let item_no = $(this).parent().parent().index();
         item_order[item_no][1] += 1;
@@ -383,6 +374,7 @@ $(document).ready(function(){
         $('.order_price').eq(item_no).text((orderPrice * item_order[item_no][1]).toLocaleString('ko'));
         getPriceTotal();
     });
+// 삭제
     $(document).on('click', '.order_del', function(){
         let item_no = $(this).parent().index();
         for(let i=item_no; i<item_order.length - 1; i++){
@@ -398,7 +390,8 @@ $(document).ready(function(){
     function getPriceTotal(){
         let price_total = 0;
         for(let i=0; i<$('.order_price').length; i++){
-            price_total += +$('.order_price').eq(i).text().replace(',', '');
+            price_total += +$('.order_price').eq(i).text().replaceAll(',', '');
+            console.log("price_total : ", price_total);
         }
         $('.price_total > span').text(price_total.toLocaleString('ko'));
     }
