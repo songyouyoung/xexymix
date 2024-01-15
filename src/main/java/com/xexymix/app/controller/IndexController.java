@@ -39,10 +39,10 @@ public class IndexController {
         model.addAttribute("cate_js", cate_js);
 
         // 장바구니 개수 (쿠키)
-        int cartCnt = userNo == null?0:cartService.selectCartCnt(userNo);
-        Cookie cookie = new Cookie("cartCnt", cartCnt+"");
-        cookie.setPath("/");
-        response.addCookie(cookie);
+//        int cartCnt = userNo == null?0:cartService.selectCartCnt(userNo);
+//        Cookie cookie = new Cookie("cartCnt", cartCnt+"");
+//        cookie.setPath("/");
+//        response.addCookie(cookie);
 
         return "index";
     }

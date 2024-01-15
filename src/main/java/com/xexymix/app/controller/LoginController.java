@@ -1,6 +1,7 @@
 package com.xexymix.app.controller;
 
 import com.xexymix.app.domain.UserDto;
+import com.xexymix.app.service.CartService;
 import com.xexymix.app.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,6 +23,8 @@ import java.util.Map;
 public class LoginController {
     @Autowired
     UserService userService;
+    @Autowired
+    CartService cartService;
 
 //////////////////////
 // 로그인
@@ -38,26 +41,14 @@ public class LoginController {
     }
 // 실제 로그인
     @PostMapping("/login")
-    public String login(UserDto userDto, Boolean login_rem, String prevPage, Model model, HttpSession session) {
+    public String login(UserDto userDto, Boolean login_rem, String prevPage, Model model, HttpSession session, HttpServletResponse response) {
         Integer userNo = userService.userLogin(userDto);
         if (userNo == null || userNo < 1) {
             model.addAttribute("welcome", "아이디 / 비밀번호를 다시 한 번 확인해주세요.");
             return "login";
         }
         session.setAttribute("userNo", userNo);
-        if (login_rem != null && login_rem) {
-            session.setAttribute("rememberId", userDto.getUserId());
-        }
-        if (prevPage.isEmpty()){ prevPage = "http://localhost:8080/app/"; }
-        return "redirect:"+prevPage;
-    }
-    public String login(UserDto userDto, Boolean login_rem, String prevPage, Model model, HttpSession session, HttpServletResponse response){
-        if (userService.userLogin(userDto) < 1){
-            model.addAttribute("welcome", "아이디 / 비밀번호를 다시 한 번 확인해주세요.");
-            return "login";
-        }
-        session.setAttribute("userId", userDto.getUserId());
-        
+
         //아이디 기억하기
         Cookie cookie = new Cookie("rememberId", userDto.getUserId());
         if (login_rem != null && login_rem) {
@@ -65,9 +56,16 @@ public class LoginController {
         }else {
             cookie.setMaxAge(0);
         }
-            cookie.setPath("/");
-            response.addCookie(cookie);
+        cookie.setPath("/");
+        response.addCookie(cookie);
 
+        // 장바구니 개수 (쿠키)
+        int cartCnt = cartService.selectCartCnt(userNo);
+        Cookie cookie_cart = new Cookie("cartCnt", cartCnt+"");
+        cookie_cart.setPath("/");
+        response.addCookie(cookie_cart);
+
+        if (prevPage.isEmpty()){ prevPage = "http://localhost:8080/app/"; }
         return "redirect:"+prevPage;
     }
 
@@ -75,8 +73,14 @@ public class LoginController {
 // 로그아웃
 //////////////////////
     @GetMapping("/logout")
-    public String showLogout(HttpSession session){
+    public String showLogout(HttpSession session, HttpServletResponse response){
+        // 세션 전체 삭제
         session.invalidate();
+        //장바구니 쿠키 삭제
+        Cookie cookie_cart = new Cookie("cartCnt", "");
+        cookie_cart.setPath("/");
+        cookie_cart.setMaxAge(0);
+        response.addCookie(cookie_cart);
         return "redirect:/";
     }
 
