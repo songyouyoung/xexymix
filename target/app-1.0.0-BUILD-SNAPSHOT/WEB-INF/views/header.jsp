@@ -3,8 +3,11 @@
 <c:set var="sessionId" value="${ pageContext.request.getSession(false).getAttribute('userNo')!=null? pageContext.request.getSession(false).getAttribute('userNo'):null}" />
 
 <c:set var="logIO_link" value="${ sessionId==null?'/login/login':'/login/logout'}" />
+<c:set var="logIO_text" value="${ sessionId==null?'로그인':'로그아웃'}" />
 <c:set var="signIO_link" value="${ sessionId==null?'/login/join':'/myPage'}" />
+<c:set var="signIO_text" value="${ sessionId==null?'회원가입':'마이페이지'}" />
 <c:set var="cartIO_link" value="${ sessionId==null?'/login/login':'/cart'}" />
+<c:set var="cartIO_text" value="${ sessionId==null?'로그인':'장바구니'}" />
 <html>
 <head>
     <link rel="stylesheet" href="<c:url value='/css/h_f.css'/>">
@@ -44,6 +47,7 @@
                             </g>
                         </svg>
                     </a>
+                    <div class="h_icon_desc">${logIO_text}</div>
                 </li><!--login-->
                 <li>
                     <a href="<c:url value='${signIO_link}'/>">
@@ -60,6 +64,7 @@
                             </g>
                         </svg>
                     </a>
+                    <div class="h_icon_desc">${signIO_text}</div>
                 </li><!--mypage-->
                 <li class="history">
                     <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28">
@@ -92,6 +97,7 @@
                         </svg>
                     </a>
                     <span class="h_cart_cnt"></span>
+                    <div class="h_icon_desc">${cartIO_text}</div>
                 </li><!--cart-->
             </ul>
         </div>
@@ -150,6 +156,7 @@
                             </g>
                         </svg>
                     </a>
+                    <div class="h_icon_desc">${logIO_text}</div>
                 </li><!--login-->
                 <li>
                     <a href="<c:url value='${signIO_link}'/>" class="h_b icon_box">
@@ -166,6 +173,7 @@
                             </g>
                         </svg>
                     </a>
+                    <div class="h_icon_desc">${signIO_text}</div>
                 </li><!--mypage-->
                 <li class="history h_b icon_box">
                     <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28">
@@ -198,6 +206,7 @@
                         </svg>
                     </a>
                     <span class="h_cart_cnt"></span>
+                    <div class="h_icon_desc">${cartIO_text}</div>
                 </li><!--cart-->
             </ul>
         </div>

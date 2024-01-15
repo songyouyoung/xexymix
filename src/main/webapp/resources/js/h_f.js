@@ -49,7 +49,7 @@ $(".history").hover(()=>{
     }else if(c_itemNo.length == 0){
         historyItem = "최근 본 상품이 없습니다. ";
     }
-    $(".history_item_list").append(historyItem);
+    $(".history_item_list").html(historyItem);
 });
 
 $(document).ready(function(){
